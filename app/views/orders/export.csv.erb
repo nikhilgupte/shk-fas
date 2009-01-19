@@ -1,0 +1,6 @@
+<%= error_messages_for :export -%>
+<% if @orders %>
+<% @orders.each do |o| -%>
+<%= o.id %>,<%= o.product.code %>,<%= o.quantity %>
+<% end -%>
+<% end -%>

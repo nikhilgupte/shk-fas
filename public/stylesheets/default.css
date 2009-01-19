@@ -1,0 +1,74 @@
+/* STRUCTURE */
+html {height:100%}
+body {
+  font: 9pt "Lucida Grande", Lucida, arial, sans-serif;
+  width:70%;
+  width:1000px;
+  margin:auto;
+  background-color:#fff;
+  height:100%;
+  color:#333;
+}
+
+p {margin:10px 0}
+
+#top_container {min-height:100%;padding-bottom:0;position:relative}
+#header {
+  /*border-bottom:4px solid #020;*/
+  background:#030;
+  margin:0;padding:0;
+}
+#logo {font-size:12pt;color:#fff;padding:5px}
+ #logo a {color:#fff;text-decoration:none}
+#top_links {float:right;color:#eee;color:#fff;margin:5px 5px 0 0;font-size:9pt}
+  #top_links a {color:#fff}
+#menu a {font-size:12pt;color:#ccc;}
+#footer {width:100%;font-size:8pt;padding-top:4px; background-color:#ccc;clear:both;position:absolute;bottom:0}
+    #footer ul {text-align:center}
+#footer a {color:#333}
+#version {color:#999;text-align:right;padding:5px}
+#body {margin-top:20px}
+
+
+div.wrapper {width:98%;margin:auto;clear:both;}
+
+#sub_menu {padding:5px;font-size:12pt;background-color:#ccc;}
+#sub_menu li {padding:5px;}
+#sub_menu2 {padding:5px;font-size:10pt;background-color:#eee;margin-bottom:10px;}
+
+/* STYLES */
+h1 {font-size:16pt;padding-bottom:5px;border-bottom:3px solid #ccc;margin-bottom:10px;}
+h2 {font-size:15pt;margin:5px 0}
+h3 {font-size:13pt;margin:5px 0;margin-top:30px;}
+ul.side_by_side li {
+	display: inline;
+    white-space:nowrap;
+}
+ul.pipes li {border-right:1px solid #666;padding:0 6px 0 3px!important}
+ul.pipes li.last {border-right:0}
+
+.tip {color:#666;font-size:8pt}
+.todo {color:#c00;font-size:13pt}
+
+div.flash_message {height:40px;width:400px;margin:auto;font-weight:bold;color:#000}
+div.flash_message a {display:block;float:right;text-decoration:none;color:#000}
+div.flash_message div {padding:10px;background-color:#ff6}
+
+a.more {display:block;text-align:right}
+.empty {text-align:center;font-size:14pt;color:#999}
+.large {font-size:14pt;line-height:24pt}
+.nav {font-size:10pt!important}
+.nav a {color:#000}
+.cancel_link {margin-left:100px;font-size:14pt;color:#000}
+.back_link {margin-right:100px;font-size:14pt;color:#000}
+
+.even {background-color:#f6f6f6}
+
+ul.tabs {width:100%;background-color:#ccc;height:30px;}
+ul.tabs li {float:left;margin-left:20px;height:20px;margin-top:10px;width:120px;text-align:center;}
+ul.tabs li.selected {background-color:#fff}
+ul.tabs li a {display:block;color:#000;margin-top:3px}
+ul.tabs li.selected a {text-decoration:none}
+div.tab_body {border:1px solid #ccc;padding:2px 5px;border-top:0;margin-bottom:20px}
+
+a.toggle_link {color:#000;display:block;padding:3px;padding-left:15px;background:#eee url(../images/triangle_open_dark.gif) no-repeat 0 2px;border:0px dashed #000}

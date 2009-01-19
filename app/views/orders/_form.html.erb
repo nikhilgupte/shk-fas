@@ -1,0 +1,33 @@
+<div id="order_form">
+<%= error_messages_for :order %>
+<% remote_form_for @order do |f| %>
+<div class="row">
+<div>
+	<%= f.label :product_id, "Product #{reqd}" %>
+<input id="order_product_name_or_code" value="<%= @order.product.long_name if @order.product %>" name="order[product_name_or_code]" size="30" type="text" /><div class="auto_complete" id="order_product_name_or_code_auto_complete"></div>
+	<%= f.hidden_field :product_id %>
+	<%= tip 'Enter product code or name' %>
+</div>
+<div>
+	<%= f.label :quantity, "Quantity #{reqd}" %>
+	<%= f.text_field :quantity, :class => 'numeric', :maxlength => 6 %> kgs
+	<%= tip '0.1 to 100 kgs' %>
+</div>
+<%= submit_tag 'Add', :style => 'margin-top:25px' %>
+</div>
+
+<% end %>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var order_product_name_or_code_auto_completer = new Ajax.Autocompleter('order_product_name_or_code',
+			'order_product_name_or_code_auto_complete',
+			'/orders/auto_complete_for_order_product_name_or_code', {afterUpdateElement: productChanged})
+//]]>
+function productChanged(x, y) {
+	id = y.id.match(/\d/, '');
+	$('order_product_id').value = id;
+}
+$('order_product_name_or_code').focus();
+</script>
+

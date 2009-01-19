@@ -1,0 +1,14 @@
+<% CalendarDateSelect.format = :euro_24hr  %>
+<%= calendar_date_select_includes "silver" %>
+<%= error_messages_for :export %>
+<% form_for @export, :url => {:action => :export, :format => :csv} do %>
+<div class="row">
+<div><label for="from">From</label>
+<%= calendar_date_select_tag "export[from]", @export.from, :embedded => false, :year_range => 100, :time => false, :valid_date_check => "date.stripTime() < (new Date()).stripTime()"  %>
+</div>
+<div><label for="to">To</label>
+<%= calendar_date_select_tag "export[to]", @export.to, :embedded => false, :year_range => 100, :time => false, :valid_date_check => "date.stripTime() < (new Date()).stripTime()"  %>
+</div>
+
+<%= submit_tag 'Export', :style => 'margin-top:20px' %>
+<% end %>

@@ -1,0 +1,121 @@
+table.list td form {border:1px solid #000; border-width:1px 0;padding:5px 0;}
+
+table.list {
+	width:100%;	
+	margin:10px 0;
+}
+table.list tr { border-bottom:1px solid #eee;}
+table.list thead th {
+  padding:5px 2px;
+  text-align:left;
+  font-weight:bold;	
+}
+table.list thead {
+  background-color:#76b916;
+  border:1px solid #488d00;
+  border-width:1px 0;
+  margin-bottom:2px;
+}
+
+table.list td, table.list th {
+	padding:2px 10px!important;
+}
+
+
+table.list tfoot td {
+  font-weight:bold;
+  border:1px solid #ff8a00;
+}
+td.button_links a {margin:0 3px;}
+
+table.form td, table.form th {padding:5px}
+table.form th {text-align:right}
+label {
+	padding: 0px 0px 6px 0px;
+  font-size:13px;
+}
+
+.row label {display:block}
+
+.reqd {color:#e00}
+label.reqd {
+	font-weight:bold;	
+}
+
+fieldset {
+	border:0;
+	border-bottom:1px solid #eee;
+	margin:5px 0;	
+}
+
+/*
+legend {
+	font-size:16px;	
+	font-weight:bold;
+	color:#666;
+	padding:0;
+	margin:5px 0;
+}
+*/
+
+input[type=submit] {
+	margin:auto;
+}
+input[type=submit] {
+	font-size:13px;	
+}
+
+div.row {margin:10px 0;padding:2px;overflow:hidden;}
+div.row div {margin-right:30px!important;}
+div.row div {float:left;}
+div.calendar_date_select, div.calendar_date_select div {margin:0 !important;float:none !important;}
+
+input, textarea, select {
+	padding:2px;
+}
+
+div.row ul li { float:left;margin:5px 15px; }
+
+ul.options {
+	padding:0;
+	margin:0;
+	list-style:none;
+	overflow:hidden;
+}
+ul.options li {
+	margin:5px 0;	
+}
+
+ul.options label {
+	color:#333;	
+	margin-right:10px;
+}
+
+.field_name {
+	display:block;
+}
+
+.numeric {text-align:right !important}
+
+div.buttons {background-color:#ccc;border:1px solid #666;padding:5px;margin:auto;text-align:center;}
+div.buttons input {margin:0 30px;}
+
+.buttons a {margin-left:30px; font-size:medium;}
+form .tip {display:block;margin-top:3px}
+
+div.form {border:1px solid #eee;border-width:0 0 1px 0;}
+
+ul.checkboxes { margin:0;padding:0;list-style:none;}
+ul.checkboxes li {float:left;margin:5px 0;width:87px;}
+ul.checkboxes label {font-size:x-small}
+
+div.error {color:#c00;font-weight:bold}
+div#errorExplanation { border:1px solid #c00;background-color:#fff!important;margin-bottom:10px;padding:0; height:100%;}
+div#errorExplanation p {padding-left:5px;}
+div#errorExplanation ul {padding:10px;}
+div#errorExplanation li { padding-left:20px!important; margin:5px 0; background:url(../images/icons/error.gif) no-repeat left center;}
+div.errorExplanation h2 { color:#fff!important;margin:0 !important;padding:0;background-color:#c00 !important;}
+div.fieldWithErrors {display:inline !important;padding:0;margin:0;float:none !important}
+div.fieldWithErrors input { border:1px solid #c00;}
+
+div.contest_middle {min-height:1200px;}

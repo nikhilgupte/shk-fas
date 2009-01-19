@@ -1,0 +1,12 @@
+<div id="top_container">
+<div id="header" class="curved_bottom">
+<ul id="top_links" class="side_by_side pipes">
+	<li><%= link_to_unless_current 'Orders', orders_path %></li>
+	<li><%= link_to_unless_current 'Export', export_orders_path %></li>
+	<li class="last"><%= link_to_function 'Logout', 'alert("TODO")' %></li>
+</ul>
+<div id="logo">SHK</div>
+</div>
+<div class="wrapper" id="body">
+
+

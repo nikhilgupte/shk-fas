@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<%= render :partial => 'layouts/meta_head' %>
+</head>
+<body>
+<%= render :partial => 'layouts/header' %>
+
+<% if @title %><h1 class="page_title"><%= h @title %></h1><% end %>
+<%= flash_message %>
+<%= yield %>
+<%= render :partial => 'layouts/footer' %>
+</body>
+</html>

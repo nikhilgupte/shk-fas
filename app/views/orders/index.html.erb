@@ -1,0 +1,16 @@
+<%= render :partial => 'form' %>
+
+<table class="list">
+<thead>
+<tr><th>Code</th><th style="width:40%">Product</th><th class="numeric">Quantity (KG)</th><th></th><th></th></tr>
+</thead>
+<tbody id="order_list">
+<% (todays_orders = Order.todays).each do |order| %>
+<%= render :partial => 'orders', :locals => {:order => order} %>
+<% end %>
+
+<% if todays_orders.empty? %>
+<tr id="empty_order_row"><td colspan="5" class="empty">No orders entered today...</td></tr>
+<% end %>
+</tbody>
+</table>
