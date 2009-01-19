@@ -22,12 +22,16 @@ class OrdersController < ApplicationController
   end
 
   def export
-    @orders = Order.all
-    respond_to do |format|
-      format.xml {render :xml => @orders.to_xml(:skip_types => true)}
-      format.json {render :json => @orders.to_json}
-      format.csv {}
+    if request.post?
+      @export = Export.new params[:export]
+      if @export.valid?
+        @orders = Order.all.find(:all, :conditions => ['created_at >= ? and created_at <= ?', @export.from - 1.day, @export.to])
+        response.headers['Content-Type'] = 'application/force-download'
+        response.headers['Content-Disposition'] = "attachment; filename=\"orders-#{@export.from}-to-#{@export.to}.csv\""
+      end
     end
+    @export = Export.new(:from => 2.days.ago, :to => 1.day.ago) unless @export
+    @title = 'Export'
   end
 
   def auto_complete_for_order_product_name_or_code
