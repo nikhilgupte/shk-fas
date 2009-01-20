@@ -2,4 +2,4 @@
 <td><%= h(order.product.code) %></td><td><%= h order.product.name %></td>
 <td class="numeric"><%= number_with_precision(order.quantity, 2) %></td>
 <td class="tip numeric"><%= time_ago_in_words order.created_at %> ago</td>
-<td><%= link_to_remote 'delete', :confirm => 'Delete this order?', :url => {:action => :destroy, :id => order.id}, :methid => :delete, :loading => 'Element.remove("o_'+order.id.to_s+'")' %></td></tr>
+<td><%= link_to_remote 'delete', :confirm => 'Delete this order?', :url => {:action => :destroy, :id => order.id}, :method => :delete, :loading => 'Element.remove("o_'+order.id.to_s+'")' %></td></tr>
