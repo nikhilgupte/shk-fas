@@ -1,0 +1,1 @@
+CURRENCIES = %w(INR USD EUR)

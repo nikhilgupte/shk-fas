@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  ingredient_id: 1
+  currency: MyString
+  price: 1.5
+
+two:
+  ingredient_id: 1
+  currency: MyString
+  price: 1.5
