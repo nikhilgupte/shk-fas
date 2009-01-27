@@ -1,14 +1,17 @@
-<% CalendarDateSelect.format = :euro_24hr  %>
-<%= calendar_date_select_includes "silver" %>
-<%= error_messages_for :export %>
-<% form_for @export, :url => {:action => :export, :format => :csv} do %>
-<div class="row">
-<div><label for="from">From</label>
-<%= calendar_date_select_tag "export[from]", @export.from, :embedded => false, :year_range => 100, :time => false, :valid_date_check => "date.stripTime() < (new Date()).stripTime()"  %>
-</div>
-<div><label for="to">To</label>
-<%= calendar_date_select_tag "export[to]", @export.to, :embedded => false, :year_range => 100, :time => false, :valid_date_check => "date.stripTime() < (new Date()).stripTime()"  %>
-</div>
-
-<%= submit_tag 'Export', :style => 'margin-top:20px' %>
+<table class="list">
+<thead>
+<tr>
+<th>Submitted on</th><th></th><th>By</th><th>Orders</th>
+</tr>
+</thead>
+<tbody>
+<% @submissions.each do |s| %>
+<tr>
+	<td><%= (submitted_at = DateTime.parse(s[0])).to_s(:datetime) %> <span class="tip"><%= time_ago_in_words(submitted_at) %> ago</span></td>
+	<td><%= link_to 'download', :submitted_at => submitted_at, :user_id => s[1], :format => :csv %>
+	<td><%= User.find(s[1]).username %></td>
+	<td><%= s[2] %></td>
+</tr>
 <% end %>
+</tbody>
+<table>

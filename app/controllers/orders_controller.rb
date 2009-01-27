@@ -9,29 +9,36 @@ class OrdersController < ApplicationController
     @order.save
     render :update do |page|
       if @order.errors.empty?
-        page.insert_html :top, 'order_list', :partial => 'orders', :locals => {:order => @order}
+        page.insert_html :top, 'order_list', :partial => 'order', :locals => {:order => @order}
         page.visual_effect :highlight, "o_#{@order.id}"
+        page.call 'order_added'
         @order = Order.new
       end
       page.replace 'order_form', :partial => 'form'
     end
   end
 
-  def delete
-    @logged_in_user.orders.delete(params[:id])
+  def destroy
+    @logged_in_user.orders.find(params[:id]).destroy
+  end
+
+  def submit
+    @logged_in_user.orders.pending.update_all(['submitted_at = ?', Time.now])
+    flash[:notice] = "Pending orders submitted!"
+    redirect_to orders_path
   end
 
   def export
-    if request.post?
-      @export = Export.new params[:export]
-      if @export.valid?
-        @orders = Order.all.find(:all, :conditions => ['created_at >= ? and created_at <= ?', @export.from - 1.day, @export.to])
+    if request.format == Mime::CSV
+        submitted_at = DateTime.parse params[:submitted_at]
+        @orders = Order.all.find(:all, :conditions => ['submitted_at >= ? and submitted_at < ? and created_by_id = ?', submitted_at, submitted_at + 1.second, params[:user_id].to_i])
         response.headers['Content-Type'] = 'application/force-download'
-        response.headers['Content-Disposition'] = "attachment; filename=\"orders-#{@export.from}-to-#{@export.to}.csv\""
-      end
+        response.headers['Content-Disposition'] = "attachment; filename=\"orders-#{submitted_at.to_s(:datetime)}-#{User.find(params[:user_id]).username}.csv\""
+        return
+    else
+      @title = 'Export'
+      @submissions = Order.submissions
     end
-    @export = Export.new(:from => 2.days.ago, :to => 1.day.ago) unless @export
-    @title = 'Export'
   end
 
   def auto_complete_for_order_product_name_or_code

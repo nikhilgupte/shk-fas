@@ -1,0 +1,5 @@
+<ul>
+<% @ingredients.each do |ingredient| %>
+<li id="i_<%= ingredient.id %>"><%= h(ingredient.name) %></li>
+<% end %>
+</ul>

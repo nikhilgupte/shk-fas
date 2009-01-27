@@ -1,16 +1,30 @@
 <%= render :partial => 'form' %>
 
+<h2>Pending Orders</h2>
 <table class="list">
 <thead>
-<tr><th>Code</th><th style="width:40%">Product</th><th class="numeric">Quantity (KG)</th><th></th><th></th></tr>
+<tr><th>Code</th><th style="width:25%">Product</th>
+<th class="numeric">Order Qty (KG)</th>
+<th class="numeric">Production Qty (KG)</th>
+<th>Location</th>
+<th>Priority</th>
+<th></th><th></th></tr>
 </thead>
 <tbody id="order_list">
-<% (todays_orders = Order.todays).each do |order| %>
-<%= render :partial => 'orders', :locals => {:order => order} %>
+<% (pending_orders = Order.pending).each do |order| %>
+<%= render :partial => 'order', :locals => {:order => order} %>
 <% end %>
 
-<% if todays_orders.empty? %>
-<tr id="empty_order_row"><td colspan="5" class="empty">No orders entered today...</td></tr>
+<% if pending_orders.empty? %>
+<tr id="empty_order_row"><td colspan="5" class="empty">Start entering orders using the form above...</td></tr>
 <% end %>
 </tbody>
 </table>
+<%= javascript_tag "function order_added() { if($('empty_order_row')) Element.remove('empty_order_row'); $('submit_orders_box').show();}" %>
+
+<div style="margin:5px;padding:1px;text-align:center;background-color:#f3f3f3;<%= 'display:none' if pending_orders.empty? %>" id="submit_orders_box" class="curved large">
+The above orders need to be submitted once done.
+<% form_tag submit_orders_path, :style => 'padding:10px' do %>
+<%= submit_tag 'Submit Pending Orders' %>
+<% end %>
+</div>

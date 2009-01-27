@@ -9,9 +9,22 @@
 	<%= tip 'Enter product code or name' %>
 </div>
 <div>
-	<%= f.label :quantity, "Quantity #{reqd}" %>
-	<%= f.text_field :quantity, :class => 'numeric', :maxlength => 6 %> kgs
-	<%= tip '0.1 to 100 kgs' %>
+	<%= f.label :quantity, "Order Qty #{reqd}" %>
+	<%= f.text_field :quantity, :class => 'numeric', :maxlength => 9 %> kgs
+	<%= tip '10 to 100,000 kgs' %>
+</div>
+<div>
+	<%= f.label :quantity, "Production Qty #{reqd}" %>
+	<%= f.text_field :production_quantity, :class => 'numeric', :maxlength => 9 %> kgs
+	<%= tip 'Leave blank if same as order qty' %>
+</div>
+<div>
+	<%= f.label :location %>
+	<%= f.select :location, Order::LOCATION.collect{|k,v| [v, k]}, :include_blank => true %>
+</div>
+<div>
+	<%= f.label :priority %>
+	<%= f.select :priority, Order::PRIORITY.collect{|k,v| [v, k]}, :include_blank => true %>
 </div>
 <%= submit_tag 'Add', :style => 'margin-top:25px' %>
 </div>
