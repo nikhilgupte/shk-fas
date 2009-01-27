@@ -9,17 +9,47 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090116092505) do
+ActiveRecord::Schema.define(:version => 20090126164456) do
 
-  create_table "orders", :force => true do |t|
-    t.integer  "product_id", :null => false
-    t.float    "quantity",   :null => false
-    t.integer  "creator_id", :null => false
+  create_table "ingredient_master", :id => false, :force => true do |t|
+    t.string "code",          :limit => nil
+    t.string "name",          :limit => nil
+    t.string "cost",          :limit => nil
+    t.string "line_location", :limit => nil
+    t.string "user_entry",    :limit => nil
+  end
+
+  create_table "ingredient_prices", :force => true do |t|
+    t.integer  "ingredient_id"
+    t.string   "currency"
+    t.float    "price"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "orders", ["creator_id"], :name => "index_orders_on_creator_id"
+  add_index "ingredient_prices", ["ingredient_id"], :name => "index_ingredient_prices_on_ingredient_id"
+
+  create_table "ingredients", :force => true do |t|
+    t.string   "code",       :null => false
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.integer  "product_id",                       :null => false
+    t.float    "quantity",                         :null => false
+    t.integer  "created_by_id",                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "submitted_at"
+    t.string   "location",            :limit => 1
+    t.string   "priority",            :limit => 1
+    t.float    "production_quantity"
+  end
+
+  add_index "orders", ["created_by_id"], :name => "index_orders_on_creator_id"
   add_index "orders", ["product_id"], :name => "index_orders_on_product_id"
 
   create_table "products", :force => true do |t|

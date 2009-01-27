@@ -38,8 +38,8 @@ div.wrapper {width:98%;margin:auto;clear:both;}
 
 /* STYLES */
 h1 {font-size:16pt;padding-bottom:5px;border-bottom:3px solid #ccc;margin-bottom:10px;}
-h2 {font-size:15pt;margin:5px 0}
-h3 {font-size:13pt;margin:5px 0;margin-top:30px;}
+h2 {font-size:13pt;margin:5px 0}
+h3 {font-size:11pt;margin:5px 0;}
 ul.side_by_side li {
 	display: inline;
     white-space:nowrap;
@@ -55,7 +55,7 @@ div.flash_message a {display:block;float:right;text-decoration:none;color:#000}
 div.flash_message div {padding:10px;background-color:#ff6}
 
 a.more {display:block;text-align:right}
-.empty {text-align:center;font-size:14pt;color:#999}
+.empty {text-align:center;font-size:14pt;color:#999;}
 .large {font-size:14pt;line-height:24pt}
 .nav {font-size:10pt!important}
 .nav a {color:#000}
@@ -72,3 +72,7 @@ ul.tabs li.selected a {text-decoration:none}
 div.tab_body {border:1px solid #ccc;padding:2px 5px;border-top:0;margin-bottom:20px}
 
 a.toggle_link {color:#000;display:block;padding:3px;padding-left:15px;background:#eee url(../images/triangle_open_dark.gif) no-repeat 0 2px;border:0px dashed #000}
+
+#order_form {border-bottom:1px solid #000}
+
+input.faint {color:#999;font-size:12pt}
