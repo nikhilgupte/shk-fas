@@ -1,12 +1,11 @@
 class IngredientsController < ApplicationController
   def index
-    @title = "Ingredients" 
+    @title = "Lookup Ingredients" 
   end
 
   def show
     @ingredient = Ingredient.find params[:id]
-    @title = "Ingredients" 
-    render :action => :index
+    @title = "#{@ingredient.name} - #{@ingredient.code}"
   end
 
   def auto_complete_for_ingredient_name

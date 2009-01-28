@@ -4,19 +4,19 @@
 <div class="row">
 <div>
 	<%= f.label :product_id, "Product #{reqd}" %>
-<input id="order_product_name_or_code" value="<%= @order.product.long_name if @order.product %>" name="order[product_name_or_code]" size="30" type="text" /><div class="auto_complete" id="order_product_name_or_code_auto_complete"></div>
+<input id="order_product_name_or_code" value="<%= @order.product.long_name if @order.product %>" name="order[product_name_or_code]" size="20" type="text" /><div class="auto_complete" id="order_product_name_or_code_auto_complete"></div>
 	<%= f.hidden_field :product_id %>
 	<%= tip 'Enter product code or name' %>
 </div>
 <div>
 	<%= f.label :quantity, "Order Qty #{reqd}" %>
-	<%= f.text_field :quantity, :class => 'numeric', :maxlength => 9 %> kgs
+	<%= f.text_field :quantity, :class => 'numeric', :maxlength => 9 %> kg
 	<%= tip '10 to 100,000 kgs' %>
 </div>
 <div>
-	<%= f.label :quantity, "Production Qty #{reqd}" %>
-	<%= f.text_field :production_quantity, :class => 'numeric', :maxlength => 9 %> kgs
-	<%= tip 'Leave blank if same as order qty' %>
+	<%= f.label :quantity, "Prod Qty" %>
+	<%= f.text_field :production_quantity, :class => 'numeric', :maxlength => 9 %> kg
+	<%= tip 'if different from Order Qty' %>
 </div>
 <div>
 	<%= f.label :location %>

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   def index
-    @title = "Orders"
+    @title = "Pending Orders"
     @order = Order.new
   end
 
