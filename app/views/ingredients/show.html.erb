@@ -1,0 +1,34 @@
+<div style="background-color:#f4f4f4;padding:2px 5px;width:400px" class="curved">
+<h3>Latest Prices</h3>
+<% unless @ingredient.prices.empty? %>
+<table class="list">
+<tbody>
+<% @ingredient.prices.latest.each do |price| %>
+<tr>
+	<td style="width:20px;font-size:12pt"><%= h(price.currency) %></td><td style="width:30px;font-size:12pt" class="numeric"><%= number_to_currency(price.price, :unit => '') %></td><td class="tip">by nikhil <%= time_ago_in_words price.created_at %> ago</td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<% else %>
+<div class="empty" style="padding-bottom:10px">No Prices Found!</div>
+<% end %>
+</div>
+
+<%= link_to_function 'Enter new price...', '$("new_ingredient_price").toggle();this.toggle();', :id => 'new_ingredient_price_link' %>
+<% remote_form_for [@ingredient, IngredientPrice.new], :html => {:style => 'display:none'} do |f| %>
+<div class="row">
+	<div>
+		<%= f.label :currency %>
+		<%= f.select :currency, CURRENCIES %>
+	</div>
+	<div>
+		<%= f.label :price %>
+		<%= f.text_field :price, :maxlength => 7 %>
+	</div>
+	<div>
+	<%= submit_tag 'Add', :style => 'margin-top:25px' %>
+	<%= link_to_function 'Cancel', '$("new_ingredient_price").toggle();$("new_ingredient_price_link").toggle();', :style => 'margin-left:20px' %>
+	</div>
+</div>
+<% end %>
