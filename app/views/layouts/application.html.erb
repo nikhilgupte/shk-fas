@@ -6,7 +6,7 @@
 <body>
 <%= render :partial => 'layouts/header' %>
 
-<div class="curved_top" style="background-color:#bbb;">
+<div class="urved_top" style="background-color:#252;">
 <ul id="menu" class="side_by_side">
 	<li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', orders_path %></li>
 	<li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', ingredients_path %></li>
@@ -19,10 +19,13 @@
 <br clear="all"/>
 </div>
 <br clear="all"/>
+<div class="wrapper" id="body">
 
 <% if @title %><h1 class="page_title"><%= h @title %></h1><% end %>
 <%= flash_message %>
 <%= yield %>
+
+</div><!-- wrapper -->
 <%= render :partial => 'layouts/footer' %>
 </body>
 </html>
