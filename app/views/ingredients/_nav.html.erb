@@ -1,5 +1,5 @@
 <ul id="sub_menu">
 	<li><%= link_to_unless_current 'Lookup', ingredients_path %></li>
-	<li class="last"><%= link_to_unless_current 'Export', export_ingredients_path %></li>
+	<li class="last"><%= link_to_unless_current 'Export', formatted_export_ingredients_path(:format => :csv) %></li>
 </ul>
 

@@ -4,6 +4,10 @@ class Ingredient < ActiveRecord::Base
 
   named_scope :live, :order => 'name asc'
 
+  def price(currency)
+    prices.latest.find(:first, :conditions => ['ingredient_prices.currency = ?', currency]).price rescue nil
+  end
+
   private
   def upper_case
     self.code = code.upcase

@@ -6,15 +6,15 @@
 <body>
 <%= render :partial => 'layouts/header' %>
 
-<div class="urved_top" style="background-color:#252;">
-<ul id="menu" class="side_by_side">
+<div id="menu">
+<ul class="side_by_side">
 	<li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', orders_path %></li>
 	<li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', ingredients_path %></li>
-<li><a href="#">Manage Users</a></li>
+ <!-- <li><a href="#">Manage Users</a></li>-->
 </ul>
 <br clear="all"/>
 </div>
-<div class="curved_topi" style="background-color:#eee;">
+<div id="sub_menu">
 <%= render :partial => "#{params[:controller]}/nav" %>
 <br clear="all"/>
 </div>

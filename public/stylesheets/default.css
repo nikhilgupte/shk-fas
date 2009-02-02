@@ -32,15 +32,17 @@ p {margin:10px 0}
 
 div.wrapper {width:100%;margin:auto;clear:both;}
 
-#menu {padding:0px 0px;font-size:10.0pt;}
-#menu li {float:left;width:120px}
-#menu li.current {background-color:#eee;}
+#menu {background:#252 url(../images/menu2.gif)}
+#menu ul {padding:0px 0px;font-size:10.0pt;}
+#menu li {float:left;width:120px;}
+#menu li.current {background:#eee url(/images/menu.gif);}
 #menu a:hover {background-color:#040}
 #menu a {color:#fff;padding:5px 0px;text-align:center;display:block;text-decoration:none;width:100%;}
 #menu li.current a {color:#000;}
 #menu li.current a:hover {background-color:#eee;}
 
-#sub_menu {padding:0px;font-size:10pt;}
+#sub_menu {background:#eee url(../images/menu.gif) 0 -25px}
+#sub_menu ul {padding:0px;font-size:10pt;}
 #sub_menu li {float:left;padding:5px 20px 5px 20px}
 #sub_menu a {color:#000;display:block;text-decoration:underline}
 
