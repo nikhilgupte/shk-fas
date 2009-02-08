@@ -5,3 +5,8 @@ tmp
 log
 uploads
 tp
+public/blank.html
+public/images/active_scaffold
+public/javascripts/active_scaffold
+public/stylesheets/active_scaffold
+
