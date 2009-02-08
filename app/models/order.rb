@@ -1,11 +1,11 @@
 class Order < ActiveRecord::Base
-  LOCATION = {:m => 'Mulund', :v => 'Vashi'}
+  LOCATION = {:m => 'Mulund', :v => 'Vashiwali', :k => 'KEVA'}
   PRIORITY = {:u => 'Urgent', :l => 'Lot'}
 
   attr_accessor :product_name_or_code
   attr_protected :created_by_id
 
-  belongs_to :user, :foreign_key => :created_by_id
+  belongs_to :created_by, :class_name => 'User', :foreign_key => :created_by_id
   belongs_to :product
 
   named_scope :pending, :conditions => "submitted_at is null", :order => 'created_at desc'
@@ -16,6 +16,13 @@ class Order < ActiveRecord::Base
   validates_inclusion_of :quantity, :production_quantity, :within => 10..100000, :message => 'should be between 10 and 100,000 Kgs.'
   validates_inclusion_of :priority, :within => PRIORITY.keys.collect(&:to_s), :message => 'is not valid', :allow_blank => true
   validates_inclusion_of :location, :within => LOCATION.keys.collect(&:to_s), :message => 'is not valid', :allow_blank => true
+
+  def validate_on_create
+    if (self.location == 'k' && self.created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location = ?', self.product_id, 'k'])) \
+        || (self.location != 'k' && self.created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location != ?', self.product_id, 'k']))
+      errors.add_to_base('Duplicate order detected. Please update the existing order!')
+    end
+  end
 
   before_validation :set_default_production_qty
 

@@ -1,4 +1,4 @@
-table.list td form {border:1px solid #000; border-width:1px 0;padding:5px 0;}
+/*table.list td form {border:1px solid #000; border-width:1px 0;padding:5px 0;}*/
 
 table.list {
 	width:100%;	
@@ -27,6 +27,8 @@ table.list tfoot td {
   border:1px solid #ff8a00;
 }
 td.button_links a {margin:0 3px;}
+
+table.list .emphasize {background-color:#e6e6e6 !important;font-size:12pt;font-weight:bold;}
 
 table.form td, table.form th {padding:5px}
 table.form th {text-align:right}
@@ -66,7 +68,7 @@ input[type=submit] {
 }
 
 div.row {margin:10px 0;padding:2px;overflow:hidden;}
-div.row div {margin-right:30px!important;}
+div.row div {margin-right:35px!important;}
 div.row div {float:left;}
 div.calendar_date_select, div.calendar_date_select div {margin:0 !important;float:none !important;}
 

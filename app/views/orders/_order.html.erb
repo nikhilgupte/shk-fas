@@ -5,4 +5,7 @@
 <td><%= order.location_text %></td>
 <td><%= order.priority_text %></td>
 <td class="tip numeric"><%= time_ago_in_words order.created_at %> ago</td>
-<td><%= link_to_remote 'delete', :confirm => 'Delete this order?', :url => {:action => :destroy, :id => order.id}, :method => :delete, :loading => 'Element.remove("o_'+order.id.to_s+'")' %></td></tr>
+<td>
+<%= link_to_remote 'edit', :url => edit_order_path(order.id), :method => :get %>
+<%= link_to_remote 'delete', :confirm => 'Delete this order?', :url => {:action => :destroy, :id => order.id}, :method => :delete, :loading => 'Element.remove("o_'+order.id.to_s+'")' %>
+</td></tr>

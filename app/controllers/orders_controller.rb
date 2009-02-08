@@ -14,12 +14,33 @@ class OrdersController < ApplicationController
         page.call 'order_added'
         @order = Order.new
       end
-      page.replace 'order_form', :partial => 'form'
+      page.replace 'order_form', :partial => 'new'
     end
   end
 
   def destroy
     @logged_in_user.orders.find(params[:id]).destroy
+  end
+
+  def edit
+    @order = @logged_in_user.orders.find(params[:id])
+    render :update do |p|
+      p.replace "o_#{@order.id}", :partial => 'edit'
+    end
+  end
+
+  def update
+    @order = @logged_in_user.orders.find(params[:id])
+    if @order.update_attributes params[:order]
+      render :update do |page|
+        page.replace "o_#{@order.id}", :partial => 'order', :locals => {:order => @order}
+        page.visual_effect :highlight, "o_#{@order.id}"
+      end
+    else
+      render :update do |page|
+        page.replace "o_#{@order.id}", :partial => 'edit'
+      end
+    end
   end
 
   def submit
@@ -31,12 +52,10 @@ class OrdersController < ApplicationController
   def export
     if request.format == Mime::CSV
         submitted_at = DateTime.parse params[:submitted_at]
-        #@orders = Order.all.find(:all, :conditions => ['submitted_at >= ? and submitted_at < ? and created_by_id = ?', submitted_at, submitted_at + 1.second, params[:user_id].to_i])
         @orders = Order.all.find(:all, :conditions => ['submitted_at >= ? and submitted_at < ? and created_by_id = ?', submitted_at, submitted_at + 1.second, params[:user_id].to_i])
         response.headers['Content-Type'] = 'application/force-download'
         response.headers['Content-Disposition'] = "attachment; filename=\"orders-#{submitted_at.to_s(:datetime).gsub(/\W/,'-')}-#{User.find(params[:user_id]).username}.csv\""
         return render :text => @orders.collect{|o| [o.id, o.product.code, o.quantity, o.production_quantity, o.location, o.priority].to_csv}.join()
-        #return false
     else
       @title = 'Export'
       @submissions = Order.submissions

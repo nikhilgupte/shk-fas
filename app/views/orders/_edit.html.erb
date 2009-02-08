@@ -1,0 +1,18 @@
+<tr id="o_<%= @order.id %>" class="<%= cycle 'odd', 'even' %>"><td colspan="8">
+<div id="order_form">
+<% remote_form_for @order do |f| %>
+<%= error_messages_for :order %>
+	<div class="row">
+		<div>
+			<label>Product</label>
+			<b><%= @order.product.long_name %></b>
+		</div>
+	</div>
+<div style="margin:0;float:right"><%= submit_tag 'Save', :style => 'margin-top:25px' %>
+<%= link_to 'Cancel', orders_path, :class => 'cancel_link' %></div>
+<%= render :partial => 'form', :locals => {:f => f} %>
+<script type="text/javascript">
+$('order_quantity_<%= @order.id %>').focus();
+</script>
+<% end %>
+</div></td></tr>

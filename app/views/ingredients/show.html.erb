@@ -1,13 +1,22 @@
-<div style="background-color:#f4f4f4;padding:2px 5px;width:400px" class="curved">
+<div style="ackground-color:#f9f9f9;padding:2px 5px;width:100%" class="curved">
 <h3>Latest Prices</h3>
 <% unless @ingredient.prices.empty? %>
 <table class="list">
+<tr><th style="width:5px"></th><th class="tip" style="width:20px">Entered</th><th style="width:20px" class="emphasize tip">Exported</th><th></th></tr>
 <tbody>
-<% @ingredient.prices.latest.each do |price| %>
-<tr>
-	<td style="width:20px;font-size:12pt"><%= h(price.currency) %></td><td style="width:30px;font-size:12pt" class="numeric"><%= number_to_currency(price.price, :unit => '') %></td><td class="tip">by nikhil <%= time_ago_in_words price.created_at %> ago</td>
+<% if latest_price = @ingredient.latest_price %>
+<tr><td class="currency">Rs.</td><td class="numeric"><%= number_to_currency(latest_price.price_in_inr, :unit => '')||'-' %></td><td class="emphasize numeric"><%= number_to_currency(latest_price.inr, :unit => '') %></td>
+<td class="tip"><%= (latest_price.price_in_usd ? "@ #{Currency.inr_value('USD')} Rs/$ + " : "#{Currency.inr_value('EUR')} Rs/&euro; + ") unless latest_price.price_in_inr %> <%= latest_price.price_in_inr ? "#{@ingredient.tax_rate.rate}% local taxes" : "#{@ingredient.custom_duty.duty}% CVD" %></td>
+</tr>
+<tr><td class="currency">$</td><td class="numeric"><%= number_to_currency(latest_price.price_in_usd, :unit => '') || '-' %></td><td class="emphasize numeric"><%= number_to_currency(latest_price.usd, :unit => '') %></td>
+<td class="tip"><%= latest_price.price_in_usd ? "" : "@ #{Currency.inr_value('USD')} Rs/$" %></td>
+</tr>
+<tr><td class="currency">&euro;</td><td class="numeric"><%= number_to_currency(latest_price.price_in_eur, :unit => '')||'-' %></td><td class="emphasize numeric"><%= number_to_currency(latest_price.eur, :unit => '') %></td>
+<td class="tip"><%= latest_price.price_in_eur ? "" : "@ #{Currency.inr_value('EUR')} Rs/&euro;" %></td>
 </tr>
 <% end %>
+<tr style="border:0;height:20px;"><td></td><td></td><td class="emphasize"></td><td style="text-align:right;font-style:italic"><%= tip "updated by #{latest_price.user.username} #{time_ago_in_words latest_price.created_at} ago" %>
+</td></tr>
 </tbody>
 </table>
 <% else %>
@@ -15,20 +24,21 @@
 <% end %>
 </div>
 
-<%= link_to_function 'Enter new price...', '$("new_ingredient_price").toggle();this.toggle();', :id => 'new_ingredient_price_link' %>
+<%= link_to_function 'Enter new price...', 'toggle_price_form();', :id => 'new_ingredient_price_link' %>
 <% remote_form_for [@ingredient, IngredientPrice.new], :html => {:style => 'display:none'} do |f| %>
+<h2>Enter Price</h2>
 <div class="row">
-	<div>
-		<%= f.label :currency %>
-		<%= f.select :currency, CURRENCIES %>
-	</div>
-	<div>
-		<%= f.label :price %>
-		<%= f.text_field :price, :maxlength => 7 %>
-	</div>
-	<div>
-	<%= submit_tag 'Add', :style => 'margin-top:25px' %>
-	<%= link_to_function 'Cancel', '$("new_ingredient_price").toggle();$("new_ingredient_price_link").toggle();', :style => 'margin-left:20px' %>
+	<div><span class="currency">Rs.</span> <%= f.text_field :price_in_inr, :maxlength => 7 %></div>
+	<div><span class="currency">$</span> <%= f.text_field :price_in_usd, :maxlength => 7 %></div>
+	<div><span class="currency">&euro;</span> <%= f.text_field :price_in_eur, :maxlength => 7 %></div>
+	<div style="padding-top:5px;">
+	<%= submit_tag 'Add' %>
+	<%= link_to_function 'Cancel', 'toggle_price_form()', :style => 'margin-left:20px' %>
 	</div>
 </div>
+<%= tip 'If you enter the price in any one currency, the rest can be calculated by the system' %>
 <% end %>
+<script type="text/javascript">
+function toggle_price_form() { $("new_ingredient_price").toggle();$("new_ingredient_price_link").toggle(); }
+<%= 'toggle_price_form()' unless latest_price %>
+</script>

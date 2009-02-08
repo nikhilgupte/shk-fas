@@ -1,0 +1,15 @@
+<ul style="margin-bottom:30px" class="faint side_by_side currency">
+	<li>Currency Rates:</li>
+	<li><span class="currency">$:Rs.</span> <%= number_to_currency Currency.inr_value('USD'), :unit => '' %></li>
+	<li><span class="currency" style="margin-left:30px">&euro;:Rs.</span> <%= number_to_currency Currency.inr_value('EUR'), :unit => '' %></li>
+</ul>
+<div class="curved" style="background-color:#eee;padding:20px;">
+<% form_tag formatted_export_ingredients_path(:format => :csv) do %>
+	<%= submit_tag 'Export Ingredients updated since' %>
+  <%= calendar_date_select_tag "since", 1.month.ago, :embedded => false, :year_range => 1, :time => false, :valid_date_check => "date.stripTime() <= (new Date()).stripTime()"  %>
+<% end %>
+<div style="margin:10px 0;font-size:20pt">OR</div>
+<% form_tag formatted_export_ingredients_path(:format => :csv) do %>
+	<%= submit_tag 'Export All Ingredients' %>
+<% end %>
+</div>

@@ -9,17 +9,24 @@ class IngredientsController < ApplicationController
   end
 
   def export
-    @ingredients = Ingredient.live
-    response.headers['Content-Type'] = 'application/force-download'
-    response.headers['Content-Disposition'] = "attachment; filename=\"ingredients-#{Time.now.to_s(:date).gsub(/\W/,'-')}.csv\""
-    render :text => @ingredients.collect{|i| ([i.id, i.code] + CURRENCIES.collect{|c| i.price(c)}).to_csv}.join
+    if request.format == Mime::CSV
+        since = DateTime.parse params[:since] if params[:since]
+        @ingredients = since.nil? ? Ingredient.updated_since(Date.parse('1 Jan 2009')) : Ingredient.updated_since(since)
+        response.headers['Content-Type'] = 'application/force-download'
+        response.headers['Content-Disposition'] = "attachment; filename=\"ingredients#{'-'+since.to_s(:date).gsub(/\W/,'-') if since}.csv\""
+        #return render :text => @ingredients.collect{|i| ([i.code] + CURRENCIES.collect{|c| i.latest_price.send(c.downcase)}).to_csv}.join
+        return render :text => @ingredients.collect{|i| ([i.code] + Currency.all.collect{|c| i.latest_price.send(c.name.downcase).round(2)}).to_csv}.insert(0, (['code'] + Currency.all.collect{|c| c.name}).to_csv).join
+    else
+      @title = 'Export Ingredients'
+    end
   end
+
 
   def auto_complete_for_ingredient_name
     arg = params[:ingredient_name]
     arg.downcase!
     @ingredients = Ingredient.live.find(:all, :conditions => ['lower(name) like ?', "#{arg}%"], :limit => 10)
-    render :partial => 'ingredients_auto_complete'
+    render :partial => 'ingredients_auto_complete.html.erb'
   end
 
 end

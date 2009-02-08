@@ -48,6 +48,10 @@ div.wrapper {width:100%;margin:auto;clear:both;}
 
 /*#sub_menu {padding:5px;font-size:10pt;background-color:#eee;margin-bottom:10px;display:none}*/
 
+ul.admin_modules {font-size: 13pt;padding-left:10px;}
+ul.admin_modules a {color:#000}
+ul.admin_modules li {margin:10px 0}
+
 /* STYLES */
 h1 {font-size:16pt;padding-bottom:5px;border-bottom:3px solid #ccc;margin-bottom:10px;}
 h2 {font-size:13pt;margin:5px 0}
@@ -59,7 +63,7 @@ ul.side_by_side li {
 ul.pipes li {border-right:1px solid #666;padding:0 6px 0 3px!important}
 ul.pipes li.last {border-right:0}
 
-.tip {color:#666;font-size:8pt}
+.tip {color:#999;font-size:8pt}
 .todo {color:#c00;font-size:13pt}
 
 div.flash_message {height:40px;width:400px;margin:auto;font-weight:bold;color:#000}
@@ -72,6 +76,7 @@ a.more {display:block;text-align:right}
 .nav {font-size:10pt!important}
 .nav a {color:#000}
 .cancel_link {margin-left:100px;font-size:14pt;color:#000}
+.cancel_link {margin-left:10px;font-size:10pt;color:#000}
 .back_link {margin-right:100px;font-size:14pt;color:#000}
 
 .even {background-color:#f6f6f6}
@@ -87,4 +92,9 @@ a.toggle_link {color:#000;display:block;padding:3px;padding-left:15px;background
 
 #order_form {border-bottom:1px solid #000}
 
-input.faint {color:#999;font-size:12pt}
+.faint {color:#999}
+input.faint {font-size:12pt}
+
+.hidden {display:none}
+
+.currency {font-size:15pt}
