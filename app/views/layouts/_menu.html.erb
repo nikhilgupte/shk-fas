@@ -1,0 +1,18 @@
+<% if @logged_in_user %>
+<div id="menu">
+<ul class="side_by_side">
+	<li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', orders_path %></li>
+	<li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', ingredients_path %></li>
+	<li <%= 'class="current"' if controller.controller_path.starts_with?('admin') %>><%= link_to 'Admin', admin_path %></li>
+ <!-- <li><a href="#">Manage Users</a></li>-->
+</ul>
+<br clear="all"/>
+</div>
+<div id="sub_menu">
+<%= render :partial => "#{params[:controller]}/nav" \
+    rescue render :partial => "#{@controller.class.parent.to_s.downcase}/nav" \
+    rescue nil %>
+<br clear="all"/>
+</div>
+<% end %>
+

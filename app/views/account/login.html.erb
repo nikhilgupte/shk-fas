@@ -1,0 +1,17 @@
+<div class="curved" style="background-color:#f0f0f0;padding:20px 40px;float:right;width:500px;">
+Welcome to <b>S.H. Kelkar's</b><div style="font-size:18pt;padding:0 0 10px 0"><b>F</b>ormulation <b>A</b>dministration <b>S</b>ystem</div>
+<span class="tip">For queries related to logging in or account creation please contact <%= mail_to 'fas-admin@shkelkar.com' %></span>
+</div>
+<% form_tag account_path(:action => :login) do %>
+<%= flash_message :error %>
+<div class="row">
+  <label for="username">Username</label>
+  <%= text_field_tag :username, params[:username] %>
+</div>
+<div class="row">
+  <label for="password">Password</label>
+  <%= password_field_tag :password %>
+</div>
+<%= submit_tag 'Login' %>
+<% end %>
+<%= javascript_tag "$('username').focus()" %>

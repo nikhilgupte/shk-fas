@@ -1,0 +1,9 @@
+<ul>
+	<li><%= link_to_unless_current 'Users', admin_users_path %></li>
+	<li><%= link_to_unless_current 'Ingredients', admin_ingredients_path %></li>
+	<li><%= link_to_unless_current 'Products', admin_products_path %></li>
+	<li><%= link_to_unless_current 'Currencies', admin_currencies_path %></li>
+	<li><%= link_to_unless_current 'Tax Rates', admin_tax_rates_path %></li>
+	<li class="last"><%= link_to_unless_current 'Custom Duties', admin_custom_duties_path %></li>
+</ul>
+

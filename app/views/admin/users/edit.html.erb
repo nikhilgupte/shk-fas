@@ -1,0 +1,30 @@
+<%= error_messages_for :user %>
+<% form_for [:admin, @user] do |f| %>
+<div class="row">
+  <div>
+  <%= f.label :full_name, "Full Name #{reqd}" %>
+  <%= f.text_field :full_name, :size => 32 %>
+  </div>
+  <div>
+  <%= f.label :email_address, "Email Address #{reqd}" %>
+  <%= f.text_field :email_address, :size => 32 %>
+  </div>
+</div>
+<div style="border-top:1px solid #ccc;margin:20px 0;padding:5px;color:#666;background-color:#f3f3f3">
+<h2>Re-set Password</h2><%= tip "Leave blank unless you want to re-set the user's password" %>
+<div class="row">
+  <div>
+  <label for="password">New Password</label>
+	<%= f.password_field :password, :value => '', :maxlength => 32 %>
+  <%= tip 'should contain alphabets and numbers<br /> and be at least 8 characters in length' %> 
+</div>
+  <div>
+  <label for="password_confirmation">Confirm New Password</label>
+	<%= f.password_field :password_confirmation, :value => '', :maxlength => 32 %>
+  <%= tip 'should match the new password' %>
+</div>
+</div>
+</div>
+<%= submit_tag 'Save User' %>
+<%= cancel_link admin_user_path(@user) %>
+<% end %>

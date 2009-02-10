@@ -1,0 +1,33 @@
+<%= error_messages_for :user %>
+<% form_for [:admin, @user] do |f| %>
+<div class="row">
+  <%= f.label :username, "Username #{reqd}" %>
+  <%= f.text_field :username, :maxlength => 32 %>
+  <%= tip 'should be unique, contain only alpha-numeric characters and be at least 4 charachters long' %>
+</div>
+<div class="row">
+  <div>
+  <%= f.label :full_name, "Full Name #{reqd}" %>
+  <%= f.text_field :full_name, :size => 32 %>
+  </div>
+  <div>
+  <%= f.label :email_address, "Email Address #{reqd}" %>
+  <%= f.text_field :email_address, :size => 32 %>
+  </div>
+</div>
+<div class="row">
+  <div>
+  <%= f.label :password, "Password #{reqd}" %>
+	<%= f.password_field :password, :maxlength => 32, :autocomplete => "off" %>
+  <%= tip 'should contain alphabets and numbers<br /> and be at least 8 characters in length' %> 
+</div>
+  <div>
+  <%= f.label :password_confirmation, "Confirm Password #{reqd}" %>
+	<%= f.password_field :password_confirmation, :maxlength => 32, :autocomplete => "off" %>
+  <%= tip 'should match the new password' %>
+</div>
+</div>
+<%= submit_tag 'Create User' %>
+<%= cancel_link admin_users_path %>
+<% end %>
+

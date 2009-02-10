@@ -1,0 +1,17 @@
+<div style="text-align:right"><%= link_to 'Create New User', new_admin_user_path %></div>
+<table class="list">
+<thead>
+<tr><th>Username</th><th>Full Name</th><th>Email</th><th>Logged in</th><th></th></tr>
+</thead>
+<tbody>
+<% User.all.each do |user| %>
+<tr>
+  <td><%= h user.username %></td>
+  <td><%= h user.full_name %></td>
+  <td><%= mail_to user.email_address %></td>
+  <td><%= time_ago_in_words user.last_logged_in_at rescue '-' %></td>
+  <td><%= link_to 'Show', admin_user_path(user) %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
