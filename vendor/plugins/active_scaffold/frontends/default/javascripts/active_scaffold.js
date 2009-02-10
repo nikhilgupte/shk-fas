@@ -3,9 +3,9 @@ if (typeof Prototype == 'undefined')
   warning = "ActiveScaffold Error: Prototype could not be found. Please make sure that your application's layout includes prototype.js (e.g. <%= javascript_include_tag :defaults %>) *before* it includes active_scaffold.js (e.g. <%= active_scaffold_includes %>).";
   alert(warning);
 }
-if (Prototype.Version.substring(0, 8) == '1.5.0_rc')
+if (Prototype.Version.substring(0, 3) != '1.6')
 {
-  warning = "ActiveScaffold Error: Prototype 1.5.0_rc is not supported. Please update prototype.js (rake rails:update:javascripts).";
+  warning = "ActiveScaffold Error: Prototype version 1.6.x is required. Please update prototype.js (rake rails:update:javascripts).";
   alert(warning);
 }
 
@@ -68,11 +68,13 @@ var ActiveScaffold = {
     });
   },
   decrement_record_count: function(scaffold_id) {
-    count = $$('#' + scaffold_id + ' span.active-scaffold-records').first();
+    // decrement the last record count, firsts record count are in nested lists
+    count = $$('#' + scaffold_id + ' span.active-scaffold-records').last();
     count.innerHTML = parseInt(count.innerHTML) - 1;
   },
   increment_record_count: function(scaffold_id) {
-    count = $$('#' + scaffold_id + ' span.active-scaffold-records').first();
+    // increment the last record count, firsts record count are in nested lists
+    count = $$('#' + scaffold_id + ' span.active-scaffold-records').last();
     count.innerHTML = parseInt(count.innerHTML) + 1;
   },
 
@@ -190,6 +192,12 @@ ActiveScaffold.ActionLink.Abstract.prototype = {
   initialize: function(a, target, loading_indicator) {
     this.tag = $(a);
     this.url = this.tag.href;
+    this.method = 'get';
+    if(this.url.match('_method=delete')){
+      this.method = 'delete';
+    } else if(this.url.match('_method=post')){
+      this.method = 'post';
+    }
     this.target = target;
     this.loading_indicator = loading_indicator;
     this.hide_target = false;
@@ -228,7 +236,7 @@ ActiveScaffold.ActionLink.Abstract.prototype = {
 	    new Ajax.Request(this.url, {
 	      asynchronous: true,
 	      evalScripts: true,
-
+              method: this.method,
 	      onSuccess: function(request) {
 	        if (this.position) {
 	          this.insert(request.responseText);
@@ -314,10 +322,14 @@ ActiveScaffold.Actions.Record.prototype = Object.extend(new ActiveScaffold.Actio
 
 ActiveScaffold.ActionLink.Record = Class.create();
 ActiveScaffold.ActionLink.Record.prototype = Object.extend(new ActiveScaffold.ActionLink.Abstract(), {
-  insert: function(content) {
+  close_previous_adapter: function() {
     this.set.links.each(function(item) {
       if (item.url != this.url && item.is_disabled() && item.adapter) item.close();
     }.bind(this));
+  },
+
+  insert: function(content) {
+    this.close_previous_adapter();
 
     if (this.position == 'replace') {
       this.position = 'after';
@@ -352,7 +364,7 @@ ActiveScaffold.ActionLink.Record.prototype = Object.extend(new ActiveScaffold.Ac
     new Ajax.Request(this.refresh_url, {
       asynchronous: true,
       evalScripts: true,
-
+      method: this.method,
       onSuccess: function(request) {
         Element.replace(this.target, request.responseText);
         var new_target = $(this.target.id);
