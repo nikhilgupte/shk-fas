@@ -12,11 +12,11 @@ module ApplicationHelper
     link_to label, url, :class => 'cancel_link', :confirm => 'Cancel operation?'
   end
 
-  def flash_message
-    "<div class='flash_message'><div class='curved'>
+  def flash_message(type = :notice)
+    "<div class='flash_message'><div class='curved #{type}'>
       <a href='#' onclick='return disable_flash_messages();'>&times;#{javascript_tag('setTimeout("disable_flash_messages()", 5000)')}</a>
-      #{flash[:notice]}</div>
-      </div>" if flash[:notice]
+      #{flash[type]}</div>
+      </div>" if flash[type]
   end
 
 end

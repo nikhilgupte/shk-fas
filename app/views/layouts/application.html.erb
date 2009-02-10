@@ -6,19 +6,7 @@
 <body>
 <%= render :partial => 'layouts/header' %>
 
-<div id="menu">
-<ul class="side_by_side">
-	<li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', orders_path %></li>
-	<li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', ingredients_path %></li>
-	<li <%= 'class="current"' if controller.is_a?(AdminController) %>><%= link_to 'Admin', admin_path %></li>
- <!-- <li><a href="#">Manage Users</a></li>-->
-</ul>
-<br clear="all"/>
-</div>
-<div id="sub_menu">
-<%= render :partial => "#{params[:controller]}/nav" rescue nil %>
-<br clear="all"/>
-</div>
+<%= render :partial => 'layouts/menu' %>
 <br clear="all"/>
 <div class="wrapper" id="body">
 

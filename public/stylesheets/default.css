@@ -41,7 +41,7 @@ div.wrapper {width:100%;margin:auto;clear:both;}
 #menu li.current a {color:#000;}
 #menu li.current a:hover {background-color:#eee;}
 
-#sub_menu {background:#eee url(../images/menu_fg.gif) 0 -25px}
+#sub_menu {background:#eee url(../images/menu_fg.gif) 0 -25px;border-bottom:1px solid #aaa}
 #sub_menu ul {padding:0px;font-size:10pt;}
 #sub_menu li {float:left;padding:5px 20px 5px 20px}
 #sub_menu a {color:#000;display:block;text-decoration:underline}
@@ -68,7 +68,10 @@ ul.pipes li.last {border-right:0}
 
 div.flash_message {height:40px;width:400px;margin:auto;font-weight:bold;color:#000}
 div.flash_message a {display:block;float:right;text-decoration:none;color:#000}
-div.flash_message div {padding:10px;background-color:#ff6}
+div.flash_message div {padding:10px;}
+div.flash_message div.notice {background-color:#ff6}
+div.flash_message div.error {background-color:#e00;color:#fff}
+div.flash_message div.error a {color:#fff}
 
 a.more {display:block;text-align:right}
 .empty {text-align:center;font-size:14pt;color:#999;}

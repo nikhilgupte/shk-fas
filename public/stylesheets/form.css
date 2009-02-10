@@ -30,8 +30,9 @@ td.button_links a {margin:0 3px;}
 
 table.list .emphasize {background-color:#e0e0e0 !important;color:#000;font-size:12pt;font-weight:bold;}
 
-table.form td, table.form th {padding:5px}
-table.form th {text-align:right}
+table.form {margin-bottom:10px;}
+table.form td, table.form th {padding:5px;font-size:12pt}
+table.form th {text-align:right;color:#999}
 label {
 	padding: 0px 0px 6px 0px;
   font-size:13px;

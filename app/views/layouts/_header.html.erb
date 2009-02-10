@@ -1,7 +1,10 @@
 <div id="top_container">
 <div id="header" class="curved_botto">
+<% if @logged_in_user %>
 <ul id="top_links" class="side_by_side pipes">
-	<li class="last"><%= link_to_function 'Logout', 'alert("TODO")' %></li>
+	<li><%= link_to 'Change Password', account_path(:action => :change_password) %></li>
+	<li class="last"><%= link_to 'Logout', account_path(:action => :logout) %></li>
 </ul>
+<% end %>
 <div id="logo">SHK - <b>F</b>ormulation <b>A</b>dministration <b>S</b>ystem</div>
 </div>

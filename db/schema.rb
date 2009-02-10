@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090205091009) do
+ActiveRecord::Schema.define(:version => 20090210163000) do
 
   create_table "_imaster", :id => false, :force => true do |t|
     t.string "code", :limit => nil
@@ -91,11 +91,16 @@ ActiveRecord::Schema.define(:version => 20090205091009) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "username",   :limit => 10, :null => false
-    t.string   "password",   :limit => 50, :null => false
-    t.string   "salt",       :limit => 8,  :null => false
+    t.string   "username",          :limit => 10,                    :null => false
+    t.string   "password",          :limit => 50,                    :null => false
+    t.string   "salt",              :limit => 8,                     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "disabled",                        :default => false, :null => false
+    t.string   "full_name",                                          :null => false
+    t.string   "email_address",                                      :null => false
+    t.datetime "last_logged_in_at"
+    t.integer  "access_level",                    :default => 0,     :null => false
   end
 
 end
