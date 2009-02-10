@@ -28,7 +28,7 @@ table.list tfoot td {
 }
 td.button_links a {margin:0 3px;}
 
-table.list .emphasize {background-color:#e6e6e6 !important;font-size:12pt;font-weight:bold;}
+table.list .emphasize {background-color:#e0e0e0 !important;color:#000;font-size:12pt;font-weight:bold;}
 
 table.form td, table.form th {padding:5px}
 table.form th {text-align:right}

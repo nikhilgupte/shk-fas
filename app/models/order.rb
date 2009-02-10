@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :product_id, :created_by_id
   validates_numericality_of :quantity, :production_quantity
-  validates_inclusion_of :quantity, :production_quantity, :within => 10..100000, :message => 'should be between 10 and 100,000 Kgs.'
+  validates_inclusion_of :quantity, :within => 10..100000, :message => 'should be between 10 and 100,000 Kgs.'
   validates_inclusion_of :priority, :within => PRIORITY.keys.collect(&:to_s), :message => 'is not valid', :allow_blank => true
   validates_inclusion_of :location, :within => LOCATION.keys.collect(&:to_s), :message => 'is not valid', :allow_blank => true
 
@@ -22,6 +22,10 @@ class Order < ActiveRecord::Base
         || (self.location != 'k' && self.created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location != ?', self.product_id, 'k']))
       errors.add_to_base('Duplicate order detected. Please update the existing order!')
     end
+  end
+
+  def validate
+    errors.add_to_base('Production Qty must be greater than or equal to the Order Qty') if production_quantity < quantity
   end
 
   before_validation :set_default_production_qty
@@ -40,6 +44,6 @@ class Order < ActiveRecord::Base
 
   private
   def set_default_production_qty
-    self.production_quantity = self.quantity if self.production_quantity.nil? || self.production_quantity == 0
+    self.production_quantity = self.quantity if self.production_quantity.nil? # || self.production_quantity == 0
   end
 end

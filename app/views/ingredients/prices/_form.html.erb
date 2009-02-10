@@ -1,0 +1,21 @@
+<% remote_form_for [@ingredient, @price ||= IngredientPrice.new] do |f| %>
+<%= error_messages_for :price %>
+<h2>Enter Price</h2>
+<div class="row">
+	<div><span class="currency">Rs.</span> <%= f.text_field :price_in_inr, :maxlength => 7 %></div>
+	<div><span class="currency">$</span> <%= f.text_field :price_in_usd, :maxlength => 7 %></div>
+	<div><span class="currency">&euro;</span> <%= f.text_field :price_in_eur, :maxlength => 7 %></div>
+	<div style="padding-top:5px;">
+	<%= submit_tag 'Add' %>
+	<%= link_to_function 'Cancel', 'toggle_price_form()', :style => 'margin-left:20px' %>
+	</div>
+</div>
+<%= tip 'If you enter the price in any one currency, the rest can be calculated by the system' %>
+<% if @price.errors.invalid?(:price_in_inr) || @price.errors.invalid?(:price_in_usd) || @price.errors.invalid?(:price_in_eur) %>
+<div class="row">
+<%= f.check_box :force, {}, true, false %> <label for="ingredient_price_force" style="font-size:15pt;display:inline">I confirm the price is accurate.</label>
+</div>
+<% end %>
+<% end %>
+
+

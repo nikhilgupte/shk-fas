@@ -10,7 +10,7 @@ class Ingredients::PricesController < ApplicationController
       end
     else
       render :update do |page|
-        page.alert(@price.errors.full_messages)
+        page.replace_html :prices_form, :partial => 'ingredients/prices/form'
       end
     end
   end

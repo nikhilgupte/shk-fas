@@ -4,37 +4,53 @@ class IngredientPrice < ActiveRecord::Base
   belongs_to :ingredient
   belongs_to :user
 
+  attr_accessor :force
+
   def validate_on_create
-    #errors.add_to_base('Please enter the price in at least one currency') if !(price_in_eur && price_in_usd && price_in_usd)
+    if !(price_in_eur || price_in_inr || price_in_usd)
+      errors.add_to_base('Please enter the price in at least one currency')
+    elsif force != 'true'
+      if prev = ingredient.latest_price
+        if self.price_in_inr
+          diff = (prev.base_inr - self.price_in_inr).abs
+          errors.add(:price_in_inr, 'INR price varies over 10% from the historic values.') if diff*100.0/prev.base_inr > 10
+        end
+        if self.price_in_usd
+          diff = (prev.base_usd - self.price_in_usd).abs
+          errors.add(:price_in_usd, 'USD price varies over 10% from the historic values.') if diff*100.0/prev.base_usd > 10
+        end
+       if self.price_in_eur
+          diff = (prev.base_eur - self.price_in_eur).abs
+          errors.add(:price_in_eur, 'EUR price varies over 10% from the historic values.') if diff*100.0/prev.base_eur > 10
+        end
+      end
+    end
   end
 
   def inr
-    (price_in_inr ? price_in_inr * (100.0 + ingredient.tax_rate.rate) : converted_to_inr * (100.0 + ingredient.custom_duty.duty))/100
+    (price_in_inr ? price_in_inr * (100.0 + ingredient.tax_rate.rate) : base_inr * (100.0 + ingredient.custom_duty.duty))/100
   end
 
-  def usd
-    price_in_usd ? price_in_usd : converted_to_usd
-  end
+  def usd() base_usd end
 
-  def eur
-    price_in_eur ? price_in_eur : converted_to_eur
-  end
+  def eur() base_eur end
 
-  private
-  def converted_to_eur() converted_to_inr/Currency.inr_value('EUR') end
-  def converted_to_usd() converted_to_inr/Currency.inr_value('USD') end
-
-  def converted_to_inr
+  def base_inr
     value = begin
       if price_in_inr
         price_in_inr
       elsif price_in_usd
-        price_in_usd * Currency.inr_value('USD')
+        price_in_usd.usd_in_inr
       elsif price_in_eur
-        price_in_eur * Currency.inr_value('EUR')
+        price_in_eur.eur_in_inr
       else
         nil
       end
     end
   end
+
+  def base_eur() price_in_eur || base_inr/Currency.inr_value('EUR') end
+
+  def base_usd() price_in_usd || base_inr/Currency.inr_value('USD') end
+
 end

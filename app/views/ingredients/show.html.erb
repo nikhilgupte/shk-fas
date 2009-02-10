@@ -25,20 +25,8 @@
 </div>
 
 <%= link_to_function 'Enter new price...', 'toggle_price_form();', :id => 'new_ingredient_price_link' %>
-<% remote_form_for [@ingredient, IngredientPrice.new], :html => {:style => 'display:none'} do |f| %>
-<h2>Enter Price</h2>
-<div class="row">
-	<div><span class="currency">Rs.</span> <%= f.text_field :price_in_inr, :maxlength => 7 %></div>
-	<div><span class="currency">$</span> <%= f.text_field :price_in_usd, :maxlength => 7 %></div>
-	<div><span class="currency">&euro;</span> <%= f.text_field :price_in_eur, :maxlength => 7 %></div>
-	<div style="padding-top:5px;">
-	<%= submit_tag 'Add' %>
-	<%= link_to_function 'Cancel', 'toggle_price_form()', :style => 'margin-left:20px' %>
-	</div>
-</div>
-<%= tip 'If you enter the price in any one currency, the rest can be calculated by the system' %>
-<% end %>
+<div id="prices_form" style="display:none"><%= render :partial => 'ingredients/prices/form' %></div>
 <script type="text/javascript">
-function toggle_price_form() { $("new_ingredient_price").toggle();$("new_ingredient_price_link").toggle(); }
+function toggle_price_form() { $("prices_form").toggle();$("new_ingredient_price_link").toggle(); }
 <%= 'toggle_price_form()' unless latest_price %>
 </script>

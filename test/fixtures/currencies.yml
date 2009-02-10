@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+inr:
+  name: INR
+  inr_value: 1
+
+usd:
+  name: USD
+  inr_value: 50
+
+eur:
+  name: EUR
+  inr_value: 60

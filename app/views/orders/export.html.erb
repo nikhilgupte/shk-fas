@@ -7,7 +7,7 @@
 <tbody>
 <% @submissions.each do |s| %>
 <tr>
-	<td><%= (submitted_at = DateTime.parse(s[0])).to_s(:datetime) %> <span class="tip"><%= time_ago_in_words(submitted_at) %> ago</span></td>
+	<td><%= (submitted_at = DateTime.parse(s[0])).to_s(:datetime) %> <span class="tip"><%= time_ago_in_words(submitted_at) %> ago</span><%= submitted_at %></td>
 	<td><%= link_to 'download', :submitted_at => submitted_at, :user_id => s[1], :format => :csv %>
 	<td><%= User.find(s[1]).username %></td>
 	<td><%= s[2] %></td>

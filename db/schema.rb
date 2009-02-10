@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(:version => 20090205091009) do
     t.string "y",    :limit => nil
   end
 
+  create_table "_pmaster", :id => false, :force => true do |t|
+    t.string "code",      :limit => nil
+    t.string "name",      :limit => nil
+    t.float  "sales_qty"
+  end
+
   create_table "currencies", :force => true do |t|
     t.string "name"
     t.float  "inr_value"
@@ -71,7 +77,6 @@ ActiveRecord::Schema.define(:version => 20090205091009) do
     t.string   "code",                                      :null => false
     t.string   "name",                                      :null => false
     t.float    "quarterly_sales_quantity", :default => 0.0, :null => false
-    t.float    "float",                    :default => 0.0, :null => false
     t.string   "production_code"
     t.string   "string"
     t.datetime "created_at"
