@@ -1,7 +1,7 @@
 /* STRUCTURE */
 html {height:100%}
 body {
-  font: 9pt "Lucida Grande", Lucida, arial, sans-serif;
+  font: 10pt "Lucida Grande", Lucida, arial, sans-serif;
   width:70%;
   width:790px;
   margin:auto;
@@ -23,7 +23,7 @@ p {margin:10px 0}
  #logo a {color:#fff;text-decoration:none}
 #top_links {float:right;color:#eee;color:#fff;margin:5px 5px 0 0;font-size:9pt}
   #top_links a {color:#fff}
-#footer {width:100%;font-size:8pt;padding-top:4px; background-color:#ccc;clear:both;position:absolute;bottom:0}
+#footer {width:100%;font-size:8pt;padding-top:4px; background-color:#ccc;clear:both;position:absolute;bottom:0;}
     #footer ul {text-align:center}
 #footer a {color:#333}
 #version {color:#999;text-align:right;padding:5px}
@@ -53,6 +53,8 @@ ul.admin_modules a {color:#000}
 ul.admin_modules li {margin:10px 0}
 
 /* STYLES */
+a {color:#000}
+a:visited {color:#666}
 h1 {font-size:16pt;padding-bottom:5px;border-bottom:3px solid #ccc;margin-bottom:10px;}
 h2 {font-size:13pt;margin:5px 0}
 h3 {font-size:11pt;margin:5px 0;}
@@ -70,7 +72,7 @@ div.flash_message {height:40px;width:400px;margin:auto;font-weight:bold;color:#0
 div.flash_message a {display:block;float:right;text-decoration:none;color:#000}
 div.flash_message div {padding:10px;}
 div.flash_message div.notice {background-color:#ff6}
-div.flash_message div.error {background-color:#e00;color:#fff}
+div.flash_message div.error {background-color:#e00!important;color:#fff!important}
 div.flash_message div.error a {color:#fff}
 
 a.more {display:block;text-align:right}
@@ -101,3 +103,13 @@ input.faint {font-size:12pt}
 .hidden {display:none}
 
 .currency {font-size:15pt}
+
+table.permissions {width:70%;margin:10px 0}
+table.permissions thead th {font-weight:bold;text-align:center;width:50px}
+table.permissions th {background-color:#eee}
+table.permissions th {padding:5px}
+table.permissions td {border:1px solid #aaa;text-align:center}
+table.permissions th {border:1px solid #aaa}
+
+ul.normal {padding-left:10px;}
+ul.normal li {margin:10px;list-style:disc}

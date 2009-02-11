@@ -3,6 +3,7 @@
 table.list {
 	width:100%;	
 	margin:10px 0;
+  font-size:9pt;
 }
 table.list tr { border-bottom:1px solid #eee;}
 table.list thead th {
@@ -122,3 +123,5 @@ div.fieldWithErrors {display:inline !important;padding:0;margin:0;float:none !im
 div.fieldWithErrors input { border:1px solid #c00;}
 
 div.contest_middle {min-height:1200px;}
+
+input[type=submit][disabled=disabled] {color:#999}

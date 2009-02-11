@@ -1,12 +1,47 @@
 <table class="form">
 <tr><th>Full Name</th><td><%= h(@user.full_name) %></td></tr>
 <tr><th>Email</th><td><%= mail_to @user.email_address %></td></tr>
-<tr><th>Logged in</th><td><%= time_ago_in_words @user.last_logged_in_at %> ago</td></tr>
-<tr><th>Created</th><td><%= @user.created_at.to_s(:datetime) %></td></tr>
+<tr><th>Logged in</th><td><%= "#{time_ago_in_words @user.last_logged_in_at} ago" rescue '-'%> </td></tr>
+<tr><th>Created on</th><td><%= @user.created_at.to_s(:date) %></td></tr>
 </table>
-<div style="border-top:1px solid #ccc;padding:5px 0">
+<div style="border-bottom:1px solid #ccc;padding:5px 0;">
 <ul class="side_by_side pipes">
 <li><%= link_to 'Edit', edit_admin_user_path(@user) %></li>
-<li class="last"><%= @user.id == @logged_in_user.id ? 'Disable' : (link_to_remote (@user.disabled? ? 'Enable':'Disable'), :url => toggle_disable_admin_user_path(@user), :confirm => 'Really disable this user?') %></li>
+<li class="last"><%= @user.id == @logged_in_user.id ? 'Disable' : (link_to_remote (@user.disabled? ? 'Enable':'Disable'), :url => toggle_disable_admin_user_path(@user), :confirm => "Really #{@user.disabled? ? 'enable':'disable'} this user?") %></li>
 </ul>
 </div>
+
+<h2>Permissions</h2>
+<% form_tag modify_permissions_admin_user_path(@user), :id => 'permission_form' do %>
+<div style="float:right;width:230px;margin-top:10px;">
+<% unless @user == @logged_in_user %>
+<ul style="text-align:left">
+<li style="margin-bottom:10px"><a href="#" onclick="grant_all(true);return false">Grant All</a></li>
+<li style="margin-bottom:10px"><a href="#" onclick="grant_all(false);return false">Revoke All</a></li>
+<li style="margin-bottom:10px"><a href="#" onclick="$('permission_form').reset();return false;">Undo Changes</a></li>
+<li style="margin-bottom:10px"><%= submit_tag 'Save Permissions' %></li>
+</ul>
+<script type="text/javascript">
+  function grant_all(grant) {
+    $$('.permission_cbx').each(function(e) {e.checked = grant});
+  }
+</script>
+<% else %>
+<%= submit_tag 'Save Permissions', :disabled => 'disabled' %>
+<div class="tip">You cannot modify your own permissions</div>
+<% end %>
+</div>
+<table class="permissions">
+<thead>
+<tr><th></th><% Permission.operations.each do |operation| %><th><%= operation.to_s.humanize %></th><% end %></tr>
+</thead>
+<% Permission.module_names.sort.each do |module_name| %>
+<tr>
+<th><%= module_name.gsub('/', ':').humanize.titleize %></th>
+<% Permission.operations.each do |operation| %>
+  <td><% if Permission.operations(module_name).include?(operation) %> <%= check_box_tag "permissions[#{module_name}][#{operation}]", '1', @user.is_permitted?(module_name, operation), :class => 'permission_cbx', :disabled => @user==@logged_in_user %> <% end %></td>
+<% end %>
+</tr>
+<% end %>
+</table>
+<% end %>

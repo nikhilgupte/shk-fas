@@ -1,10 +1,10 @@
 <% if @logged_in_user %>
 <div id="menu">
 <ul class="side_by_side">
-	<li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', orders_path %></li>
-	<li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', ingredients_path %></li>
-	<li <%= 'class="current"' if controller.controller_path.starts_with?('admin') %>><%= link_to 'Admin', admin_path %></li>
- <!-- <li><a href="#">Manage Users</a></li>-->
+	<li <%= 'class="current"' if params[:controller] == 'account' %>><%= link_to 'Home', account_path %></li>
+	<% if is_permitted? 'orders' %><li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', is_permitted?('orders', 'write') ? orders_path : export_orders_path %></li><% end %>
+	<% if is_permitted? 'ingredients' %><li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', is_permitted?('ingredients', 'read') ? ingredients_path : export_ingredients_path %></li><% end %>
+	<% if is_permitted? 'admin' %><li <%= 'class="current"' if controller.controller_path.starts_with?('admin') %>><%= link_to 'Admin', admin_path %></li><% end %>
 </ul>
 <br clear="all"/>
 </div>

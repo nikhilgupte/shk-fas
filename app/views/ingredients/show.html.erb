@@ -24,9 +24,11 @@
 <% end %>
 </div>
 
+<% if is_permitted?('ingredients/prices', 'write') %>
 <%= link_to_function 'Enter new price...', 'toggle_price_form();', :id => 'new_ingredient_price_link' %>
 <div id="prices_form" style="display:none"><%= render :partial => 'ingredients/prices/form' %></div>
 <script type="text/javascript">
 function toggle_price_form() { $("prices_form").toggle();$("new_ingredient_price_link").toggle(); }
 <%= 'toggle_price_form()' unless latest_price %>
 </script>
+<% end %>

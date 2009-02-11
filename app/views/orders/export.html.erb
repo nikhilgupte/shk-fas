@@ -1,16 +1,16 @@
 <table class="list">
 <thead>
 <tr>
-<th>Submitted on</th><th></th><th>By</th><th>Orders</th>
+<th>Submitted on</th><th>By</th><th class="numeric">Orders</th><th style="width:45%"></th>
 </tr>
 </thead>
 <tbody>
 <% @submissions.each do |s| %>
 <tr>
-	<td><%= (submitted_at = DateTime.parse(s[0])).to_s(:datetime) %> <span class="tip"><%= time_ago_in_words(submitted_at) %> ago</span><%= submitted_at %></td>
+	<td><%= (submitted_at = DateTime.parse(s['submitted_at'])).to_s(:datetime) %> <span class="tip"><%= time_ago_in_words(submitted_at) %> ago</span></td>
+	<td><%= User.find(s['created_by_id']).username %></td>
+	<td class="numeric"><%= s['count'] %></td>
 	<td><%= link_to 'download', :submitted_at => submitted_at, :user_id => s[1], :format => :csv %>
-	<td><%= User.find(s[1]).username %></td>
-	<td><%= s[2] %></td>
 </tr>
 <% end %>
 </tbody>

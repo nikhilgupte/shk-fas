@@ -14,9 +14,12 @@ module ApplicationHelper
 
   def flash_message(type = :notice)
     "<div class='flash_message'><div class='curved #{type}'>
-      <a href='#' onclick='return disable_flash_messages();'>&times;#{javascript_tag('setTimeout("disable_flash_messages()", 5000)')}</a>
+      <a href='#' onclick='return disable_flash_message();'>&times;#{javascript_tag('setTimeout("disable_flash_messages()", 5000)')}</a>
       #{flash[type]}</div>
-      </div>" if flash[type]
+      </div><br clear='left'/>" if flash[type]
   end
 
+  def is_permitted?(module_name, operation = nil)
+    @logged_in_user.is_permitted?(module_name, operation)
+  end
 end

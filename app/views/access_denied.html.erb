@@ -1,0 +1,9 @@
+<% @title = 'Access Denied!' %>
+
+<div style="font-size:13pt">
+<% unless @logged_in_user.disabled? %>
+You do not have <b><%= @operation.to_s.humanize.titleize %></b> rights on the <b><%= @module.to_s.humanize.titleize %></b> module.
+<% else %>
+Your account has been disabled.<br />Please contact the administrator at <%= mail_to 'fas-admin@shkelkar.com' %>.
+<% end %>
+</div>

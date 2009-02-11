@@ -1,4 +1,8 @@
 class AccountController < ApplicationController
+  def home
+    @title = "Formulation Administration System"
+  end
+
   def login
     @title = 'Login'
     if request.post?

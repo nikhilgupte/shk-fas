@@ -2,7 +2,6 @@
 <div id="header" class="curved_botto">
 <% if @logged_in_user %>
 <ul id="top_links" class="side_by_side pipes">
-	<li><%= link_to 'Change Password', account_path(:action => :change_password) %></li>
 	<li class="last"><%= link_to 'Logout', account_path(:action => :logout) %></li>
 </ul>
 <% end %>

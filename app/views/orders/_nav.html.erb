@@ -1,5 +1,5 @@
 <ul>
-	<li><%= link_to_unless_current 'Pending Orders', orders_path %></li>
-	<li class="last"><%= link_to_unless_current 'Export', export_orders_path %></li>
+	<% if is_permitted?('orders','write') %><li><%= link_to_unless_current 'Pending Orders', orders_path %></li><% end %>
+	<% if is_permitted?('orders','export') %><li><%= link_to_unless_current 'Export', export_orders_path %></li><% end %>
 </ul>
 

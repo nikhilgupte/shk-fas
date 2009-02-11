@@ -1,0 +1,4 @@
+<ul>
+	<li><%= link_to_unless_current 'Home', account_path %></li>
+	<li><%= link_to_unless_current 'Change Password', account_path(:action => :change_password) %></li>
+</ul>

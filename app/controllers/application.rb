@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   before_filter :logged_in_user, :except => [:login]
   before_filter :login_required, :except => [:login]
+  before_filter :check_permission
 
   #protect_from_forgery
   
@@ -16,12 +17,24 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     if session[:logged_in_user_id]
       @logged_in_user = User.find(session[:logged_in_user_id])
-    #else
-      #return redirect_to account_path(:action => :login)
+      if @logged_in_user.disabled?
+        return render(:template => 'access_denied', :status => :unauthorized)
+      end
     end
   end
 
   def authorize?(user)
     user && !user.disabled?
+  end
+
+  def check_permission
+    @module = self.controller_path
+    if (@operation = Permission.operation(@module, params[:action])) && ! @logged_in_user.is_permitted?(@module, @operation)
+      if request.xhr?
+        return render(:text => "<b>Access Denied!</b><br />You do not have <b>#{@operation.to_s.humanize.titleize}</b> rights on the <b>#{@module.to_s.humanize.titleize}</b> module.")
+      else
+        return render(:template => 'access_denied', :status => :unauthorized)
+      end
+    end
   end
 end

@@ -1,0 +1,7 @@
+<ul class="normal">
+  <% if is_permitted?('orders', 'write') %><li><%= link_to 'Enter Pending Orders', orders_path %></li><% end %>
+  <% if is_permitted?('orders', 'export') %><li><%= link_to 'Export Pending Orders', export_orders_path %></li><% end %>
+  <% if is_permitted?('ingredients', 'read') %><li><%= link_to 'Update/Look-up Ingredient Prices', ingredients_path %></li><% end %>
+  <% if is_permitted?('ingredients', 'export') %><li><%= link_to 'Export Ingredient Prices', export_ingredients_path %></li><% end %>
+  <% if is_permitted?('admin') %><li><%= link_to 'Manage this system', admin_path %></li><% end %>
+</ul>
