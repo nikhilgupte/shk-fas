@@ -1,0 +1,8 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+test1:
+  username: test1
+  full_name: test1 test
+  email_address: test1@test
+  salt: salt
+  password: password
