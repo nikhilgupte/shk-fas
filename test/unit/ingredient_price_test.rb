@@ -17,21 +17,21 @@ class IngredientPriceTest < ActiveSupport::TestCase
     assert ingredient.prices.build(:price_in_inr => 90).valid?
 
     assert !ingredient.prices.build(:price_in_inr => 111).valid?
-    assert ingredient.prices.build(:price_in_inr => 111, :force => true).valid?
+    assert ingredient.prices.build(:price_in_inr => 111, :force => 'true').valid?
 
     assert ingredient.prices.build(:price_in_usd => 90).valid?
     assert ingredient.prices.build(:price_in_usd => 110).valid?
     usd_price =  ingredient.prices.build(:price_in_usd => 111)
     assert !usd_price.valid?
     assert usd_price.errors.invalid?(:price_in_usd)
-    assert ingredient.prices.build(:price_in_usd => 111, :force => true).valid?
+    assert ingredient.prices.build(:price_in_usd => 111, :force => 'true').valid?
 
     assert ingredient.prices.build(:price_in_eur => 90).valid?
     assert ingredient.prices.build(:price_in_eur => 110).valid?
     eur_price =  ingredient.prices.build(:price_in_eur => 111)
     assert !eur_price.valid?
     assert eur_price.errors.invalid?(:price_in_eur)
-    assert ingredient.prices.build(:price_in_eur => 111, :force => true).valid?
+    assert ingredient.prices.build(:price_in_eur => 111, :force => 'true').valid?
   end
 
   def test_acceptable_fluctuations_with_derivied_usd
@@ -44,7 +44,7 @@ class IngredientPriceTest < ActiveSupport::TestCase
     usd_price =  ingredient.prices.build(:price_in_usd => 111)
     assert !usd_price.valid?
     assert usd_price.errors.invalid?(:price_in_usd)
-    assert ingredient.prices.build(:price_in_usd => 111, :force => true).valid?
+    assert ingredient.prices.build(:price_in_usd => 111, :force => 'true').valid?
   end
 
   def test_acceptable_fluctuations_with_derivied_eur
@@ -57,7 +57,7 @@ class IngredientPriceTest < ActiveSupport::TestCase
     eur_price =  ingredient.prices.build(:price_in_eur => 111)
     assert !eur_price.valid?
     assert eur_price.errors.invalid?(:price_in_eur)
-    assert ingredient.prices.build(:price_in_eur => 111, :force => true).valid?
+    assert ingredient.prices.build(:price_in_eur => 111, :force => 'true').valid?
   end
 
 end

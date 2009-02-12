@@ -25,7 +25,6 @@ class Permission < ActiveRecord::Base
 
   # Gets the operation for a given module/controller and action
   def self.operation(module_name, action)
-    #MODULES[mod][action.to_sym] rescue nil
     @@permission_map[module_name][action.to_sym] rescue nil
   end
 
@@ -46,7 +45,6 @@ class Permission < ActiveRecord::Base
     user.permissions.delete_all
     module_names.each do |module_name|
       operations(module_name).each{|op|
-        logger.debug("!!!!!! #{op} | #{op.class}")
         user.permissions.create(:module => module_name, :operation => op.to_s)
       }
     end

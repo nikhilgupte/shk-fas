@@ -9,21 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090210163000) do
-
-  create_table "_imaster", :id => false, :force => true do |t|
-    t.string "code", :limit => nil
-    t.string "name", :limit => nil
-    t.string "cost", :limit => nil
-    t.string "x",    :limit => nil
-    t.string "y",    :limit => nil
-  end
-
-  create_table "_pmaster", :id => false, :force => true do |t|
-    t.string "code",      :limit => nil
-    t.string "name",      :limit => nil
-    t.float  "sales_qty"
-  end
+ActiveRecord::Schema.define(:version => 20090211050925) do
 
   create_table "currencies", :force => true do |t|
     t.string "name"
@@ -72,6 +58,14 @@ ActiveRecord::Schema.define(:version => 20090210163000) do
 
   add_index "orders", ["created_by_id"], :name => "index_orders_on_created_by_id"
   add_index "orders", ["product_id"], :name => "index_orders_on_product_id"
+
+  create_table "permissions", :force => true do |t|
+    t.integer "user_id",   :null => false
+    t.string  "module",    :null => false
+    t.string  "operation", :null => false
+  end
+
+  add_index "permissions", ["module", "operation", "user_id"], :name => "index_permissions_on_user_id_and_module_and_operation", :unique => true
 
   create_table "products", :force => true do |t|
     t.string   "code",                                      :null => false

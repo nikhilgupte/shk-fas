@@ -18,17 +18,18 @@ class Order < ActiveRecord::Base
   validates_inclusion_of :location, :within => LOCATION.keys.collect(&:to_s), :message => 'is not valid', :allow_blank => true
 
   def validate_on_create
-    if (self.location == 'k' && self.created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location = ?', self.product_id, 'k'])) \
-        || (self.location != 'k' && self.created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location != ?', self.product_id, 'k']))
+    t = created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location <> ?', product_id, 'k'])
+    if (location == 'k' && created_by.orders.pending.exists?(['product_id = ? and location = ?', product_id, 'k'])) \
+        || (location != 'k' && created_by.orders.pending.exists?(['product_id = ? and location != ?', product_id, 'k']))
       errors.add_to_base('Duplicate order detected. Please update the existing order!')
     end
   end
 
   def validate
-    errors.add_to_base('Production Qty must be greater than or equal to the Order Qty') if production_quantity < quantity
+    errors.add(:production_quantity, 'must be greater than or equal to the Order Qty') if production_quantity < quantity
   end
 
-  before_validation :set_default_production_qty
+  before_validation :set_default_production_qty, :fix_fields
 
   def location_text
     LOCATION[location.to_sym] rescue '-'
@@ -45,5 +46,10 @@ class Order < ActiveRecord::Base
   private
   def set_default_production_qty
     self.production_quantity = self.quantity if self.production_quantity.nil? # || self.production_quantity == 0
+  end
+
+  def fix_fields
+    self.location = '' unless self.location
+    self.priority = '' unless self.priority
   end
 end

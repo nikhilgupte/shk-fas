@@ -10,7 +10,7 @@
 	<td><%= (submitted_at = DateTime.parse(s['submitted_at'])).to_s(:datetime) %> <span class="tip"><%= time_ago_in_words(submitted_at) %> ago</span></td>
 	<td><%= User.find(s['created_by_id']).username %></td>
 	<td class="numeric"><%= s['count'] %></td>
-	<td><%= link_to 'download', :submitted_at => submitted_at, :user_id => s[1], :format => :csv %>
+	<td><%= link_to 'download', :submitted_at => submitted_at, :user_id => s['created_by_id'], :format => :csv %>
 </tr>
 <% end %>
 </tbody>

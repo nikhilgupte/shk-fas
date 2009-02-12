@@ -4,7 +4,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :code, :null => false
       t.string :name, :null => false
       t.float :quarterly_sales_quantity, :default => 0, :null => false
-      t.string :production_code, :string
+      t.string :production_code
 
       t.timestamps
     end

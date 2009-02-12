@@ -54,7 +54,7 @@ ul.admin_modules li {margin:10px 0}
 
 /* STYLES */
 a {color:#000}
-a:visited {color:#666}
+table a:visited {color:#666}
 h1 {font-size:16pt;padding-bottom:5px;border-bottom:3px solid #ccc;margin-bottom:10px;}
 h2 {font-size:13pt;margin:5px 0}
 h3 {font-size:11pt;margin:5px 0;}
@@ -80,8 +80,7 @@ a.more {display:block;text-align:right}
 .large {font-size:14pt;line-height:24pt}
 .nav {font-size:10pt!important}
 .nav a {color:#000}
-.cancel_link {margin-left:100px;font-size:14pt;color:#000}
-.cancel_link {margin-left:10px;font-size:10pt;color:#000}
+.cancel_link, .cancel_link:visited {margin-left:10px;font-size:10pt;color:#000}
 .back_link {margin-right:100px;font-size:14pt;color:#000}
 
 .even {background-color:#f6f6f6}

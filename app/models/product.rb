@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 
-  before_save :upper_case
+  before_save :fix_fields
 
   named_scope :live
 
@@ -9,8 +9,8 @@ class Product < ActiveRecord::Base
   end
 
   private
-  def upper_case
-    self.code = code.upcase
-    self.name = name.upcase
+  def fix_fields
+    self.code = code.upcase.trim rescue nil
+    self.name = name.upcase.trim rescue nil
   end
 end

@@ -11,13 +11,15 @@ class Ingredient < ActiveRecord::Base
       :conditions => ['ip2.id is null and ip1.created_at::date >= ?', since], :order => 'name asc'
   }}
 
+  before_save :fix_fields
+
   def latest_price
     prices.last
   end
 
   private
-  def upper_case
-    self.code = code.upcase
-    self.name = name.upcase
+  def fix_fields
+    self.code = code.upcase.trim rescue nil
+    self.name = name.upcase.trim rescue nil
   end
 end

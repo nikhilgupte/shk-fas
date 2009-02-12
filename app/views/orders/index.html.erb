@@ -2,12 +2,12 @@
 
 <table class="list">
 <thead>
-<tr><th>Code</th><th style="width:29%">Product</th>
+<tr><th>Code</th><th style="width:40%">Product</th>
 <th class="numeric">Order Qty</th>
 <th class="numeric">Prod Qty</th>
 <th>Location</th>
 <th>Priority</th>
-<th></th><th></th></tr>
+<th></th></tr>
 </thead>
 <tbody id="order_list">
 <% (pending_orders = Order.pending).each do |order| %>
@@ -15,7 +15,7 @@
 <% end %>
 
 <% if pending_orders.empty? %>
-<tr id="empty_order_row"><td colspan="5" class="empty">Start entering orders using the form above...</td></tr>
+<tr id="empty_order_row"><td colspan="7" class="empty">Start entering orders using the form above...</td></tr>
 <% end %>
 </tbody>
 </table>

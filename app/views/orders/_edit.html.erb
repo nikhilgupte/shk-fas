@@ -1,10 +1,9 @@
-<tr id="o_<%= @order.id %>" class="<%= cycle 'odd', 'even' %>"><td colspan="8">
+<tr id="o_<%= @order.id %>" class="<%= cycle 'odd', 'even' %>"><td colspan="7">
 <div id="order_form">
 <% remote_form_for @order do |f| %>
 <%= error_messages_for :order %>
 	<div class="row">
 		<div>
-			<label>Product</label>
 			<b><%= @order.product.long_name %></b>
 		</div>
 	</div>

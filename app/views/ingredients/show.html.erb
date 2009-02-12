@@ -28,7 +28,7 @@
 <%= link_to_function 'Enter new price...', 'toggle_price_form();', :id => 'new_ingredient_price_link' %>
 <div id="prices_form" style="display:none"><%= render :partial => 'ingredients/prices/form' %></div>
 <script type="text/javascript">
-function toggle_price_form() { $("prices_form").toggle();$("new_ingredient_price_link").toggle(); }
+function toggle_price_form() { $("prices_form").toggle();$("new_ingredient_price_link").toggle(); $('ingredient_price_price_in_inr').focus();}
 <%= 'toggle_price_form()' unless latest_price %>
 </script>
 <% end %>
