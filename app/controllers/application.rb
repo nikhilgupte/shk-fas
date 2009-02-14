@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
   before_filter :check_permission
 
   expires_session :time => 20.minutes
-
-  #protect_from_forgery
   
   filter_parameter_logging :password
 

@@ -1,4 +1,6 @@
 class AccountController < ApplicationController
+  skip_before_filter :check_session_lifetime, :only => [:login]
+
   def home
     @title = "Formulation Administration System"
   end
