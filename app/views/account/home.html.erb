@@ -1,3 +1,5 @@
+<% unless @logged_in_user.permissions.empty? %>
+<h3>You are authorized to do the following...</h3>
 <ul class="normal">
   <% if is_permitted?('orders', 'write') %><li><%= link_to 'Enter Pending Orders', orders_path %></li><% end %>
   <% if is_permitted?('orders', 'export') %><li><%= link_to 'Export Pending Orders', export_orders_path %></li><% end %>
@@ -5,3 +7,8 @@
   <% if is_permitted?('ingredients', 'export') %><li><%= link_to 'Export Ingredient Prices', export_ingredients_path %></li><% end %>
   <% if is_permitted?('admin') %><li><%= link_to 'Manage this system', admin_path %></li><% end %>
 </ul>
+<% else %>
+<div class="empty" style="margin:30px 0">Sorry, you haven't been assigned any permissions as yet.
+<span class="tip" style="display:block;margin:10px 0">Please contact the FAS Administrator at <%= mail_to 'fas-admin@shkelkar.com' %></span>
+</div>
+<% end %>

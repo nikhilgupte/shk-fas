@@ -42,8 +42,10 @@ class Admin::UsersController < ApplicationController
     @user = User.find params[:id]
     unless @user == @logged_in_user
       @user.permissions.delete_all
-      params[:permissions].each do |mod, operations|
-        operations.keys.each{|op| @user.permissions.create(:module => mod, :operation => op)}
+      if params[:permissions]
+        params[:permissions].each do |mod, operations|
+          operations.keys.each{|op| @user.permissions.create(:module => mod, :operation => op)}
+        end
       end
       flash[:notice] = 'Permissions updated.'
     else

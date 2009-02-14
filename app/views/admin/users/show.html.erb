@@ -4,16 +4,18 @@
 <tr><th>Logged in</th><td><%= "#{time_ago_in_words @user.last_logged_in_at} ago" rescue '-'%> </td></tr>
 <tr><th>Created on</th><td><%= @user.created_at.to_s(:date) %></td></tr>
 </table>
+<% if is_permitted? 'admin/users', :write %>
 <div style="border-bottom:1px solid #ccc;padding:5px 0;">
 <ul class="side_by_side pipes">
 <li><%= link_to 'Edit', edit_admin_user_path(@user) %></li>
 <li class="last"><%= @user.id == @logged_in_user.id ? 'Disable' : (link_to_remote (@user.disabled? ? 'Enable':'Disable'), :url => toggle_disable_admin_user_path(@user), :confirm => "Really #{@user.disabled? ? 'enable':'disable'} this user?") %></li>
 </ul>
 </div>
+<% end %>
 
 <h2>Permissions</h2>
 <% form_tag modify_permissions_admin_user_path(@user), :id => 'permission_form' do %>
-<div style="float:right;width:230px;margin-top:10px;">
+<div style="float:right;width:215px;margin-top:10px;">
 <% unless @user == @logged_in_user %>
 <ul style="text-align:left">
 <li style="margin-bottom:10px"><a href="#" onclick="grant_all(true);return false">Grant All</a></li>

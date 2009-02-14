@@ -1,7 +1,7 @@
 <tr id="o_<%= order.id %>" class="<%= cycle 'odd', 'even' %>">
 <td><%= h(order.product.code) %></td><td><%= h order.product.name %></td>
-<td class="numeric"><%= number_with_precision(order.quantity, 3) %></td>
-<td class="numeric"><%= number_with_precision(order.production_quantity, 3) %></td>
+<td class="numeric"><%= number_with_precision(order.quantity, :precision => 3) %></td>
+<td class="numeric"><%= number_with_precision(order.production_quantity, :precision => 3) %></td>
 <td><%= order.location_text %></td>
 <td><%= order.priority_text %></td>
 <td>

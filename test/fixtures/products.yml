@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-rose_water:
+product1:
   name: Rose Water
   code: rw
   quarterly_sales_quantity: 30

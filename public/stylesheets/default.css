@@ -3,7 +3,7 @@ html {height:100%}
 body {
   font: 10pt "Lucida Grande", Lucida, arial, sans-serif;
   width:70%;
-  width:790px;
+  width:780px;
   margin:auto;
   background-color:#fff;
   height:100%;
@@ -27,13 +27,13 @@ p {margin:10px 0}
     #footer ul {text-align:center}
 #footer a {color:#333}
 #version {color:#999;text-align:right;padding:5px}
-#body {margin-top:20px}
+#body {margin-top:10px;}
 
 
 div.wrapper {width:100%;margin:auto;clear:both;}
 
 #menu {background:#252 url(../images/menu_bg.gif)}
-#menu ul {padding:0px 0px;font-size:10.0pt;}
+#menu ul {padding:0px 0px;font-size:10.0pt;width:100%}
 #menu li {float:left;width:120px;}
 #menu li.current {background:#eee url(/images/menu_fg.gif);}
 #menu a:hover {background-color:#040}

@@ -1,8 +1,8 @@
 <div id="top_container">
 <div id="header" class="curved_botto">
 <% if @logged_in_user %>
-<ul id="top_links" class="side_by_side pipes">
-	<li class="last"><%= link_to 'Logout', account_path(:action => :logout) %></li>
+<ul id="top_links" class="side_by_side">
+	<li><%= link_to 'Logout', account_path(:action => :logout) %></li>
 </ul>
 <% end %>
 <div id="logo">SHK - <b>F</b>ormulation <b>A</b>dministration <b>S</b>ystem</div>

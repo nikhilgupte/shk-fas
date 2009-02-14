@@ -9,12 +9,15 @@ class ApplicationController < ActionController::Base
   before_filter :login_required, :except => [:login]
   before_filter :check_permission
 
+  expires_session :time => 20.minutes
+
   #protect_from_forgery
   
   filter_parameter_logging :password
 
   private
   def logged_in_user
+    response.headers['Cache-control'] = 'no-cache, no-store'
     if session[:logged_in_user_id]
       @logged_in_user = User.find(session[:logged_in_user_id])
       if @logged_in_user.disabled?
@@ -37,4 +40,5 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
 end
