@@ -40,6 +40,6 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: shk_production
-  username: shk
+  database: fas_production
+  username: fas
   password:
