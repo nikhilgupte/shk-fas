@@ -10,7 +10,7 @@
 <th></th></tr>
 </thead>
 <tbody id="order_list">
-<% (pending_orders = Order.pending).each do |order| %>
+<% (pending_orders = @logged_in_user.orders.pending).each do |order| %>
 <%= render :partial => 'order', :locals => {:order => order} %>
 <% end %>
 

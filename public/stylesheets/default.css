@@ -3,7 +3,7 @@ html {height:100%}
 body {
   font: 10pt "Lucida Grande", Lucida, arial, sans-serif;
   width:70%;
-  width:780px;
+  width:785px;
   margin:auto;
   background-color:#fff;
   height:100%;
@@ -14,7 +14,6 @@ p {margin:10px 0}
 
 #top_container {min-height:100%;padding-bottom:0;position:relative}
 #header {
-  /*border-bottom:4px solid #020;*/
   background:#050;
   background:#272;
   margin:0;padding:0; padding-bottom:0px;
@@ -30,10 +29,10 @@ p {margin:10px 0}
 #body {margin-top:10px;}
 
 
-div.wrapper {width:100%;margin:auto;clear:both;}
+div.wrapper {width:99%;margin:auto;clear:both;}
 
-#menu {background:#252 url(../images/menu_bg.gif)}
-#menu ul {padding:0px 0px;font-size:10.0pt;width:100%}
+#menu {background:#252 url(../images/menu_bg.gif);}
+#menu ul {padding:0px 0px;font-size:10.0pt;width:100%;height:26px}
 #menu li {float:left;width:120px;}
 #menu li.current {background:#eee url(/images/menu_fg.gif);}
 #menu a:hover {background-color:#040}
@@ -42,7 +41,7 @@ div.wrapper {width:100%;margin:auto;clear:both;}
 #menu li.current a:hover {background-color:#eee;}
 
 #sub_menu {background:#eee url(../images/menu_fg.gif) 0 -25px;border-bottom:1px solid #aaa}
-#sub_menu ul {padding:0px;font-size:10pt;}
+#sub_menu ul {padding:0px;font-size:10pt;height:27px}
 #sub_menu li {float:left;padding:5px 20px 5px 20px}
 #sub_menu a {color:#000;display:block;text-decoration:underline}
 

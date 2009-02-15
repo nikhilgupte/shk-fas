@@ -13,8 +13,9 @@ class OrderTest < ActiveSupport::TestCase
   def test_order_uniqueness
     user = users(:test1)
     product = products(:product1)
-    order = user.orders.create(:quantity => 100, :product_id => product.id)
-    assert_valid order
+    order = user.orders.create(:quantity => 100, :product_id => product.id, :location => '')
+    assert order.errors.empty?
+    #assert order.valid?
     assert_equal 1, user.orders.pending.count
     order = user.orders.create(:quantity => 100, :product_id => product.id, :location => 'm')
     assert !order.valid?

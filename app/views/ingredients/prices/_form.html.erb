@@ -10,10 +10,12 @@
 	<%= link_to_function 'Cancel', 'toggle_price_form()', :style => 'margin-left:20px' %>
 	</div>
 </div>
+<div style="clear:left">
 <%= tip 'If you enter the price in any one currency, the rest can be calculated by the system' %>
 <% if @price.errors.invalid?(:price_in_inr) || @price.errors.invalid?(:price_in_usd) || @price.errors.invalid?(:price_in_eur) %>
 <div class="row">
 <%= f.check_box :force, {}, true, false %> <label for="ingredient_price_force" style="font-size:15pt;display:inline">I confirm the price is accurate.</label>
+</div>
 </div>
 <% end %>
 <% end %>

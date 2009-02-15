@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
     if user = find_by_username(username)
       if user.password_valid?(password)
         unless user.disabled?
+          user.update_attribute :last_logged_in_at, Time.now
           return user
         else
           raise 'Your account has been disabled. Please contact the FAS Administrator'

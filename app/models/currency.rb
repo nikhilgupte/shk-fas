@@ -1,4 +1,6 @@
 class Currency < ActiveRecord::Base
+  validates_numericality_of :inr_value, :greater_than_or_equal_to => 0
+
   named_scope :all, :order => 'name'
 
   def self.inr_value(name)

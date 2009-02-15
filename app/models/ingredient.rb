@@ -1,5 +1,8 @@
 class Ingredient < ActiveRecord::Base
 
+  validates_presence_of :name, :code, :custom_duty, :tax_rate
+  validates_uniqueness_of :code, :allow_blank => true
+
   has_many :prices, :class_name => 'IngredientPrice', :order => 'created_at'
   belongs_to :tax_rate
   belongs_to :custom_duty
@@ -11,7 +14,7 @@ class Ingredient < ActiveRecord::Base
       :conditions => ['ip2.id is null and ip1.created_at::date >= ?', since], :order => 'name asc'
   }}
 
-  before_save :fix_fields
+  before_validation :fix_fields
 
   def latest_price
     prices.last
@@ -19,7 +22,7 @@ class Ingredient < ActiveRecord::Base
 
   private
   def fix_fields
-    self.code = code.upcase.trim rescue nil
-    self.name = name.upcase.trim rescue nil
+    self.code = code.upcase.strip rescue nil
+    self.name = name.upcase.strip rescue nil
   end
 end

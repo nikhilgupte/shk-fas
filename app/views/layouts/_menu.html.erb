@@ -7,13 +7,11 @@
 	<% if is_permitted? 'admin' %><li <%= 'class="current"' if controller.controller_path.starts_with?('admin') %>><%= link_to 'Admin', admin_path %></li><% end %>
   <li style="color:#6a6;float:right;padding-top:5px;width:100px;text-align:right;padding-right:5px;font-size:8pt">logged in as <%= h(@logged_in_user.username) %></li>
 </ul>
-<br clear="all"/>
 </div>
 <div id="sub_menu">
 <%= render :partial => "#{params[:controller]}/nav" \
     rescue render :partial => "#{@controller.class.parent.to_s.downcase}/nav" \
     rescue nil %>
-<br clear="all"/>
 </div>
 <% end %>
 

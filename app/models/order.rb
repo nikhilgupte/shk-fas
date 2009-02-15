@@ -18,15 +18,25 @@ class Order < ActiveRecord::Base
   validates_inclusion_of :location, :within => LOCATION.keys.collect(&:to_s), :message => 'is not valid', :allow_blank => true
 
   def validate_on_create
-    t = created_by.orders.pending.find(:first, :conditions => ['product_id = ? and location <> ?', product_id, 'k'])
-    if (location == 'k' && created_by.orders.pending.exists?(['product_id = ? and location = ?', product_id, 'k'])) \
-        || (location != 'k' && created_by.orders.pending.exists?(['product_id = ? and location != ?', product_id, 'k']))
+    if product_id
+      if (location == 'k' && created_by.orders.pending.exists?(['product_id = ? and location = ?', product_id, 'k'])) \
+          || (location != 'k' && created_by.orders.pending.exists?(['product_id = ? and location != ?', product_id, 'k']))
+        errors.add_to_base('Duplicate order detected. Please update the existing order!')
+      end
+    end
+  end
+
+  def validate_on_update
+    if (location == 'k' && created_by.orders.pending.exists?(['id != ? and product_id = ? and location = ?', id, product_id, 'k'])) \
+        || (location != 'k' && created_by.orders.pending.exists?(['id != ? and product_id = ? and location != ?', id, product_id, 'k']))
       errors.add_to_base('Duplicate order detected. Please update the existing order!')
     end
   end
 
   def validate
-    errors.add(:production_quantity, 'must be greater than or equal to the Order Qty') if production_quantity < quantity
+    if production_quantity && quantity
+      errors.add(:production_quantity, 'must be greater than or equal to the Order Qty') if production_quantity < quantity
+    end
   end
 
   before_validation :set_default_production_qty, :fix_fields

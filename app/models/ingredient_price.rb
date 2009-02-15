@@ -1,5 +1,5 @@
 class IngredientPrice < ActiveRecord::Base
-  validates_numericality_of :price_in_inr, :price_in_usd, :price_in_eur, :greater_than_or_equal_to => 0, :allow_blank => true
+  validates_numericality_of :price_in_inr, :price_in_usd, :price_in_eur, :greater_than_or_equal_to => 0.01, :allow_blank => true
 
   belongs_to :ingredient
   belongs_to :user
@@ -13,15 +13,15 @@ class IngredientPrice < ActiveRecord::Base
       if prev = ingredient.latest_price
         if self.price_in_inr
           diff = (prev.base_inr - self.price_in_inr).abs
-          errors.add(:price_in_inr, 'INR price varies over 10% from the historic values.') if diff*100.0/prev.base_inr > 10
+          errors.add(:price_in_inr, 'varies over 10% from the historic values.') if diff*100.0/prev.base_inr > 10
         end
         if self.price_in_usd
           diff = (prev.base_usd - self.price_in_usd).abs
-          errors.add(:price_in_usd, 'USD price varies over 10% from the historic values.') if diff*100.0/prev.base_usd > 10
+          errors.add(:price_in_usd, 'varies over 10% from the historic values.') if diff*100.0/prev.base_usd > 10
         end
        if self.price_in_eur
           diff = (prev.base_eur - self.price_in_eur).abs
-          errors.add(:price_in_eur, 'EUR price varies over 10% from the historic values.') if diff*100.0/prev.base_eur > 10
+          errors.add(:price_in_eur, 'varies over 10% from the historic values.') if diff*100.0/prev.base_eur > 10
         end
       end
     end
