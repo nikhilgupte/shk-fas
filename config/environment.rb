@@ -14,9 +14,10 @@ require 'fastercsv'
 
 Rails::Initializer.run do |config|
   config.gem "calendar_date_select"
-  config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir| 
-    File.directory?(lib = "#{dir}/lib") ? lib : dir
-  end
+  config.gem "fastercsv"
+  #config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir| 
+    #File.directory?(lib = "#{dir}/lib") ? lib : dir
+  #end
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
