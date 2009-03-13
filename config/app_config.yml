@@ -1,0 +1,4 @@
+# the directory containing the public/private keys
+fas_mssql_db_dsn: FAS_MSSQL_DB
+fas_mssql_db_username: nikhil
+fas_mssql_db_password: nikhil
