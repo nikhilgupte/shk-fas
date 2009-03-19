@@ -15,7 +15,7 @@
 <td class="tip"><%= latest_price.price_in_eur ? "" : "@ #{Currency.inr_value('EUR')} Rs/&euro;" %></td>
 </tr>
 <% end %>
-<tr style="border:0;height:20px;"><td></td><td></td><td class="emphasize"></td><td style="text-align:right;font-style:italic"><%= tip "updated by #{latest_price.user.username} #{time_ago_in_words latest_price.created_at} ago" %>
+<tr style="border:0;height:20px;"><td></td><td></td><td class="emphasize"></td><td style="text-align:right;font-style:italic"><%= tip "updated by #{latest_price.user.username rescue 'N/A'} #{time_ago_in_words latest_price.created_at} ago" %>
 </td></tr>
 </tbody>
 </table>
