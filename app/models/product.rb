@@ -17,7 +17,7 @@ class Product < ActiveRecord::Base
   def self.sync
     begin
       dbh = DBI.connect("dbi:ODBC:#{AppConfig.fas_mssql_db_dsn}", AppConfig.fas_mssql_db_username, AppConfig.fas_mssql_db_password)
-      products = dbh.execute('exec sp_BusinessFAS')
+      products = dbh.execute('exec fas_products')
       products.fetch_hash do |s_product|
         begin
           if product = find_by_code(s_product['prod_cd'])
