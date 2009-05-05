@@ -1,5 +1,5 @@
 <ul>
 <% @products.each do |product| %>
-<li id="p_<%= product.id %>"><%= h(product.long_name) %></li>
+<li id="p_<%= product.id %>"><span id="pc_<%= product.production_code %>"><%= h(product.long_name) %></span></li>
 <% end %>
 </ul>

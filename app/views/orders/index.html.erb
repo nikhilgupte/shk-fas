@@ -24,6 +24,6 @@
 <div style="margin:5px;padding:1px;text-align:center;background-color:#f3f3f3;<%= 'display:none' if pending_orders.empty? %>" id="submit_orders_box" class="curved large">
 The above orders need to be submitted once done.
 <% form_tag submit_orders_path, :style => 'padding:10px' do %>
-<%= submit_tag 'Submit Pending Orders' %>
+<%= submit_tag 'Submit Pending Orders', :confirm => 'Submit all pending orders?' %>
 <% end %>
 </div>

@@ -23,6 +23,7 @@ class Order < ActiveRecord::Base
           || (location != 'k' && created_by.orders.pending.exists?(['product_id = ? and location != ?', product_id, 'k']))
         errors.add_to_base('Duplicate order detected. Please update the existing order!')
       end
+      errors.add_to_base('Production Code for this product is not yet mapped!') if product.production_code.nil?
     end
   end
 

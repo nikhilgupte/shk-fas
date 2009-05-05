@@ -113,7 +113,7 @@ ul.checkboxes { margin:0;padding:0;list-style:none;}
 ul.checkboxes li {float:left;margin:5px 0;width:87px;}
 ul.checkboxes label {font-size:x-small}
 
-div.error {color:#c00;font-weight:bold}
+.error {color:#c00;font-weight:bold}
 div#errorExplanation { border:1px solid #c00;background-color:#fff!important;margin-bottom:10px;padding:0; height:100%;}
 div#errorExplanation p {padding-left:5px;}
 div#errorExplanation ul {padding:10px;}
