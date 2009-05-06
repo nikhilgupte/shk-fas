@@ -22,8 +22,8 @@ function productChanged(x, y) {
   $('product_error_msg').innerHTML = '';
 	id = y.id.match(/\d+/, '');
   production_code_id = Element.firstDescendant(y);
-  production_code = production_code_id.id.match(/\d+/, '');
-  if(production_code == undefined) {
+  production_code = production_code_id.id.replace(/^(pc_)/, '');
+  if(production_code == '') {
     $('product_error_msg').innerHTML = 'Production Code not present in this system!'
     $('add_order_button').disabled = true;
   } else {
