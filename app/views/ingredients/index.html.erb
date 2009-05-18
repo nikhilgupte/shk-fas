@@ -9,10 +9,14 @@
 var ingredient_name_auto_completer = new Ajax.Autocompleter('ingredient_name',
 			'ingredient_name_auto_complete',
 			'/ingredients/auto_complete_for_ingredient_name', {afterUpdateElement: ingredientChanged})
-//]]>
 function ingredientChanged(x, y) {
 	id = y.id.match(/\d+/, '');
-	window.open("<%= ingredients_path %>/" + id, "_self");
+	//window.open("<%= ingredients_path %>/" + id, "_self");
+  <%= remote_function :url => {:action => :show}, :with => "'id='+id" %>
 }
 $('ingredient_name').focus();
+//]]>
 </script>
+
+<div id="ingredient_msg"></div>
+<div id='ingredient'></div>

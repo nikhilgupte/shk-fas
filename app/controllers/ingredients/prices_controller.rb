@@ -5,8 +5,10 @@ class Ingredients::PricesController < ApplicationController
     @price = @ingredient.prices.build(params[:ingredient_price].merge!(:user_id => @logged_in_user.id))
     if @price.save
       render :update do |page|
-        flash[:notice] = "New prices added."
-        page.redirect_to ingredient_path(@ingredient)
+        @price = IngredientPrice.new
+        flash.now[:notice] = "New prices added."
+        page.replace_html :ingredient_msg, :partial => 'common/flash_message'
+        page.replace_html :ingredient, :partial => 'ingredients/show'
       end
     else
       render :update do |page|

@@ -1,0 +1,33 @@
+<div style="ackground-color:#f9f9f9;padding:2px 5px;width:100%" class="curved">
+<h3>Latest Prices</h3>
+<% unless @ingredient.prices.empty? %>
+<table class="list">
+<tr><th style="width:5px"></th><th class="tip" style="width:20px">Entered</th><th style="width:20px" class="emphasize tip">Exported</th><th></th></tr>
+<tbody>
+<% if latest_price = @ingredient.latest_price %>
+<tr><td class="currency">Rs.</td><td class="numeric"><%= number_to_currency(latest_price.price_in_inr, :unit => '')||'-' %></td><td class="emphasize numeric"><%= number_to_currency(latest_price.inr, :unit => '') %></td>
+<td class="tip"><%= (latest_price.price_in_usd ? "@ #{Currency.inr_value('USD')} Rs/$ + " : "#{Currency.inr_value('EUR')} Rs/&euro; + ") unless latest_price.price_in_inr %> <%= latest_price.price_in_inr ? "#{@ingredient.tax_rate.rate}% local taxes" : "#{@ingredient.custom_duty.duty}% CVD" %></td>
+</tr>
+<tr><td class="currency">$</td><td class="numeric"><%= number_to_currency(latest_price.price_in_usd, :unit => '') || '-' %></td><td class="emphasize numeric"><%= number_to_currency(latest_price.usd, :unit => '') %></td>
+<td class="tip"><%= latest_price.price_in_usd ? "" : "@ #{Currency.inr_value('USD')} Rs/$" %></td>
+</tr>
+<tr><td class="currency">&euro;</td><td class="numeric"><%= number_to_currency(latest_price.price_in_eur, :unit => '')||'-' %></td><td class="emphasize numeric"><%= number_to_currency(latest_price.eur, :unit => '') %></td>
+<td class="tip"><%= latest_price.price_in_eur ? "" : "@ #{Currency.inr_value('EUR')} Rs/&euro;" %></td>
+</tr>
+<% end %>
+<tr style="border:0;height:20px;"><td></td><td></td><td class="emphasize"></td><td style="text-align:right;font-style:italic"><%= tip "updated by #{latest_price.user.username rescue 'N/A'} #{time_ago_in_words latest_price.created_at} ago" %>
+</td></tr>
+</tbody>
+</table>
+<% else %>
+<div class="empty" style="padding-bottom:10px">No Prices Found!</div>
+<% end %>
+</div>
+
+<% if is_permitted?('ingredients/prices', 'write') %>
+<div id="prices_form"><%= render :partial => 'ingredients/prices/form' %></div>
+<script type="text/javascript">
+$('ingredient_price_price_in_inr').focus();
+</script>
+<% end %>
+

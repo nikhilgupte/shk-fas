@@ -5,7 +5,14 @@ class IngredientsController < ApplicationController
 
   def show
     @ingredient = Ingredient.find params[:id]
-    @title = "#{@ingredient.name} - #{@ingredient.code}"
+    if request.xhr?
+      render :update do |p|
+        p.replace_html "ingredient", :partial => "show"
+      end
+      return
+    else
+      @title = "#{@ingredient.name} - #{@ingredient.code}"
+    end
   end
 
   def export
