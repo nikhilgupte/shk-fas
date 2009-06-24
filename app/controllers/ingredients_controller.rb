@@ -31,7 +31,7 @@ class IngredientsController < ApplicationController
   def auto_complete_for_ingredient_name
     arg = params[:ingredient_name]
     arg.downcase!
-    @ingredients = Ingredient.live.find(:all, :conditions => ['lower(name) like ?', "#{arg}%"], :limit => 10)
+    @ingredients = Ingredient.live.find(:all, :conditions => ['lower(name) like ?', "%#{arg}%"], :limit => 10)
     render :partial => 'ingredients_auto_complete.html.erb'
   end
 

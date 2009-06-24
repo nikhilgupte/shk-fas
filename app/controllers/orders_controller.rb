@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
   def auto_complete_for_order_product_name_or_code
     arg = params[:order][:product_name_or_code]
     arg.downcase!
-    @products = Product.live.find(:all, :conditions => ['lower(name) like ? or lower(code) like ?', "#{arg}%", "#{arg}%"], :limit => 10)
+    @products = Product.live.find(:all, :conditions => ['lower(name) like ? or lower(code) like ?', "%#{arg}%", "#{arg}%"], :limit => 10)
     render :partial => 'products.html.erb'
   end
 
