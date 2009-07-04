@@ -21,7 +21,7 @@ class ProductionPlansController < ApplicationController
       f.csv {
         #response.headers['Content-Type'] = 'application/force-download'
         response.headers['Content-Disposition'] = "attachment; filename=\"fas-production-plan-#{@production_plan.id}.csv\""
-        return render :text => @production_plan.items.collect{|i| [i.product.name, i.product.code, i.quantity_1, i.quantity_2, i.quantity_3, i.quantity_4].to_csv}.insert(0, %w(product code qty1 qty2 qty3 qty4).to_csv).join
+        return render :text => @production_plan.items.collect{|i| [i.product.name, i.product.code, i.product.production_code, i.quantity_1, i.quantity_2, i.quantity_3, i.quantity_4].to_csv}.insert(0, %w(product code production_code qty1 qty2 qty3 qty4).to_csv).join
       }
     end
   end
@@ -29,6 +29,13 @@ class ProductionPlansController < ApplicationController
   def bom
     @production_plan = ProductionPlan.find params[:id]
     @title = "Production Plan ##{@production_plan.id}: Bill of Materials"
+    respond_to do |f|
+      f.html {}
+      f.csv {
+        response.headers['Content-Disposition'] = "attachment; filename=\"fas-bom-#{@production_plan.id}.csv\""
+        return render :text => @production_plan.bill_of_materials.items.collect{|i| [i.ingredient_name, i.ingredient_code, i.quantity_1, i.quantity_2, i.quantity_3, i.quantity_4].to_csv}.insert(0, %w(ingredient code qty1 qty2 qty3 qty4).to_csv).join
+      }
+    end
   end
 
   def submit

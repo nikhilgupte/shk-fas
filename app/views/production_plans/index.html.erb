@@ -12,7 +12,10 @@
   <td><%= h(plan.created_by.username) %>
   <td><%= h(plan.location_name) %>
   <td><%= plan.submitted_at.to_s(:date) rescue "N/A" %>
-  <td><%= link_to "show", production_plan_path(plan) %></td>
+  <td>
+  <%= link_to "show", production_plan_path(plan) %>
+  <% if plan.bill_of_materials %>| <%= link_to "BOM", bom_production_plan_path(plan) %><% end %>
+  </td>
 </tr>
 <% end %>
 </tbody>
