@@ -1,0 +1,51 @@
+<%= render(:partial => 'details') %>
+
+<h2 style="float:left">Bill of Materials</h2>
+<% if @production_plan.bill_of_materials && !@production_plan.bill_of_materials.new_record? %><div style="margin-top:8px;margin-left:7px;float:left">(<%= link_to "Export", formatted_bom_production_plan_path(:format => :csv) %> | <%= link_to "Re-Upload", delete_bom_production_plan_path, {:method => :delete, :confirm => "This will delete the current Bill of Materials. Proceed?"} %>)</div><% end %>
+<br clear="both"/>
+<%= error_messages_for :bill_of_materials %>
+<% if (bill_of_materials = @production_plan.bill_of_materials) && ! bill_of_materials.items.empty? %>
+<% unless bill_of_materials.new_record? %>
+  Remarks: <%= bill_of_materials.remarks.blank? ? "N/A" : h(bill_of_materials.remarks) %><br />
+  Uploaded by: <%= h(bill_of_materials.created_by.username) %> <span class="tip"><%= time_ago_in_words(bill_of_materials.created_at) %> ago</span><br />
+<% end %>
+<table class="list">
+<thead>
+<tr>
+  <th class='numeric' style='width:30px'>#</th><th>Ingredient</th><th>Code</th>
+  <% (1..4).each do |i| %>
+  <th class="numeric">Qty <%= i %> (KG)</th>
+  <% end %>
+</tr>
+</thead>
+<tbody>
+<% bill_of_materials.items.each_with_index do |item, i| %>
+<tr class="<%= cycle("odd","even") %><%= ' error' unless item.errors.empty? %>">
+  <td class='numeric'><%= "*" unless item.in_db? %> <%= i + 1 %></td><td><%= h(item.ingredient_name) %></td><td><%= h(item.ingredient_code) %></td>
+  <% (1..4).each do |i| %>
+  <td class="numeric"><%= number_with_precision item.send("quantity_#{i}"), :precision =>3 %></td>
+  <% end %>
+</tr>
+<% end %>
+</tbody>
+</table>
+<div class="tip">* - Ingredient not found in FAS database</div>
+<% end %>
+
+<% if bill_of_materials.nil? || bill_of_materials.new_record? %>
+<div style="margin:5px;padding:10px;background-color:#f3f3f3;" class="curved">
+<% form_for @bill_of_materials ||= BillOfMaterials.new, :url => upload_bom_production_plan_path(@production_plan), :html => {:multipart => true} do |f| %>
+<div class="row">
+  <label for="bill_of_materials_file">Upload Bill of Materials (CSV Format)</label>
+  <%= file_field_tag "bill_of_materials_file" %>
+  <%= tip "Field Format: Ingredient Code, Ingredient Name, Quantity" %>
+</div>
+<div class="row">
+  <%= f.label :remarks %>
+  <%= f.text_area :remarks, :rows => 2, :cols => 80 %>
+  <%= tip "maximum 255 characters" %>
+</div>
+<%= submit_tag "Upload" %>
+<% end %>
+</div>
+<% end %>

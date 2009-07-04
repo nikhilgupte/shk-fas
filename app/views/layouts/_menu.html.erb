@@ -4,6 +4,7 @@
 	<li <%= 'class="current"' if params[:controller] == 'account' %>><%= link_to 'Home', account_path %></li>
 	<% if is_permitted? 'orders' %><li <%= 'class="current"' if params[:controller] == 'orders' %>><%= link_to 'Orders', is_permitted?('orders', 'write') ? orders_path : export_orders_path %></li><% end %>
 	<% if is_permitted? 'ingredients' %><li <%= 'class="current"' if params[:controller] == 'ingredients' %>><%= link_to 'Ingredients', is_permitted?('ingredients', 'read') ? ingredients_path : export_ingredients_path %></li><% end %>
+	<% if true %><li <%= 'class="current"' if params[:controller] == 'production_plans' %>><%= link_to 'Production Plans', production_plans_path %></li><% end %>
 	<% if is_permitted? 'admin' %><li <%= 'class="current"' if controller.controller_path.starts_with?('admin') %>><%= link_to 'Admin', admin_path %></li><% end %>
   <li style="color:#6a6;float:right;padding-top:5px;width:100px;text-align:right;padding-right:5px;font-size:8pt">logged in as <%= h(@logged_in_user.username) %></li>
 </ul>
@@ -11,7 +12,7 @@
 <div id="sub_menu">
 <%= render :partial => "#{params[:controller]}/nav" \
     rescue render :partial => "#{@controller.class.parent.to_s.downcase}/nav" \
-    rescue nil %>
+    rescue "<ul></ul>" %>
 </div>
 <% end %>
 

@@ -1,0 +1,24 @@
+<table class="form">
+<tr>
+  <th>Created by</th><td><%= @production_plan.created_by.username %> <span class="tip"><%= time_ago_in_words(@production_plan.created_at) %> ago</span></td>
+  <% if @production_plan.submitted? %><th>Submitted on</th><td><%= @production_plan.submitted_at.to_s(:datetime) %></td><% end %>
+</tr>
+<tr>
+  <th>Forecast</th><td><%= @production_plan.forecast %></td>
+  <th>Location</th><td><%= @production_plan.location_name %></td>
+</tr>
+<tr>
+  <th>Remarks</th><td colspan="3"><%= @production_plan.remarks %></td>
+</tr>
+</table>
+<div style='margin:10px 0;padding-bottom:10px;border-bottom:1px solid #bbb'>
+<ul class="side_by_side pipes">
+<% unless @production_plan.submitted? %>
+  <li><%= link_to_function "Edit", "alert('TODO')" %></li>
+  <li class='last'><%= link_to_function "Delete", "alert('TODO')" %></li>
+<% else %>
+  <li><%= link_to_unless_current "Plan", production_plan_path %></li>
+  <li class='last'><%= link_to_unless_current "Bill of Materials", bom_production_plan_path %></li>
+<% end %>
+</ul>
+</div>

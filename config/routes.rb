@@ -5,6 +5,11 @@ ActionController::Routing::Routes.draw do |map|
     ingredient.resources :ingredient_prices, :controller => 'ingredients/prices', :as => "prices"
   end
 
+  map.resources :production_plans, :collection => {:auto_complete_for_item_product_name_or_code => :any},
+      :member => {:submit => :post, :bom => :get, :upload_bom => :post, :delete_bom => :delete} do |production_plan|
+    production_plan.resources :production_plan_items, :as => "items", :controller => "production_plans/items"
+  end
+
   map.namespace :admin do |admin|
     %w(tax_rates custom_duties products ingredients currencies).each do |m|
       admin.send(m, "#{m}/:action", :controller => m)

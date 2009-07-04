@@ -9,7 +9,43 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090211050925) do
+ActiveRecord::Schema.define(:version => 20090626091531) do
+
+  create_table "_imaster", :force => true do |t|
+    t.string "code", :limit => nil
+    t.string "name", :limit => nil
+    t.float  "cost"
+  end
+
+  create_table "_production_codes", :id => false, :force => true do |t|
+    t.string "b_code", :limit => nil
+    t.string "name",   :limit => nil
+    t.string "p_code", :limit => nil
+  end
+
+  create_table "bill_of_materials", :force => true do |t|
+    t.integer  "production_plan_id", :null => false
+    t.integer  "created_by_id",      :null => false
+    t.string   "remarks"
+    t.datetime "created_at"
+  end
+
+  add_index "bill_of_materials", ["created_by_id"], :name => "index_bill_of_materials_on_created_by_id"
+  add_index "bill_of_materials", ["production_plan_id"], :name => "index_bill_of_materials_on_production_plan_id"
+
+  create_table "bill_of_materials_items", :force => true do |t|
+    t.integer "bill_of_materials_id", :null => false
+    t.integer "ingredient_id"
+    t.string  "ingredient_name",      :null => false
+    t.string  "ingredient_code",      :null => false
+    t.float   "quantity_1",           :null => false
+    t.float   "quantity_2",           :null => false
+    t.float   "quantity_3",           :null => false
+    t.float   "quantity_4",           :null => false
+  end
+
+  add_index "bill_of_materials_items", ["bill_of_materials_id"], :name => "index_bill_of_materials_items_on_bill_of_materials_id"
+  add_index "bill_of_materials_items", ["ingredient_id"], :name => "index_bill_of_materials_items_on_ingredient_id"
 
   create_table "currencies", :force => true do |t|
     t.string "name"
@@ -67,12 +103,36 @@ ActiveRecord::Schema.define(:version => 20090211050925) do
 
   add_index "permissions", ["module", "operation", "user_id"], :name => "index_permissions_on_user_id_and_module_and_operation", :unique => true
 
+  create_table "production_plan_items", :force => true do |t|
+    t.integer  "production_plan_id", :null => false
+    t.integer  "product_id",         :null => false
+    t.float    "quantity_1",         :null => false
+    t.float    "quantity_2",         :null => false
+    t.float    "quantity_3",         :null => false
+    t.float    "quantity_4",         :null => false
+    t.datetime "created_at"
+  end
+
+  add_index "production_plan_items", ["product_id"], :name => "index_production_plan_items_on_product_id"
+  add_index "production_plan_items", ["production_plan_id"], :name => "index_production_plan_items_on_production_plan_id"
+
+  create_table "production_plans", :force => true do |t|
+    t.integer  "created_by_id", :null => false
+    t.string   "forecast_type", :null => false
+    t.string   "location"
+    t.string   "remarks"
+    t.datetime "submitted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "production_plans", ["created_by_id"], :name => "index_production_plans_on_created_by_id"
+
   create_table "products", :force => true do |t|
     t.string   "code",                                      :null => false
     t.string   "name",                                      :null => false
     t.float    "quarterly_sales_quantity", :default => 0.0, :null => false
     t.string   "production_code"
-    t.string   "string"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

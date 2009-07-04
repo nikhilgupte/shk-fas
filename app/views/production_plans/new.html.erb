@@ -1,0 +1,20 @@
+<% form_for @production_plan do |f| %>
+<%= error_messages_for :production_plan %>
+<div class="row">
+<div>
+	<%= f.label :forecast_type, "Forecast Type #{reqd}" %>
+	<%= f.select :forecast_type, ProductionPlan::FORECAST_TYPE.collect{|k,v| [v, k.to_s]}, :include_blank => true %>
+</div>
+
+<div>
+	<%= f.label :location %>
+	<%= f.select :location, Order::LOCATION.collect{|k,v| [v, k.to_s]}, :include_blank => true %>
+</div>
+</div>
+<div class="row">
+	<%= f.label :remarks %>
+  <%= f.text_area :remarks, :rows => 2, :cols => 80 %>
+  <%= tip "maximum 255 characters" %>
+</div>
+<%= submit_tag "Add Products &raquo;" %>
+<% end %>

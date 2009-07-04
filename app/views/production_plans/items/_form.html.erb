@@ -1,0 +1,47 @@
+<div id="item_form" style="border-bottom:1px solid #bbb">
+<h2>Add Products</h2>
+<% remote_form_for [@production_plan, @item ||= ProductionPlanItem.new] do |f| %>
+<%= error_messages_for :item %>
+<div class="row">
+		<div>
+			<label>Product <%= reqd %></label>
+			<input id="item_product_name_or_code" value="<%= @item.product.long_name if @item.product %>" name="product_name_or_code" size="20" type="text" /><div class="auto_complete" id="item_product_name_or_code_auto_complete"></div>
+			<input id="item_product_id" type="hidden" name="production_plan_item[product_id]" value="<%= @item.product_id %>"/>
+			<%= tip 'Enter product code or name' %>
+		</div>
+    <div><label>&nbsp;</label><span id='product_error_msg' style='margin-top:10px' class='error'></span></div>
+
+<% (1..4).each do |i| %>
+<div>
+	<%= f.label "quantity_#{i}", "Qty #{i}" %>
+	<%= f.text_field "quantity_#{i}", :class => 'numeric', :maxlength => 7, :size => 3 %>
+</div>
+<% end %>
+<div style="float:none"><%= submit_tag 'Add', :id => 'add_item_button', :style => 'margin-top:25px;' %></div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var item_product_name_or_code_auto_completer = new Ajax.Autocompleter('item_product_name_or_code',
+			'item_product_name_or_code_auto_complete',
+			'/production_plans/auto_complete_for_item_product_name_or_code', {afterUpdateElement: productChanged})
+//]]>
+function productChanged(x, y) {
+  $('product_error_msg').innerHTML = '';
+	id = y.id.match(/\d+/, '');
+  production_code_id = Element.firstDescendant(y);
+  production_code = production_code_id.id.replace(/^(pc_)/, '');
+  if(production_code == '') {
+    $('product_error_msg').innerHTML = 'Production Code not present in this system!'
+    $('add_item_button').disabled = true;
+  } else {
+    $('add_item_button').disabled = false;
+  }
+	$('item_product_id').value = id;
+	<%= remote_function :url => {:controller => 'products', :action => :get_quarterly_sales_quantity}, :with => "'id='+id", :update => 'qty_sales_value' %>
+}
+$('item_product_name_or_code').focus();
+</script>
+<% end %>
+</div>
+

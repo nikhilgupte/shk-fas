@@ -3,6 +3,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   before_save :hash_password
   has_many :orders, :foreign_key => :created_by_id
+  has_many :production_plans, :foreign_key => :created_by_id
   has_many :permissions, :dependent => :delete_all
 
   named_scope :all, :order => 'updated_at DESC'

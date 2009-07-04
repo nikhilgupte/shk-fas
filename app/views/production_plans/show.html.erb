@@ -1,0 +1,38 @@
+<%= render(:partial => 'details') %>
+
+<%= render(:partial => 'production_plans/items/form') unless @production_plan.submitted? %>
+
+<%= error_messages_for :production_plan %>
+
+<h2 style="float:left">Products</h2>
+<% if @production_plan.submitted? %><div style="margin-top:8px;margin-left:7px;float:left">(<%= link_to "Export", formatted_production_plan_path(:format => :csv) %>)</div><% end %>
+<table class="list">
+<thead>
+<tr>
+  <th>Product</th>
+  <% (1..4).each do |i| %>
+  <th class='numeric' style="width:50px">Qty <%= i %></th>
+  <% end %>
+  <% unless @production_plan.submitted? %><th style="width:40px"></th><% end %>
+</tr>
+</thead>
+<tbody id="items">
+<% unless @production_plan.items.empty? %>
+  <% @production_plan.items.each do |item| %>
+    <%= render :partial => 'production_plans/items/show', :locals => {:item => item} %>
+  <% end %>
+<% else %>
+<tr><td colspan="6" class="empty" id="items_empty">No items added</td></tr>
+<% end %>
+</tbody>
+</table>
+
+<% unless @production_plan.submitted? %>
+<div style="margin:5px;padding:1px;text-align:center;background-color:#f3f3f3;" class="curved large">
+<% form_tag submit_production_plan_path(@production_plan), :style => 'padding:10px' do %>
+<%= submit_tag 'Submit Production Plan', :confirm => 'Once submitted, this plan cannot be modified. Proceed?' %>
+<% end %>
+</div>
+<% else %>
+<% end %>
+

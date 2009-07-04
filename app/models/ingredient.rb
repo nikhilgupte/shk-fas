@@ -20,6 +20,10 @@ class Ingredient < ActiveRecord::Base
     prices.last
   end
 
+  def self.find_by_code(code)
+    find(:first, :conditions => ["lower(code) = ?", code.strip.downcase])
+  end
+
   private
   def fix_fields
     self.code = code.upcase.strip rescue nil

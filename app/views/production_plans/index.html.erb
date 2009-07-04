@@ -1,0 +1,19 @@
+<table class="list">
+<thead>
+<tr>
+  <th>ID</th><th>Remarks</th><th>By</th><th>Location</th><th>Submitted On</th><th></th>
+</tr>
+</thead>
+<tbody>
+<% ProductionPlan.recent.each do |plan| %>
+<tr class="<%= cycle('odd','even') %>">
+  <td class='numeric'><%= plan.id %>
+  <td><%= h(plan.remarks) %>
+  <td><%= h(plan.created_by.username) %>
+  <td><%= h(plan.location_name) %>
+  <td><%= plan.submitted_at.to_s(:date) rescue "N/A" %>
+  <td><%= link_to "show", production_plan_path(plan) %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
