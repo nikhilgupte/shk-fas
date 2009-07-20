@@ -14,7 +14,7 @@
 <div style='margin:10px 0;padding-bottom:10px;border-bottom:1px solid #bbb'>
 <ul class="side_by_side pipes">
 <% unless @production_plan.submitted? %>
-  <li><%= link_to_function "Edit", "alert('TODO')" %></li>
+  <li><%= link_to "Edit", edit_production_plan_path(@production_plan) %></li>
   <li class='last'><%= link_to_function "Delete", "alert('TODO')" %></li>
 <% else %>
   <li><%= link_to_unless_current "Plan", production_plan_path %></li>

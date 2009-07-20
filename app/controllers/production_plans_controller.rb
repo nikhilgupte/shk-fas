@@ -13,6 +13,20 @@ class ProductionPlansController < ApplicationController
     end
   end
 
+  def edit
+    @production_plan = ProductionPlan.find params[:id]
+    render :action => :new
+  end
+
+  def update
+    @production_plan = ProductionPlan.find params[:id]
+    if @production_plan.update_attributes params[:production_plan]
+      flash[:notice] = 'Production plan updated'
+      return redirect_to production_plan_path(@production_plan)
+    end
+    render :action => :new
+  end
+
   def show
     @production_plan = ProductionPlan.find params[:id]
     @title = "Production Plan ##{@production_plan.id}"

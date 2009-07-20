@@ -1,0 +1,19 @@
+<tr id="item_<%= @item.id %>">
+<td colspan='6'>
+<h4><%= @item.product.name %></h4>
+<% remote_form_for [@production_plan, @item] do |f| %>
+<%= error_messages_for :item %>
+<div class="row">
+<% (1..4).each do |i| %>
+<div>
+	<%= f.label "quantity_#{i}", "Qty #{i} (KG)" %>
+	<%= f.text_field "quantity_#{i}", :class => 'numeric', :maxlength => 7, :size => 5 %>
+</div>
+<% end %>
+<div style="margin:0;float:right"><%= submit_tag 'Save', :style => 'margin-top:25px' %>
+<%= link_to 'Cancel', "#", :class => 'cancel_link' %></div>
+</div>
+<% end %>
+</td>
+</tr>
+

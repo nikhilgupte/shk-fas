@@ -16,5 +16,5 @@
   <%= f.text_area :remarks, :rows => 2, :cols => 80 %>
   <%= tip "maximum 255 characters" %>
 </div>
-<%= submit_tag "Add Products &raquo;" %>
+<%= submit_tag @production_plan.new_record? ? "Add Products &raquo;" : "Save" %>
 <% end %>

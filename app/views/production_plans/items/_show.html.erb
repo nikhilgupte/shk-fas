@@ -1,10 +1,12 @@
 <tr id="item_<%= item.id %>" class='<%= cycle('odd', 'even') %>'>
   <td><%= item.product.name %></td>
   <% (1..4).each do |i| %>
-  <td class="numeric"><%= number_with_precision(item.send("quantity_#{i}"), :precision => 3) %></td>
+  <td class="numeric<%= " error" if item.quantity_below_threshold?(i) %>"><% quantity = item.send("quantity_#{i}") %><%= quantity > 0 ? "<div title='#{number_with_precision(item.percentage(i), :precision => 0)}%'>#{number_with_precision(quantity, :precision => 3)}</div>":"<div style='text-align:center'>-</div>" %></td>
   <% end %>
   <% unless @production_plan.submitted? %>
   <td style='text-align:right'>
+  <%= link_to_remote "edit", {:url => edit_production_plan_production_plan_item_path(@production_plan.id, item.id), :method => :get} %>
+  |
   <%= link_to_remote "delete", {:url => production_plan_production_plan_item_path(@production_plan.id, item.id), :method => :delete,
       :loading => "Element.remove('item_#{item.id}')", :confirm => 'Really delete this item?'}  %>
   </td><% end %>

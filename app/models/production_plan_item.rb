@@ -1,10 +1,12 @@
 class ProductionPlanItem < ActiveRecord::Base
 
+  MINIMUM_QUANTITY_PERCENTAGE = 10
+
   belongs_to :product
   belongs_to :production_plan
   validates_presence_of :product_id
   (1..4).each do |i|
-    validates_inclusion_of "quantity_#{i}", :within => 0..100000, :message => 'should under 100,000 Kgs.', :allow_blank => true
+    validates_inclusion_of "quantity_#{i}", :within => 0..100000, :message => 'should be under 100,000 Kgs.', :allow_blank => true
   end
 
   before_validation :fix_quantities
@@ -15,17 +17,21 @@ class ProductionPlanItem < ActiveRecord::Base
     end
   end
 
-  def percentage
-    #quantity * 100.0 / production_plan.net_quantity
-    10
+  def quantity_below_threshold?(qty_index)
+    quantity(qty_index) > 0 && percentage(qty_index) < MINIMUM_QUANTITY_PERCENTAGE
   end
 
-  def percentage_below_threshold?
-    percentage < 10
+  def percentage(qty_index)
+    quantity(qty_index) * 100.0 / production_plan.net_quantity(qty_index)
   end
 
   private
   def fix_quantities
     (1..4).each{|i| self.send("quantity_#{i}=", 0) if self.send("quantity_#{i}").nil? }
   end
+
+  def quantity(qty_index)
+    send("quantity_#{qty_index}")
+  end
+
 end
