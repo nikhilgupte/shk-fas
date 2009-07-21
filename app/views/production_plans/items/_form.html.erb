@@ -40,7 +40,8 @@ function productChanged(x, y) {
     $('add_item_button').disabled = false;
   }
 	$('item_product_id').value = id;
-	<%= remote_function :url => {:controller => 'products', :action => :get_quarterly_sales_quantity}, :with => "'id='+id", :update => 'qty_sales_value' %>
+	$('add_item_button').value = "Add";
+	<%= remote_function :url => {:controller => 'production_plans/items', :action => :pre_populate, :production_plan_id => @production_plan.id}, :with => "'id='+id" %>
 }
 $('item_product_name_or_code').focus();
 </script>

@@ -15,10 +15,11 @@
 <ul class="side_by_side pipes">
 <% unless @production_plan.submitted? %>
   <li><%= link_to "Edit", edit_production_plan_path(@production_plan) %></li>
-  <li class='last'><%= link_to_function "Delete", "alert('TODO')" %></li>
+  <li><%= link_to "Delete", production_plan_path(@production_plan), :method => :delete, :confirm => "Delete this Plan?" %></li>
 <% else %>
   <li><%= link_to_unless_current "Plan", production_plan_path %></li>
-  <li class='last'><%= link_to_unless_current "Bill of Materials", bom_production_plan_path %></li>
+  <li><%= link_to_unless_current "Bill of Materials", bom_production_plan_path %></li>
 <% end %>
+  <li class="last"><%= link_to "Copy Plan", copy_production_plan_path(@production_plan), :method => :post, :confirm => "Copy this Plan?", :title => "Creates a new Plan based on this Plan" %></li>
 </ul>
 </div>

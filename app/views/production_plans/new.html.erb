@@ -17,4 +17,5 @@
   <%= tip "maximum 255 characters" %>
 </div>
 <%= submit_tag @production_plan.new_record? ? "Add Products &raquo;" : "Save" %>
+<%= cancel_link @production_plan.new_record? ? production_plans_path : production_plan_path(@production_plan) %>
 <% end %>

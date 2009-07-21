@@ -25,13 +25,13 @@ class ProductionPlanItem < ActiveRecord::Base
     quantity(qty_index) * 100.0 / production_plan.net_quantity(qty_index)
   end
 
+  def quantity(qty_index)
+    send("quantity_#{qty_index}")
+  end
+
   private
   def fix_quantities
     (1..4).each{|i| self.send("quantity_#{i}=", 0) if self.send("quantity_#{i}").nil? }
-  end
-
-  def quantity(qty_index)
-    send("quantity_#{qty_index}")
   end
 
 end

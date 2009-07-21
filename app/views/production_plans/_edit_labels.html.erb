@@ -1,0 +1,11 @@
+<tr id="column_header">
+  <th>Product</th>
+  <th style="width:430px;" colspan="5">
+  <form action="<%= update_labels_production_plan_path(@production_plan) %>" method="post">
+  <% (1..4).each do |i| %>
+  <input type="text" value="<%= @production_plan.column_label("qty_#{i}") %>" name="<%= "column_labels[qty_#{i}]" %>" size="4" maxlength="10" style="margin:2px 32px 2px 0"/>
+  <% end %>
+  <%= submit_tag "Save" %>
+  </form>
+  </th>
+</tr>

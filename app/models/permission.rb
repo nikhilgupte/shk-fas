@@ -22,6 +22,7 @@ class Permission < ActiveRecord::Base
   map_permissions 'admin/tax_rates', :read => [:index, :show], :write => [:edit, :new, :create, :update]
   map_permissions 'admin/custom_duties', :read => [:index, :show], :write => [:edit, :new, :create, :update]
   map_permissions 'admin/users', :read => [:index, :show], :write => [:edit, :new, :create, :update, :modify_permissions, :toggle_disable]
+  #map_permissions 'production_plans', :read => [:index, :show], :write => [:edit, :new, :create, :update], :export => :export
 
   # Gets the operation for a given module/controller and action
   def self.operation(module_name, action)

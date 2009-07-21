@@ -1,15 +1,16 @@
 <table class="list">
 <thead>
 <tr>
-  <th>ID</th><th>Remarks</th><th>By</th><th>Location</th><th>Submitted On</th><th></th>
+  <th>ID</th><th>Created On</th><th>By</th><th>Remarks</th><th>Location</th><th>Submitted On</th><th></th>
 </tr>
 </thead>
 <tbody>
 <% ProductionPlan.recent.each do |plan| %>
 <tr class="<%= cycle('odd','even') %>">
   <td class='numeric'><%= plan.id %>
-  <td><%= h(plan.remarks) %>
+  <td><%= plan.created_at.to_s(:date) %>
   <td><%= h(plan.created_by.username) %>
+  <td><%= h(plan.remarks) %>
   <td><%= h(plan.location_name) %>
   <td><%= plan.submitted_at.to_s(:date) rescue "N/A" %>
   <td>

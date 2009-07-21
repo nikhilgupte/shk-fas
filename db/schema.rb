@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090626091531) do
+ActiveRecord::Schema.define(:version => 20090721081457) do
 
   create_table "_imaster", :force => true do |t|
     t.string "code", :limit => nil
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20090626091531) do
     t.datetime "submitted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "column_labels"
   end
 
   add_index "production_plans", ["created_by_id"], :name => "index_production_plans_on_created_by_id"

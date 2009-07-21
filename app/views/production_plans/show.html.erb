@@ -7,12 +7,12 @@
 <% if @production_plan.submitted? %><div style="margin-top:8px;margin-left:7px;float:left">(<%= link_to "Export", formatted_production_plan_path(:format => :csv) %>)</div><% end %>
 <table class="list">
 <thead>
-<tr>
+<tr id="column_header">
   <th>Product</th>
   <% (1..4).each do |i| %>
-  <th class='numeric' style="width:65px;">Qty <%= i %></th>
+  <th class='numeric' style="width:65px;"><%= @production_plan.column_label("qty_#{i}") %></th>
   <% end %>
-  <% unless @production_plan.submitted? %><th style="width:80px"></th><% end %>
+  <% unless @production_plan.submitted? %><th style="width:80px"><%= link_to_remote "Edit Labels", :url => edit_labels_production_plan_path(@production_plan) %></th><% end %>
 </tr>
 </thead>
 <%= render :partial => "items_totals" %>

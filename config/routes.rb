@@ -6,8 +6,8 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :production_plans, :collection => {:auto_complete_for_item_product_name_or_code => :any},
-      :member => {:submit => :post, :bom => :get, :upload_bom => :post, :delete_bom => :delete} do |production_plan|
-    production_plan.resources :production_plan_items, :as => "items", :controller => "production_plans/items"
+      :member => {:copy => :post, :submit => :post, :bom => :get, :upload_bom => :post, :delete_bom => :delete, :edit_labels => :post, :update_labels => :post} do |production_plan|
+    production_plan.resources :production_plan_items, :as => "items", :controller => "production_plans/items", :collection => {:pre_populate => :post}
   end
 
   map.namespace :admin do |admin|

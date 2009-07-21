@@ -3,10 +3,14 @@ class ProductionPlans::ItemsController < ApplicationController
 
   def create
     @item = @production_plan.items.build params[:production_plan_item]
+    if old_item = @production_plan.items.find(:first, :conditions => "product_id = #{@item.product_id}")
+      old_item.delete
+    end
     render :update do |page|
       if @item.save
         page <<  "if($('items_empty')) Element.remove('items_empty')"
         page.insert_html :top, 'items', :partial => 'show', :locals => {:item => @item}
+        page.remove "item_#{old_item.id}" if old_item
         @production_plan.items.each do |item|
           page.replace "item_#{item.id}", :partial => 'show', :locals => {:item => item}
         end
@@ -47,6 +51,18 @@ class ProductionPlans::ItemsController < ApplicationController
         page.replace "item_#{item.id}", :partial => 'show', :locals => {:item => item}
       end
       page.replace "items_totals_#{@production_plan.id}", :partial => "/production_plans/items_totals"
+    end
+  end
+
+  def pre_populate
+    if @item = @production_plan.items.find_by_product_id(params[:id].to_i)
+      render :update do |p|
+        (1..4).each{|i| p["production_plan_item_quantity_#{i}"].value = @item.quantity(i)}
+        p["product_error_msg"].innerHTML = "Product alread present in plan. Overwrite?"
+        p["add_item_button"].value = "Update"
+      end
+    else
+      render :nothing => true
     end
   end
 

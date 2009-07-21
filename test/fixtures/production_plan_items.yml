@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  production_plan_id: 1
+  product_id: 1
+  quantity: 1.5
+  location: MyString
+
+two:
+  production_plan_id: 1
+  product_id: 1
+  quantity: 1.5
+  location: MyString

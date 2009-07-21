@@ -13,9 +13,32 @@ class ProductionPlansController < ApplicationController
     end
   end
 
-  def edit
+  def copy
     @production_plan = ProductionPlan.find params[:id]
-    render :action => :new
+    new_plan = @production_plan.copy(@logged_in_user)
+    flash[:notice] = "Production Plan created from Plan ##{@production_plan.id}"
+    return redirect_to edit_production_plan_path(new_plan)
+  end
+
+  def edit
+    if(@production_plan = ProductionPlan.find params[:id]).editable?
+      @title = "Edit Production Plan ##{@production_plan.id}"
+      render :action => :new
+    else
+      flash[:notice] = "Production Plan ##{@production_plan.id} cannot be edited!"
+      return redirect_to production_plan_path(@production_plan)
+    end
+  end
+
+  def destroy
+    if (@production_plan = ProductionPlan.find params[:id]).deletable?
+      @production_plan.destroy
+      flash[:notice] = "Production Plan ##{@production_plan.id} deleted!"
+      return redirect_to production_plans_path
+    else
+      flash[:notice] = "Production Plan ##{@production_plan.id} cannot be deleted!"
+      return redirect_to production_plan_path(@production_plan)
+    end
   end
 
   def update
@@ -95,5 +118,19 @@ class ProductionPlansController < ApplicationController
     @production_plan = ProductionPlan.find params[:id]
     @production_plan.bill_of_materials.destroy
     return redirect_to bom_production_plan_path(@production_plan)
+  end
+
+  def edit_labels
+    @production_plan = ProductionPlan.find params[:id]
+    render :update do |page|
+      page.replace "column_header", :partial => "edit_labels"
+    end
+  end
+
+  def update_labels
+    @production_plan = ProductionPlan.find params[:id]
+    @production_plan.update_attribute :column_labels, params[:column_labels]
+    flash[:notice] = "Production Plan Column Labels updated"
+    return redirect_to production_plan_path(@production_plan)
   end
 end

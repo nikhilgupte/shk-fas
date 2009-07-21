@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  created_by_id: 1
+  forecast_type: MyString
+  remarks: MyString
+
+two:
+  created_by_id: 1
+  forecast_type: MyString
+  remarks: MyString
