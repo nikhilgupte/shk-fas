@@ -1,6 +1,6 @@
 class ProductionPlanItem < ActiveRecord::Base
 
-  MINIMUM_QUANTITY_PERCENTAGE = 10
+  MINIMUM_QUANTITY_PERCENTAGE = 1
 
   belongs_to :product
   belongs_to :production_plan
