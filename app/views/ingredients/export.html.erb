@@ -13,3 +13,12 @@
 	<%= submit_tag 'Export All Ingredients' %>
 <% end %>
 </div>
+
+<% unless (logs = ExportLog.all.find(:all, :limit => 20)).empty? %>
+<h2>Export History</h2>
+<ul>
+<% ExportLog.all.each do |log| %>
+<li><%= log.user.username %> <%= time_ago_in_words log.created_at %> ago <span class='tip'><%= log.created_at.to_s(:datetime) %></span></li>
+<% end %>
+</ul>
+<% end %>
