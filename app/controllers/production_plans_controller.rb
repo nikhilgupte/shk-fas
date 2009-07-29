@@ -57,7 +57,7 @@ class ProductionPlansController < ApplicationController
       f.html {}
       f.csv {
         #response.headers['Content-Type'] = 'application/force-download'
-        response.headers['Content-Disposition'] = "attachment; filename=\"fas-production-plan-#{@production_plan.id}.csv\""
+        response.headers['Content-Disposition'] = "attachment; filename=\"fas_production_plan_#{@production_plan.id}.csv\""
         return render :text => @production_plan.items.collect{|i| [i.product.name, i.product.code, i.product.production_code, i.quantity_1, i.quantity_2, i.quantity_3, i.quantity_4].to_csv}.insert(0, %w(product code production_code qty1 qty2 qty3 qty4).to_csv).join
       }
     end

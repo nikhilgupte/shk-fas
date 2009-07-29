@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
         submitted_at = DateTime.parse params[:submitted_at]
         @orders = Order.all.find(:all, :conditions => ['submitted_at >= ? and submitted_at < ? and created_by_id = ?', submitted_at, submitted_at + 1.second, params[:user_id].to_i])
         response.headers['Content-Type'] = 'application/force-download'
-        response.headers['Content-Disposition'] = "attachment; filename=\"orders-#{submitted_at.to_s(:datetime).gsub(/\W/,'-')}-#{User.find(params[:user_id]).username}.csv\""
+        response.headers['Content-Disposition'] = "attachment; filename=\"orders_#{submitted_at.to_s(:datetime).gsub(/\W/,'_')}_#{User.find(params[:user_id]).username}.csv\""
         return render :text => @orders.collect{|o| [o.id, o.product.name, o.product.code, o.product.production_code, o.quantity, o.production_quantity, o.location, o.priority].to_csv}.insert(0, (%w(id name code production_code order_quantity production_quantity location priority)).to_csv).join()
     else
       @title = 'Export'
