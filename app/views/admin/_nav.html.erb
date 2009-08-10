@@ -1,9 +1,0 @@
-<ul>
-	<% if is_permitted?('admin/users') %><li><%= link_to_unless_current 'Users', admin_users_path %></li><% end %>
-	<% if is_permitted?('admin/ingredients') %><li><%= link_to_unless_current 'Ingredients', admin_ingredients_path %></li><% end %>
-	<% if is_permitted?('admin/products') %><li><%= link_to_unless_current 'Products', admin_products_path %></li><% end %>
-	<% if is_permitted?('admin/currencies') %><li><%= link_to_unless_current 'Currencies', admin_currencies_path %></li><% end %>
-	<% if is_permitted?('admin/tax_rates') %><li><%= link_to_unless_current 'Tax Rates', admin_tax_rates_path %></li><% end %>
-	<% if is_permitted?('admin/custom_duties') %><li><%= link_to_unless_current 'Custom Duties', admin_custom_duties_path %></li><% end %>
-</ul>
-

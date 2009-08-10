@@ -6,6 +6,7 @@ class Product < ActiveRecord::Base
   validates_numericality_of :quarterly_sales_quantity
 
   before_validation :fix_fields
+  belongs_to :formulation
 
   named_scope :live
 

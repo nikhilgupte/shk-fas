@@ -47,9 +47,10 @@ div.wrapper {width:99%;margin:auto;clear:both;}
 
 /*#sub_menu {padding:5px;font-size:10pt;background-color:#eee;margin-bottom:10px;display:none}*/
 
-ul.admin_modules {font-size: 13pt;padding-left:10px;}
+ul.admin_modules {font-size: 10pt;}
 ul.admin_modules a {color:#000}
-ul.admin_modules li {margin:10px 0}
+ul.admin_modules li {padding:5px 0;}
+ul.admin_modules li li {padding-left:15px;}
 
 /* STYLES */
 a {color:#000}
@@ -111,3 +112,5 @@ table.permissions th {border:1px solid #aaa}
 
 ul.normal {padding-left:10px;}
 ul.normal li {margin:10px;list-style:disc}
+
+.highlight {background-color:#ff0}

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090729085109) do
+ActiveRecord::Schema.define(:version => 20090809132133) do
 
   create_table "_imaster", :force => true do |t|
     t.string "code", :limit => nil
@@ -62,6 +62,13 @@ ActiveRecord::Schema.define(:version => 20090729085109) do
   create_table "export_logs", :force => true do |t|
     t.integer  "user_id"
     t.datetime "created_at", :null => false
+  end
+
+  create_table "formulations", :force => true do |t|
+    t.string   "name",       :null => false
+    t.string   "code",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ingredient_prices", :force => true do |t|
@@ -141,7 +148,10 @@ ActiveRecord::Schema.define(:version => 20090729085109) do
     t.string   "production_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "formulation_id"
   end
+
+  add_index "products", ["formulation_id"], :name => "index_products_on_formulation_id"
 
   create_table "tax_rates", :force => true do |t|
     t.string   "name",       :null => false

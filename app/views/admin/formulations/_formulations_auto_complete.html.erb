@@ -1,0 +1,5 @@
+<ul>
+<% @formulations.each do |formulation| %>
+<li id="i_<%= formulation.id %>"><%= h(formulation.name_with_code) %></li>
+<% end %>
+</ul>

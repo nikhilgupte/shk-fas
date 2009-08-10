@@ -1,0 +1,39 @@
+<% scope ||= nil %>
+<dl>
+  <dt>
+    <label for="<%= "record_#{column.name}" %>">
+      <%= column.label %>
+    </label>
+  </dt>
+  <dd>
+    <input type="hidden" id="record_formulation_id_<%= @record[:id] %>" name="record[formulation_id]"/>
+    <input type="text" class="name-input text-input" id="record_formulation_name_<%= @record[:id] %>" name="formulation_name" size="30" value="<%= @record.formulation.name_with_code rescue nil %>"/>
+    <div class="auto_complete" id="record_formulation_name_<%= @record[:id] %>_auto_complete"></div>
+  </dd>
+</dl>
+<script type="text/javascript">
+//<![CDATA[
+var formulation_auto_completer = new Ajax.Autocompleter('record_formulation_name_<%= @record[:id] %>',
+			'record_formulation_name_<%= @record[:id] %>_auto_complete',
+			'/admin/formulations/auto_complete_formulations', {afterUpdateElement: formulationChanged})
+//]]>
+function formulationChanged(x, y) {
+	id = y.id.match(/\d+/, '');
+  $("record_formulation_id_<%= @record[:id] %>").value = id;
+  /*
+  $('product_error_msg').innerHTML = '';
+	id = y.id.match(/\d+/, '');
+  production_code_id = Element.firstDescendant(y);
+  production_code = production_code_id.id.replace(/^(pc_)/, '');
+  if(production_code == '') {
+    $('product_error_msg').innerHTML = 'Production Code not present in this system!'
+    $('add_order_button').disabled = true;
+  } else {
+    $('add_order_button').disabled = false;
+  }
+	$('order_product_id').value = id;
+	<%= remote_function :url => {:controller => 'products', :action => :get_quarterly_sales_quantity}, :with => "'id='+id", :update => 'qty_sales_value' %>
+  */
+}
+</script>
+
