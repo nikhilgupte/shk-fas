@@ -20,20 +20,6 @@ var formulation_auto_completer = new Ajax.Autocompleter('record_formulation_name
 function formulationChanged(x, y) {
 	id = y.id.match(/\d+/, '');
   $("record_formulation_id_<%= @record[:id] %>").value = id;
-  /*
-  $('product_error_msg').innerHTML = '';
-	id = y.id.match(/\d+/, '');
-  production_code_id = Element.firstDescendant(y);
-  production_code = production_code_id.id.replace(/^(pc_)/, '');
-  if(production_code == '') {
-    $('product_error_msg').innerHTML = 'Production Code not present in this system!'
-    $('add_order_button').disabled = true;
-  } else {
-    $('add_order_button').disabled = false;
-  }
-	$('order_product_id').value = id;
-	<%= remote_function :url => {:controller => 'products', :action => :get_quarterly_sales_quantity}, :with => "'id='+id", :update => 'qty_sales_value' %>
-  */
 }
 </script>
 

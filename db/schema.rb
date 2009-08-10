@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090809132133) do
+ActiveRecord::Schema.define(:version => 20090810104012) do
 
   create_table "_imaster", :force => true do |t|
     t.string "code", :limit => nil
@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(:version => 20090809132133) do
     t.string   "code",                                      :null => false
     t.string   "name",                                      :null => false
     t.float    "quarterly_sales_quantity", :default => 0.0, :null => false
-    t.string   "production_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "formulation_id"

@@ -39,10 +39,13 @@ class Product < ActiveRecord::Base
     find(:first, :conditions => ['lower(code) = ?', code.downcase])
   end
 
+  def production_code
+    formulation.code rescue nil
+  end
+
   private
   def fix_fields
     self.code = code.upcase.strip rescue nil
-    self.production_code = production_code.upcase.strip rescue nil
     self.name = name.upcase.strip rescue nil
   end
 end

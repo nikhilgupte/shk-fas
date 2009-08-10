@@ -7,19 +7,24 @@ class Admin::FormulationsController < AdminController
 
   def import
     if request.post?
+      added,updated = 0,0
       begin
         FasterCSV.parse(params[:formulations_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
           code,name = row[0],row[1]
           unless code.blank? || name.blank?
             if formulation = Formulation.find_by_code(code)
               formulation.update_attribute(:name, name)
+              updated += 1
             else
               Formulation.create!(:code => code, :name => name)
+              added += 1
             end
           end
         end
       #rescue
       end
+      flash[:notice] = "Added #{added} and updated #{updated} formulations."
+      redirect_to admin_formulations_path
     end
   end
 
