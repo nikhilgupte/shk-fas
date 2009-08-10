@@ -17,6 +17,7 @@ class Permission < ActiveRecord::Base
   map_permissions 'ingredients', :read => [:index, :show], :export => :export
   map_permissions 'ingredients/prices', :write => [:create]
   map_permissions 'admin/ingredients', :read => [:index, :show], :write => [:edit, :new, :create, :update]
+  map_permissions 'admin/formulations', :read => [:index, :show], :write => [:edit, :new, :create, :update, :import]
   map_permissions 'admin/products', :read => [:index, :show], :write => [:edit, :new, :create, :update]
   map_permissions 'admin/currencies', :read => [:index, :show], :write => [:edit, :new, :create, :update]
   map_permissions 'admin/tax_rates', :read => [:index, :show], :write => [:edit, :new, :create, :update]
