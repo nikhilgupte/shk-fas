@@ -31,7 +31,7 @@ class Admin::FormulationsController < AdminController
   def auto_complete_formulations
     arg = params[:formulation_name]
     arg.downcase!
-    @formulations = Formulation.find(:all, :conditions => ['lower(name) like ? or lower(code) like ?', "%#{arg}%", "#{arg}%"], :limit => 10)
+    @formulations = Formulation.find(:all, :conditions => ['lower(name) like ? or lower(code) like ?', "%#{arg}%", "%#{arg}%"], :limit => 10)
     render :partial => 'formulations_auto_complete'
   end
 
