@@ -16,7 +16,6 @@
 <h2>Permissions</h2>
 <% form_tag modify_permissions_admin_user_path(@user), :id => 'permission_form' do %>
 <div style="float:right;width:215px;margin-top:10px;">
-<% unless @user == @logged_in_user %>
 <ul style="text-align:left">
 <li style="margin-bottom:10px"><a href="#" onclick="grant_all(true);return false">Grant All</a></li>
 <li style="margin-bottom:10px"><a href="#" onclick="grant_all(false);return false">Revoke All</a></li>
@@ -28,10 +27,6 @@
     $$('.permission_cbx').each(function(e) {e.checked = grant});
   }
 </script>
-<% else %>
-<%= submit_tag 'Save Permissions', :disabled => 'disabled' %>
-<div class="tip">You cannot modify your own permissions</div>
-<% end %>
 </div>
 <table class="permissions">
 <thead>
@@ -41,7 +36,7 @@
 <tr>
 <th><%= module_name.gsub('/', ':').humanize.titleize %></th>
 <% Permission.operations.each do |operation| %>
-  <td><% if Permission.operations(module_name).include?(operation) %> <%= check_box_tag "permissions[#{module_name}][#{operation}]", '1', @user.is_permitted?(module_name, operation), :class => 'permission_cbx', :disabled => @user==@logged_in_user %> <% end %></td>
+  <td><% if Permission.operations(module_name).include?(operation) %> <%= check_box_tag "permissions[#{module_name}][#{operation}]", '1', @user.is_permitted?(module_name, operation), :class => 'permission_cbx' %> <% end %></td>
 <% end %>
 </tr>
 <% end %>

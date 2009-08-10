@@ -40,17 +40,13 @@ class Admin::UsersController < ApplicationController
 
   def modify_permissions
     @user = User.find params[:id]
-    unless @user == @logged_in_user
-      @user.permissions.delete_all
-      if params[:permissions]
-        params[:permissions].each do |mod, operations|
-          operations.keys.each{|op| @user.permissions.create(:module => mod, :operation => op)}
-        end
+    @user.permissions.delete_all
+    if params[:permissions]
+      params[:permissions].each do |mod, operations|
+        operations.keys.each{|op| @user.permissions.create(:module => mod, :operation => op)}
       end
-      flash[:notice] = 'Permissions updated.'
-    else
-      flash[:notice] = 'You cannot update your own permissions.'
     end
+    flash[:notice] = 'Permissions updated.'
     redirect_to admin_user_path(@user)
   end
 
