@@ -26,6 +26,7 @@ class Admin::FormulationsController < AdminController
       flash[:notice] = "Added #{added} and updated #{updated} formulations."
       redirect_to admin_formulations_path
     end
+    @title = 'Admin: Formulations: Import'
   end
 
   def auto_complete_formulations
