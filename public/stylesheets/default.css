@@ -114,3 +114,11 @@ ul.normal {padding-left:10px;}
 ul.normal li {margin:10px;list-style:disc}
 
 .highlight {background-color:#ff0}
+
+.active-scaffold-header div.actions a.export {
+  background-image: url(../images/export.png);
+  padding-left: 19px;
+  background-position: 1px 50%;
+  background-repeat: no-repeat;
+}
+
