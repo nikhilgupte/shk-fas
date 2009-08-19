@@ -1,6 +1,6 @@
 class ProductionPlanItem < ActiveRecord::Base
 
-  MINIMUM_QUANTITY_PERCENTAGE = 1
+  MAXIMUM_QUANTITY_PERCENTAGE = 10
 
   belongs_to :product
   belongs_to :production_plan
@@ -17,8 +17,8 @@ class ProductionPlanItem < ActiveRecord::Base
     end
   end
 
-  def quantity_below_threshold?(qty_index)
-    quantity(qty_index) > 0 && percentage(qty_index) < MINIMUM_QUANTITY_PERCENTAGE
+  def quantity_above_threshold?(qty_index)
+    quantity(qty_index) > 0 && percentage(qty_index) > MAXIMUM_QUANTITY_PERCENTAGE
   end
 
   def percentage(qty_index)

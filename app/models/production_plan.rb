@@ -50,13 +50,13 @@ class ProductionPlan < ActiveRecord::Base
     error = false
     items.each do |item|
       (1..4).each do |i|
-        if item.quantity_below_threshold?(i)
-          item.errors.add("quantity_#{i}", "should be above #{MINIMUM_QUANTITY_PERCENTAGE}%")
+        if item.quantity_above_threshold?(i)
+          item.errors.add("quantity_#{i}", "should be above #{ProductionPlanItem::MAXIMUM_QUANTITY_PERCENTAGE}%")
           error = true
         end
       end
     end
-    errors.add_to_base('Item quantity must be atleast 10% of the net quantity.') if error
+    errors.add_to_base("Item quantity cannot be more than #{ProductionPlanItem::MAXIMUM_QUANTITY_PERCENTAGE}% of the total quantity.") if error
     (1..4).each do |i|
       errors.add_to_base("Qty Column #{i} should have at least #{MINIMUM_NUMBER_OF_PRODUCTS} of products.") if items.count(:conditions => "quantity_#{i} > 0") < MINIMUM_NUMBER_OF_PRODUCTS
     end
