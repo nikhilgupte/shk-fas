@@ -1,0 +1,12 @@
+Update or Create Ingredients into FAS. Existing ingredients will be overwritten if the Code matches.
+<div class="note">Note: The first row of the CSV file is assumed to contain the headers and is <span class="highlight">ignored</span>.</div>
+<% form_tag nil, :multipart => true do %>
+
+<div class="row">
+  <label for="ingredients_file">Upload Ingredients (CSV Format)</label>
+  <%= file_field_tag "ingredients_file" %>
+  <%= tip "Field Format: Code, Ingredient Name" %>
+</div>
+<%= submit_tag "Import &raquo;" %>
+<%= cancel_link admin_ingredients_path %>
+<% end %>

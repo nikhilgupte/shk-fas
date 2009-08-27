@@ -1,3 +1,9 @@
+<% unless @ingredient.has_tax_rate_and_custom_duty? %>
+<div class="empty">
+Please map a Tax Rate and/or Custom Duty to this ingredient.<br />You cannot add prices till then.
+</div>
+<% else %>
+
 <div style="ackground-color:#f9f9f9;padding:2px 5px;width:100%" class="curved">
 <h3>Latest Prices</h3>
 <% unless @ingredient.prices.empty? %>
@@ -29,5 +35,6 @@
 <script type="text/javascript">
 $('ingredient_price_price_in_inr').focus();
 </script>
+<% end %>
 <% end %>
 
