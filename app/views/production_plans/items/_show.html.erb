@@ -1,7 +1,7 @@
 <tr id="item_<%= item.id %>" class='<%= cycle('odd', 'even') %>'>
   <td><%= item.product.name %></td>
   <% (1..4).each do |i| %>
-  <td class="numeric<%= " error" if item.quantity_above_threshold?(i) %>"><% quantity = item.send("quantity_#{i}") %><%= quantity > 0 ? "<div title='#{number_with_precision(item.percentage(i), :precision => 0)}%'>#{number_with_precision(quantity, :precision => 3)}</div>":"<div style='text-align:center'>-</div>" %></td>
+  <td class="numeric<%= " error" if item.quantity_above_threshold?(i) %>"><% quantity = item.send("quantity_#{i}") %><%= quantity > 0 ? "<div title='#{number_with_precision(item.percentage(i), :precision => 0)}%'>#{number_with_precision(quantity, :precision => 3, :delimiter => ',')}</div>":"<div style='text-align:center'>-</div>" %></td>
   <% end %>
   <% unless @production_plan.submitted? %>
   <td style='text-align:right'>

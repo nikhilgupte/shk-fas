@@ -2,7 +2,7 @@
 <tr>
   <th>Total</th>
   <% (1..4).each do |i| %>
-  <th class='numeric' style="width:50px"><%= number_with_precision(@production_plan.send("net_quantity", i), :precision => 3) %></th>
+  <th class='numeric' style="width:50px"><%= number_with_precision(@production_plan.send("net_quantity", i), :precision => 3, :delimiter => ',') %></th>
   <% end %>
   <% unless @production_plan.submitted? %><th style="width:40px"></th><% end %>
 </tr>
