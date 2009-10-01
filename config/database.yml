@@ -11,7 +11,8 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: shk_development
+  #database: shk_development
+  database: fas_production
   username: postgres
   password:
 

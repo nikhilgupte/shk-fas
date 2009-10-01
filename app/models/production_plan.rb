@@ -57,9 +57,9 @@ class ProductionPlan < ActiveRecord::Base
       end
     end
     errors.add_to_base("Item quantity cannot be more than #{ProductionPlanItem::MAXIMUM_QUANTITY_PERCENTAGE}% of the total quantity.") if error
-    (1..4).each do |i|
-      errors.add_to_base("Qty Column #{i} should have at least #{MINIMUM_NUMBER_OF_PRODUCTS} of products.") if items.count(:conditions => "quantity_#{i} > 0") < MINIMUM_NUMBER_OF_PRODUCTS
-    end
+    #(1..4).each do |i|
+      #errors.add_to_base("Qty Column #{i} should have at least #{MINIMUM_NUMBER_OF_PRODUCTS} of products.") if items.count(:conditions => "quantity_#{i} > 0") < MINIMUM_NUMBER_OF_PRODUCTS
+    #end
   end
 
   def column_label(index)

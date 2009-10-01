@@ -6,7 +6,8 @@ class ProductionPlanItem < ActiveRecord::Base
   belongs_to :production_plan
   validates_presence_of :product_id
   (1..4).each do |i|
-    validates_inclusion_of "quantity_#{i}", :within => 0..100000, :message => 'should be under 100,000 Kgs.', :allow_blank => true
+    #validates_inclusion_of "quantity_#{i}", :within => 0..100000, :message => 'should be under 100,000 Kgs.', :allow_blank => true
+    validates_numericality_of "quantity_#{i}", :greater_than_or_equal => 0, :allow_blank => true
   end
 
   before_validation :fix_quantities
