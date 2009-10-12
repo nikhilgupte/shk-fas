@@ -6,4 +6,9 @@ class BillOfMaterials < ActiveRecord::Base
 
   validates_presence_of :items, :message => ' are required'
   validates_length_of :remarks, :maximum => 255
+
+  def net_quantity(quantity_index)
+    items.sum("quantity_#{quantity_index}")
+  end
+
 end
