@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  production_plan_id: 1
-  created_by_id: 1
-
-two:
-  production_plan_id: 1
-  created_by_id: 1
