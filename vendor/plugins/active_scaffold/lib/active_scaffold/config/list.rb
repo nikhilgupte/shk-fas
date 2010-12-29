@@ -8,13 +8,15 @@ module ActiveScaffold::Config
       # inherit from global scope
       # full configuration path is: defaults => global table => local table
       @per_page = self.class.per_page
+      @page_links_window = self.class.page_links_window
       
       # originates here
       @sorting = ActiveScaffold::DataStructures::Sorting.new(@core.columns)
-      @sorting.add @core.model.primary_key, 'ASC'
+      @sorting.set_default_sorting(@core.model)
 
       # inherit from global scope
       @empty_field_text = self.class.empty_field_text
+      @pagination = self.class.pagination
     end
 
     # global level configuration
@@ -23,9 +25,24 @@ module ActiveScaffold::Config
     cattr_accessor :per_page
     @@per_page = 15
 
+    # how many page links around current page to show
+    cattr_accessor :page_links_window
+    @@page_links_window = 2
+
     # what string to use when a field is empty
     cattr_accessor :empty_field_text
     @@empty_field_text = '-'
+
+    # What kind of pagination to use:
+    # * true: The usual pagination
+    # * :infinite: Treat the source as having an infinite number of pages (i.e. don't count the records; useful for large tables where counting is slow and we don't really care anyway)
+    # * false: Disable pagination
+    cattr_accessor :pagination
+    @@pagination = true
+    def self.infinite_pagination=(value)
+      ::ActiveSupport::Deprecation.warn("infinite_pagination is deprecated, use pagination = :infinite instead", caller)
+      self.pagination = :infinite
+    end
 
     # instance-level configuration
     # ----------------------------
@@ -35,13 +52,24 @@ module ActiveScaffold::Config
       self.columns = @core.columns._inheritable unless @columns # lazy evaluation
       @columns
     end
-    def columns=(val)
-      @columns = ActiveScaffold::DataStructures::ActionColumns.new(*val)
-      @columns.action = self
-    end
+    
+    public :columns=
 
     # how many rows to show at once
     attr_accessor :per_page
+
+    # how many page links around current page to show
+    attr_accessor :page_links_window
+
+    # What kind of pagination to use:
+    # * true: The usual pagination
+    # * :infinite: Treat the source as having an infinite number of pages (i.e. don't count the records; useful for large tables where counting is slow and we don't really care anyway)
+    # * false: Disable pagination
+    attr_accessor :pagination
+    def infinite_pagination=(value)
+      ::ActiveSupport::Deprecation.warn("infinite_pagination is deprecated, use pagination = :infinite instead", caller)
+      self.pagination = :infinite
+    end
 
     # what string to use when a field is empty
     attr_accessor :empty_field_text
@@ -62,17 +90,17 @@ module ActiveScaffold::Config
     # the label for this List action. used for the header.
     attr_writer :label
     def label
-      @label ? as_(@label) : @core.label
+      @label ? as_(@label, :count => 2) : @core.label(:count => 2)
     end
 
     attr_writer :no_entries_message
     def no_entries_message
-      @no_entries_message ? as_(@no_entries_message) : 'No Entries'
+      @no_entries_message ? @no_entries_message : :no_entries
     end
 
     attr_writer :filtered_message
     def filtered_message
-      @filtered_message ? as_(@filtered_message) : 'Filtered List'
+      @filtered_message ? @filtered_message : :filtered
     end
     
     attr_writer :always_show_search
