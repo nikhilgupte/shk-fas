@@ -11,18 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20090810104012) do
 
-  create_table "_imaster", :force => true do |t|
-    t.string "code", :limit => nil
-    t.string "name", :limit => nil
-    t.float  "cost"
-  end
-
-  create_table "_production_codes", :id => false, :force => true do |t|
-    t.string "b_code", :limit => nil
-    t.string "name",   :limit => nil
-    t.string "p_code", :limit => nil
-  end
-
   create_table "bill_of_materials", :force => true do |t|
     t.integer  "production_plan_id", :null => false
     t.integer  "created_by_id",      :null => false
@@ -52,12 +40,16 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
     t.float  "inr_value"
   end
 
+  add_index "currencies", [nil], :name => "index_currencies_on_name", :unique => true
+
   create_table "custom_duties", :force => true do |t|
     t.string   "name",       :null => false
     t.float    "duty",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "custom_duties", [nil], :name => "index_custom_duties_on_name", :unique => true
 
   create_table "export_logs", :force => true do |t|
     t.integer  "user_id"
@@ -70,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "formulations", [nil], :name => "index_formulations_on_code", :unique => true
 
   create_table "ingredient_prices", :force => true do |t|
     t.integer  "ingredient_id"
@@ -90,6 +84,9 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
     t.integer  "tax_rate_id"
     t.integer  "custom_duty_id"
   end
+
+  add_index "ingredients", [nil], :name => "index_ingredients_on_code", :unique => true
+  add_index "ingredients", [nil], :name => "index_ingredients_on_name", :unique => true
 
   create_table "orders", :force => true do |t|
     t.integer  "product_id",                       :null => false
@@ -113,7 +110,7 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
     t.string  "operation", :null => false
   end
 
-  add_index "permissions", ["module", "operation", "user_id"], :name => "index_permissions_on_user_id_and_module_and_operation", :unique => true
+  add_index "permissions", ["user_id", "module", "operation"], :name => "index_permissions_on_user_id_and_module_and_operation", :unique => true
 
   create_table "production_plan_items", :force => true do |t|
     t.integer  "production_plan_id", :null => false
@@ -151,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
   end
 
   add_index "products", ["formulation_id"], :name => "index_products_on_formulation_id"
+  add_index "products", [nil], :name => "index_products_on_code", :unique => true
 
   create_table "tax_rates", :force => true do |t|
     t.string   "name",       :null => false
@@ -158,6 +156,8 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tax_rates", [nil], :name => "index_tax_rates_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "username",          :limit => 10,                    :null => false
@@ -171,5 +171,8 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
     t.datetime "last_logged_in_at"
     t.integer  "access_level",                    :default => 0,     :null => false
   end
+
+  add_index "users", [nil], :name => "index_users_on_email_address", :unique => true
+  add_index "users", [nil], :name => "index_users_on_username", :unique => true
 
 end

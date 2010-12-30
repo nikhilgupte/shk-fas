@@ -9,7 +9,7 @@ set :domain,      "210.210.77.180"
 role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
-set :branch, "production"
+set :branch, "2.3.5"
 
 
 namespace :deploy do

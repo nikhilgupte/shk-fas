@@ -11,3 +11,8 @@ public/javascripts/active_scaffold
 public/stylesheets/active_scaffold
 .DS_Store
 .bundle
+*.csv
+*.sql
+.delme
+.rvmrc
+*.dump

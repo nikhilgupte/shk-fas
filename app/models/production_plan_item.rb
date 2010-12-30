@@ -1,5 +1,7 @@
 class ProductionPlanItem < ActiveRecord::Base
 
+  delegate :name, :production_code_mapped?, :to => :product
+
   MAXIMUM_QUANTITY_PERCENTAGE = 10
 
   belongs_to :product

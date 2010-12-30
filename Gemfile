@@ -11,7 +11,7 @@ gem "postgres-pr"
 gem "whenever", '0.5.3' # generate cron jobs
 gem 'fastercsv'
 gem 'calendar_date_select'
-#gem "haml"
+gem "haml"
 #gem "rack-test", "0.5.6"
 gem "dbi", "0.4.5"
 

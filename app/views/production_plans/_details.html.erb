@@ -16,6 +16,8 @@
 <% unless @production_plan.submitted? %>
   <li><%= link_to "Edit", edit_production_plan_path(@production_plan) %></li>
   <li><%= link_to "Delete", production_plan_path(@production_plan), :method => :delete, :confirm => "Delete this Plan?" %></li>
+  <li><%= link_to_function "Add Products", "$$('div.add_products_form').each(function(f) { f.hide()}); $('item_form').show()" %></li>
+  <li><%= link_to_function "Import Products", "$$('div.add_products_form').each(function(f) { f.hide()}); $('import_form').show()", :id => 'import_link' %></li>
 <% else %>
   <li><%= link_to_unless_current "Plan", production_plan_path %></li>
   <li><%= link_to_unless_current "Bill of Materials", bom_production_plan_path %></li>

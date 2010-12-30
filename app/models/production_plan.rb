@@ -56,6 +56,7 @@ class ProductionPlan < ActiveRecord::Base
         end
       end
     end
+    errors.add_to_base("Please ensure all items have been mapped to their production codes") if items.any?{|i| !i.production_code_mapped?}
     errors.add_to_base("Item quantity cannot be more than #{ProductionPlanItem::MAXIMUM_QUANTITY_PERCENTAGE}% of the total quantity.") if error
     #(1..4).each do |i|
       #errors.add_to_base("Qty Column #{i} should have at least #{MINIMUM_NUMBER_OF_PRODUCTS} of products.") if items.count(:conditions => "quantity_#{i} > 0") < MINIMUM_NUMBER_OF_PRODUCTS

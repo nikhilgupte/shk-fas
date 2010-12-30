@@ -5,6 +5,10 @@
   <% end %>
   <% unless @production_plan.submitted? %>
   <td style='text-align:right'>
+  <% unless item.production_code_mapped? %>
+  <%= link_to "map", "/admin/products/edit/#{item.product_id}?_method=get", :target => '_blank' %>
+  |
+  <% end %>
   <%= link_to_remote "edit", {:url => edit_production_plan_production_plan_item_path(@production_plan.id, item.id), :method => :get} %>
   |
   <%= link_to_remote "delete", {:url => production_plan_production_plan_item_path(@production_plan.id, item.id), :method => :delete,

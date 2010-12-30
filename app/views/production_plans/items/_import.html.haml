@@ -1,0 +1,13 @@
+#import_form.add_products_form{ :style => "border-bottom:1px solid #bbb; margin-top: 10px; display: none" }
+  - if flash[:error].present?
+    = javascript_tag "$('import_link').onclick();"
+  = flash_message :error
+  %h2 Import Products
+  .note Note: The first row of the CSV file is assumed to contain the headers and is <span class="highlight">ignored</span>.
+  - form_tag import_production_plan_production_plan_items_path(@production_plan), :enctype => "multipart/form-data" do
+    .row
+      = label_tag :file, 'Upload Production Plan (CSV format)'
+      = file_field_tag :file
+      = tip "Field Format: Product Code, Product Name, Qty 1, Qty 2, Qty 3, Qty 4"
+    .row
+      = submit_tag 'Import'

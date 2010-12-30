@@ -43,6 +43,10 @@ class Product < ActiveRecord::Base
     formulation.code rescue nil
   end
 
+  def production_code_mapped?
+    production_code.present?
+  end
+
   private
   def fix_fields
     self.code = code.upcase.strip rescue nil

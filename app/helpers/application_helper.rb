@@ -14,7 +14,8 @@ module ApplicationHelper
 
   def flash_message(type = :notice)
     "<div class='flash_message'><div class='curved #{type}'>
-      <a href='#' onclick='return disable_flash_message();'>&times;#{javascript_tag('setTimeout("disable_flash_messages()", 5000)')}</a>
+      <a href='#' onclick='return disable_flash_messages();'>&times;</a>
+      #{javascript_tag('setTimeout("disable_flash_messages()", 5000)') if type == :notice}
       #{flash[type]}</div>
       </div><br clear='left'/>" if flash[type]
   end

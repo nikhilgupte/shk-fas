@@ -1,4 +1,4 @@
-<div id="item_form" style="border-bottom:1px solid #bbb">
+<div id="item_form" class="add_products_form" style="border-bottom:1px solid #bbb">
 <h2>Add Products</h2>
 <% remote_form_for [@production_plan, @item ||= ProductionPlanItem.new] do |f| %>
 <%= error_messages_for :item %>
@@ -31,6 +31,7 @@ var item_product_name_or_code_auto_completer = new Ajax.Autocompleter('item_prod
 function productChanged(x, y) {
   $('product_error_msg').innerHTML = '';
 	id = y.id.match(/\d+/, '');
+  /*
   production_code_id = Element.firstDescendant(y);
   production_code = production_code_id.id.replace(/^(pc_)/, '');
   if(production_code == '') {
@@ -39,6 +40,7 @@ function productChanged(x, y) {
   } else {
     $('add_item_button').disabled = false;
   }
+  */
 	$('item_product_id').value = id;
 	$('add_item_button').value = "Add";
 	<%= remote_function :url => {:controller => 'production_plans/items', :action => :pre_populate, :production_plan_id => @production_plan.id}, :with => "'id='+id" %>

@@ -57,6 +57,7 @@ GEM
     gem_plugin (0.2.3)
     gherkin (2.3.3)
       json (~> 1.4.6)
+    haml (3.0.25)
     highline (1.6.1)
     json (1.4.6)
     json_pure (1.4.6)
@@ -127,6 +128,7 @@ DEPENDENCIES
   delorean (= 0.1.1)
   factory_girl (= 1.2.3)
   fastercsv
+  haml
   mongrel
   pickle (= 0.2.5)
   postgres-pr

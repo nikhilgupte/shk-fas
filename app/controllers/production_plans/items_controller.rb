@@ -66,6 +66,32 @@ class ProductionPlans::ItemsController < ApplicationController
     end
   end
 
+  def import
+    added,updated,line_number = 0,0,1
+    begin
+      raise "Choose a CSV file to upload." unless params[:file]
+      FasterCSV.parse(params[:file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
+        line_number += 1
+        code,qty1,qty2,qty3,qty4 = row[0], row[2], row[3], row[4], row[5]
+        if code.present? && (product = Product.find_by_code(code))
+          if item = @production_plan.items.find_by_product_id(product.id)
+            item.attributes = { :quantity_1 => qty1, :quantity_2 => qty2, :quantity_3 => qty3, :quantity_4 => qty4 }
+            item.save!
+            updated += 1
+          else
+            @production_plan.items.create!(:product_id => product.id, :quantity_1 => qty1, :quantity_2 => qty2, :quantity_3 => qty3, :quantity_4 => qty4)
+            added += 1
+          end
+        end
+      end
+      flash[:notice] = "Added #{added} and updated #{updated} products."
+      redirect_to @production_plan
+    rescue
+      flash[:error] = "Error line# #{line_number}: #{$!}"
+      redirect_to @production_plan
+    end
+  end
+
   private
   def load_plan
     @production_plan = ProductionPlan.find params[:production_plan_id]

@@ -1,6 +1,9 @@
 <%= render(:partial => 'details') %>
 
-<%= render(:partial => 'production_plans/items/form') unless @production_plan.submitted? %>
+<% unless @production_plan.submitted? %>
+  <%= render(:partial => 'production_plans/items/form') %>
+  <%= render(:partial => 'production_plans/items/import') %>
+<% end %>
 
 <%= error_messages_for :production_plan %>
 <h2 style="float:left">Products</h2>
@@ -12,15 +15,27 @@
   <% (1..4).each do |i| %>
   <th class='numeric' style="width:65px;"><%= @production_plan.column_label("qty_#{i}") %></th>
   <% end %>
-  <% unless @production_plan.submitted? %><th style="width:80px"><%= link_to_remote "Edit Labels", :url => edit_labels_production_plan_path(@production_plan) %></th><% end %>
+  <% unless @production_plan.submitted? %><th style="width:110px"><%= link_to_remote "Edit Labels", :url => edit_labels_production_plan_path(@production_plan) %></th><% end %>
 </tr>
 </thead>
 <%= render :partial => "items_totals" %>
 <tbody id="items">
 <% unless @production_plan.items.empty? %>
-  <% @production_plan.items.each do |item| %>
+  <%
+    items = @production_plan.items.sort_by(&:name)
+    mapped = items.select{|i| i.production_code_mapped?}
+    unmapped = items - mapped
+  %>
+  <% mapped.each do |item| %>
     <%= render :partial => 'production_plans/items/show', :locals => {:item => item} %>
   <% end %>
+  <% if unmapped.present? %>
+    <tr><td colspan="6" class="empty" id="items_empty"><br />Unmapped Production Codes</td></tr>
+    <% unmapped.each do |item| %>
+      <%= render :partial => 'production_plans/items/show', :locals => {:item => item} %>
+    <% end %>
+  <% end %>
+
 <% else %>
 <tr><td colspan="6" class="empty" id="items_empty">No items added</td></tr>
 <% end %>
