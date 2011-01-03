@@ -4,6 +4,9 @@ set :repository, "git://github.com/nikhilgupte/shk-fas.git"
 ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
 set :deploy_to, "/var/www/apps/#{application}/production"
+set :host, "210.210.77.180"
+set :use_sudo, false
+set :user, "fas"
 
 set :tag_on_deploy, false
 set :build_gems, false
