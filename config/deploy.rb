@@ -1,3 +1,4 @@
+require 'bundler/capistrano'
 set :application, "fas"
 set :repository, "git://github.com/nikhilgupte/shk-fas.git"
 set :use_sudo,    false
@@ -11,6 +12,8 @@ role :web, domain
 role :db,  domain, :primary => true
 set :branch, "2.3.5"
 
+set :bundle_without, [:development, :test, :cucumber]
+set :bundle_flags,   "--deployment"
 
 namespace :deploy do
   desc "Update code, disable website, run migrations, enable website"
