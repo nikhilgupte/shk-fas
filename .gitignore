@@ -16,3 +16,4 @@ public/stylesheets/active_scaffold
 .delme
 .rvmrc
 *.dump
+config/database.yml
