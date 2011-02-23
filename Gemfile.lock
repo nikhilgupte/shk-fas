@@ -1,5 +1,5 @@
 GEM
-  remote: http://gems.github.com/
+  remote: http://rubygems.org/
   remote: http://rubygems.org/
   specs:
     aaronh-chronic (0.3.9)
