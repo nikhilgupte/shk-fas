@@ -1,5 +1,6 @@
 require 'bundler/capistrano'
 set :application, "fas"
+set :branch, "production"
 set :repository, "git://github.com/nikhilgupte/shk-fas.git"
 ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
