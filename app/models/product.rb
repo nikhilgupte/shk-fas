@@ -5,10 +5,13 @@ class Product < ActiveRecord::Base
   validates_uniqueness_of :code, :allow_blank => true
   validates_numericality_of :quarterly_sales_quantity
 
+  delegate :name, :code, :to => :formulation, :prefix => true
+
   before_validation :fix_fields
   belongs_to :formulation
 
   named_scope :live
+  named_scope :mapped, :conditions => "formulation_id is not null", :include => :formulation
 
   def long_name
     "#{code} - #{name}"

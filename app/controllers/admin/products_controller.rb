@@ -10,9 +10,13 @@ class Admin::ProductsController < AdminController
   end
 
   def export
-    @products = Product.all(:select => 'products.name as "Product Name", products.code as "Product Code", formulations.name as "Formulation Name", formulations.code as "Forum Code"', :joins => :formulation)
-    #response.headers['Content-Disposition'] = "attachment; filename=\"product_mappings#{Date.today.to_s(:date).gsub(/\W/,'_')}.csv\""
-    #return render :text => @products.collect{|p| ([p["pn"], p["pc"], p["fn"], p["fc"]]).to_csv}.insert(0, (['product name','product code','formulation name','formulation code']).to_csv).join
+    @products = Product.mapped.all.map{|p| [
+        ["Product Name", p.name],
+        ["Product Code", p.code],
+        ["Formulation Name", (p.formulation_name rescue nil)],
+        ["Formulation Code", (p.formulation_code rescue nil)]
+      ]
+    }
     send_data @products.to_csv(:encoding => 'u'),
       { :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=products_mapping_#{Date.today.to_s(:date).gsub(/\W/,'_')}.csv" }
   end
