@@ -2,18 +2,13 @@ source 'http://gems.github.com'
 source :rubygems
 
 gem "rails", "2.3.5"
-#gem "searchlogic"
-#gem "pg", "0.9.0"
 gem "postgres-pr"
-#gem 'hoptoad_notifier', '2.3.2'
-#gem "settingslogic" # for managing configuration
-#gem "foreigner" # adds support for defining foreign keys
 gem "whenever", '0.5.3' # generate cron jobs
 gem 'fastercsv'
 gem 'calendar_date_select'
 gem "haml"
-#gem "rack-test", "0.5.6"
 gem "dbi", "0.4.5"
+gem "to-csv", :require => 'to_csv'
 
 group :cucumber do
   gem 'cucumber-rails',   '0.3.0' #unless File.directory?(File.join(Rails.root, 'vendor/plugins/cucumber-rails'))

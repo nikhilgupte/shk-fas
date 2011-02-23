@@ -110,6 +110,8 @@ GEM
       json_pure
       rubyzip
     term-ansicolor (1.0.5)
+    to-csv (1.0.3)
+      activesupport (>= 2.3.5)
     whenever (0.5.3)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
@@ -137,5 +139,6 @@ DEPENDENCIES
   remarkable_rails (= 3.1.12)
   rspec (= 1.3.0)
   rspec-rails (= 1.3.2)
+  to-csv
   whenever (= 0.5.3)
   wirble

@@ -10,9 +10,10 @@ class Admin::ProductsController < AdminController
   end
 
   def export
-    @products = Product.connection.execute("select products.name as pn, products.code as pc, formulations.name as fn, formulations.code as fc from products inner join formulations on formulations.id = products.formulation_id")
-    response.headers['Content-Type'] = 'application/force-download'
-    response.headers['Content-Disposition'] = "attachment; filename=\"product_mappings#{Date.today.to_s(:date).gsub(/\W/,'_')}.csv\""
-    return render :text => @products.collect{|p| ([p["pn"], p["pc"], p["fn"], p["fc"]]).to_csv}.insert(0, (['product name','product code','formulation name','formulation code']).to_csv).join
+    @products = Product.all(:select => 'products.name as "Product Name", products.code as "Product Code", formulations.name as "Formulation Name", formulations.code as "Forum Code"', :joins => :formulation)
+    #response.headers['Content-Disposition'] = "attachment; filename=\"product_mappings#{Date.today.to_s(:date).gsub(/\W/,'_')}.csv\""
+    #return render :text => @products.collect{|p| ([p["pn"], p["pc"], p["fn"], p["fc"]]).to_csv}.insert(0, (['product name','product code','formulation name','formulation code']).to_csv).join
+    send_data @products.to_csv(:encoding => 'u'),
+      { :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=products_mapping_#{Date.today.to_s(:date).gsub(/\W/,'_')}.csv" }
   end
 end
