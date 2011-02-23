@@ -9,8 +9,9 @@ class Admin::FormulationsController < AdminController
     if request.post?
       added,updated = 0,0
       begin
+        cd = Iconv.new('utf-8', 'iso-8859-1')
         FasterCSV.parse(params[:formulations_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
-          code,name = row[0],row[1]
+          code,name = row[0], cd.iconv(row[1])
           unless code.blank? || name.blank?
             if formulation = Formulation.find_by_code(code)
               formulation.update_attribute(:name, name)
