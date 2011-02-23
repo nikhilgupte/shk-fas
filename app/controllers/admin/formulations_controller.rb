@@ -22,7 +22,6 @@ class Admin::FormulationsController < AdminController
             end
           end
         end
-      #rescue
       end
       flash[:notice] = "Added #{added} and updated #{updated} formulations."
       redirect_to admin_formulations_path
