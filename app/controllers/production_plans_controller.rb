@@ -56,9 +56,19 @@ class ProductionPlansController < ApplicationController
     respond_to do |f|
       f.html {}
       f.csv {
-        #response.headers['Content-Type'] = 'application/force-download'
-        response.headers['Content-Disposition'] = "attachment; filename=\"fas_production_plan_#{@production_plan.id}.csv\""
-        return render :text => @production_plan.items.collect{|i| [i.product.name, i.product.code, i.product.production_code, i.quantity_1, i.quantity_2, i.quantity_3, i.quantity_4].to_csv}.insert(0, %w(product code production_code qty1 qty2 qty3 qty4).to_csv).join
+        items = @production_plan.items.map do |item|
+          arr = [
+            ["Product Code", item.product.code],
+            ["Product Name", item.product.name],
+            ["Production Code", item.product.production_code],
+          ]
+          (1..4).each do |i|
+            arr << ["QTY #{i}", item.send("quantity_#{i}")]
+          end
+          arr
+        end
+        send_data items.to_csv(:encoding => 'u'),
+          { :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=fas_production_plan_#{@production_plan.id}.csv" }
       }
     end
   end
