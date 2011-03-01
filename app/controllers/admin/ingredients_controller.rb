@@ -11,9 +11,13 @@ class Admin::IngredientsController < AdminController
   def import
     if request.post?
       added,updated = 0,0
-      begin
-        FasterCSV.parse(params[:ingredients_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
-          code,name = row[0],row[1]
+      @errors = []
+      cd = Iconv.new('utf-8', 'iso-8859-1')
+      line_number = 1
+      FasterCSV.parse(params[:ingredients_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
+        code,name = row[0].strip, cd.iconv(row[1]).strip
+        line_number += 1
+        begin
           unless code.blank? || name.blank?
             if ingredient= Ingredient.find_by_code(code)
               ingredient.update_attribute(:name, name)
@@ -23,11 +27,12 @@ class Admin::IngredientsController < AdminController
               added += 1
             end
           end
+        rescue
+          @errors << { :line_number => line_number, :message => $!.to_s, :code => code, :name => name }
         end
-      #rescue
       end
       flash[:notice] = "Added #{added} and updated #{updated} ingredients."
-      redirect_to admin_ingredients_path
+      redirect_to admin_ingredients_path unless @errors.present?
     end
     @title = 'Admin: Ingredients: Import'
   end

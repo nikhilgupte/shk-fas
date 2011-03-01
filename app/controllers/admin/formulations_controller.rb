@@ -11,7 +11,7 @@ class Admin::FormulationsController < AdminController
       @errors = []
       begin
         cd = Iconv.new('utf-8', 'iso-8859-1')
-        line_number = 0
+        line_number = 1
         FasterCSV.parse(params[:formulations_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
           line_number += 1
           code,name = row[0].strip, cd.iconv(row[1]).strip
