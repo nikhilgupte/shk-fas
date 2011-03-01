@@ -122,3 +122,8 @@ ul.normal li {margin:10px;list-style:disc}
   background-position: 1px 50%;
   background-repeat: no-repeat;
 }
+
+table.grid { margin: 5px 0 }
+table.grid thead th { background: #eee }
+table.grid th, table.grid td { padding: 5px }
+table.grid td { border: 1px solid #eee }
