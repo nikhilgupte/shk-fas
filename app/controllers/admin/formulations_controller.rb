@@ -31,8 +31,8 @@ class Admin::FormulationsController < AdminController
           end
         end
       end
-      flash[:notice] = "Added #{added} and updated #{updated} formulations."
-      redirect_to admin_formulations_path unless @errors.present?
+      flash.now[:notice] = "Added #{added} and updated #{updated} formulations."
+      render :imported
     end
     @title = 'Admin: Formulations: Import'
   end

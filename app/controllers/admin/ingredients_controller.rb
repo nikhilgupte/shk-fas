@@ -31,8 +31,8 @@ class Admin::IngredientsController < AdminController
           @errors << { :line_number => line_number, :message => $!.to_s, :code => code, :name => name }
         end
       end
-      flash[:notice] = "Added #{added} and updated #{updated} ingredients."
-      redirect_to admin_ingredients_path unless @errors.present?
+      flash.now[:notice] = "Added #{added} and updated #{updated} ingredients."
+      render :imported
     end
     @title = 'Admin: Ingredients: Import'
   end
