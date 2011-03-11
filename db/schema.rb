@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090810104012) do
+ActiveRecord::Schema.define(:version => 20110311061458) do
 
   create_table "bill_of_materials", :force => true do |t|
     t.integer  "production_plan_id", :null => false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20090810104012) do
   create_table "bill_of_materials_items", :force => true do |t|
     t.integer "bill_of_materials_id", :null => false
     t.integer "ingredient_id"
-    t.string  "ingredient_name",      :null => false
+    t.string  "ingredient_name"
     t.string  "ingredient_code",      :null => false
     t.float   "quantity_1",           :null => false
     t.float   "quantity_2",           :null => false

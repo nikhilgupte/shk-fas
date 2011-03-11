@@ -17,8 +17,8 @@ class BillOfMaterialsItems < ActiveRecord::Base
     if ingredient = Ingredient.find_by_code(self.ingredient_code)
       self.ingredient_id = ingredient.id
     end
-    if self.ingredient_name.blank?
-      self.ingredient_name = ingredient.nil? ? ingredient_code : ingredient.name
+    if self.ingredient_name.blank? && ingredient.present?
+      self.ingredient_name = ingredient.name
     end
   end
 

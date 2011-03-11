@@ -127,3 +127,14 @@ table.grid { margin: 5px 0 }
 table.grid thead th { background: #eee }
 table.grid th, table.grid td { padding: 5px }
 table.grid td { border: 1px solid #eee }
+
+
+.missing { 
+  /*color: #c00;*/
+  color: #990;
+  background: #ff0;
+}
+
+.missing .ing_name {
+  font-style: italic;
+}

@@ -110,10 +110,9 @@ class ProductionPlansController < ApplicationController
     @bill_of_materials.created_by_id = @logged_in_user.id
     begin
     FasterCSV.parse(params[:bill_of_materials_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
-      logger.debug row
-      item = @bill_of_materials.items.build(:ingredient_code => row[0], :ingredient_name => row[1])
+      item = @bill_of_materials.items.build(:ingredient_code => row[0])
       (1..4).each do |i|
-        item.send("quantity_#{i}=", row[i+1])
+        item.send("quantity_#{i}=", row[i])
       end
     end
     rescue

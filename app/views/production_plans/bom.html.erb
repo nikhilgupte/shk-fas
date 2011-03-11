@@ -12,7 +12,7 @@
 <table class="list">
 <thead>
 <tr>
-  <th class='numeric' style='width:30px'>#</th><th>Ingredient</th><th>Code</th>
+  <th class='numeric' style='width:35px'>#</th><th>Ingredient</th><th>Code</th>
   <% (1..4).each do |i| %>
   <th class="numeric">Qty <%= i %> (KG)</th>
   <% end %>
@@ -30,8 +30,8 @@
 <% end %>
 <tbody>
 <% bill_of_materials.items.each_with_index do |item, i| %>
-<tr class="<%= cycle("odd","even") %><%= ' error' unless item.errors.empty? %>">
-  <td class='numeric'><%= "*" unless item.in_db? %> <%= i + 1 %></td><td><%= h(item.ingredient_name) %></td><td><%= h(item.ingredient_code) %></td>
+<tr class="<%= cycle("odd","even") %><%= ' error' unless item.errors.empty? %><%= ' missing' unless item.in_db? %>">
+  <td class='numeric'><%= "*" unless item.in_db? %> <%= i + 1 %></td><td class="ing_name"><%= h(item.try(:ingredient_name) || 'N/A FAS') %></td><td><%= h(item.ingredient_code) %></td>
   <% (1..4).each do |i| %>
   <td class="numeric"><%= number_with_precision item.send("quantity_#{i}"), :precision =>3 %></td>
   <% end %>
@@ -48,7 +48,7 @@
 <div class="row">
   <label for="bill_of_materials_file">Upload Bill of Materials (CSV Format)</label>
   <%= file_field_tag "bill_of_materials_file" %>
-  <%= tip "Field Format: Ingredient Code, Ingredient Name, Quantity" %>
+  <%= tip "Field Format: Ingredient Code, Quantity 1, Quantity 2, Quantity 3, Quantity 4" %>
 </div>
 <div class="row">
   <%= f.label :remarks %>
