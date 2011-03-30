@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def to_s
+    username
+  end
+
   private 
   def create_salt
     chars = ("a".."z").to_a + ("1".."9").to_a

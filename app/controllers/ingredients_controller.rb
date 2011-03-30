@@ -17,12 +17,23 @@ class IngredientsController < ApplicationController
 
   def export
     if request.format == Mime::CSV
-        since = DateTime.parse params[:since] if params[:since]
-        @ingredients = since.nil? ? Ingredient.updated_since(Date.parse('1 Jan 2009')) : Ingredient.updated_since(since)
-        response.headers['Content-Type'] = 'application/force-download'
-        response.headers['Content-Disposition'] = "attachment; filename=\"ingredients_#{since.to_s(:date).gsub(/\W/,'_') if since}.csv\""
+        since = params[:since].present? ? DateTime.parse(params[:since]) : Date.parse('1 Jan 2009')
+        currencies = Currency.all.to_a
+        @ingredients = Ingredient.updated_since(since).map do |ing|
+          [ ["Code", ing.code], ["Name", ing.name] ].tap do |a|
+            if(latest_price = ing.latest_price).present?
+              currencies.each do |c|
+                a << [c.name, latest_price.send(c.name.downcase).round(2)]
+              end
+              a << ["Updated by", latest_price.user]
+              a << ["Updated on", latest_price.created_at.to_s(:datetime)]
+            end
+          end
+        end
+        send_data @ingredients.to_csv(:encoding => 'u'),
+          { :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=ingredients_#{since.to_s(:date).gsub(/\W/,'_')}.csv" }
+
         ExportLog.create! :user => @logged_in_user
-        return render :text => @ingredients.collect{|i| ([i.code, i.name] + Currency.all.collect{|c| i.latest_price.send(c.name.downcase).round(2)} + [(i.latest_price.user.username rescue ''), i.latest_price.created_at.to_s(:datetime)]).to_csv}.insert(0, (['code','name'] + Currency.all.collect{|c| c.name} + %w(user updated_on)).to_csv).join
     else
       @title = 'Export Ingredients'
     end
