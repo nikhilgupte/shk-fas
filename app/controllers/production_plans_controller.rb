@@ -79,8 +79,17 @@ class ProductionPlansController < ApplicationController
     respond_to do |f|
       f.html {}
       f.csv {
-        response.headers['Content-Disposition'] = "attachment; filename=\"fas-bom-#{@production_plan.id}.csv\""
-        return render :text => @production_plan.bill_of_materials.items.collect{|i| [i.ingredient_name, i.ingredient_code, i.quantity_1, i.quantity_2, i.quantity_3, i.quantity_4].to_csv}.insert(0, %w(ingredient code qty1 qty2 qty3 qty4).to_csv).join
+        bom_items = @production_plan.bill_of_materials.items.collect do |item|
+          [
+            ["Ingredient Name", item.ingredient_name], ["Ingredient Code", item.ingredient_code]
+          ].tap do |a|
+            4.times do |i|
+              a << ["Qty#{i+1}", item.send("quantity_#{i+1}")]
+            end
+          end
+        end
+        send_data bom_items.to_csv(:encoding => 'u'),
+          { :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=\"fas-bom-#{@production_plan.id}.csv\"" }
       }
     end
   end
