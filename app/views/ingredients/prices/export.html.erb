@@ -1,0 +1,10 @@
+<div class="curved" style="background-color:#eee;padding:20px;">
+<% form_tag export_prices_path(:format => :csv) do %>
+	<%= submit_tag 'Export Prices updated since' %>
+  <%= calendar_date_select_tag "since", 1.month.ago, :embedded => false, :year_range => 1, :time => false, :valid_date_check => "date.stripTime() <= (new Date()).stripTime()"  %>
+<% end %>
+<div style="margin:10px 0;font-size:20pt">OR</div>
+<% form_tag export_prices_path(:format => :csv) do %>
+	<%= submit_tag 'Export All Prices' %>
+<% end %>
+</div>

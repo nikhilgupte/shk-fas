@@ -1,4 +1,5 @@
 <ul>
 	<% if is_permitted?('ingredients','read') %><li><%= link_to_unless_current 'Lookup', ingredients_path %></li><% end %>
-	<% if is_permitted?('ingredients','export') %><li><%= link_to_unless_current 'Export', export_ingredients_path %></li><% end %>
+	<% if is_permitted?('ingredients','export') %><li><%= link_to_unless_current 'Export Ingredients', export_ingredients_path %></li><% end %>
+	<% if is_permitted?('ingredients','export') %><li><%= link_to_unless_current 'Export Prices', export_prices_path %></li><% end %>
 </ul>

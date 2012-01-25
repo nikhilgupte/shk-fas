@@ -4,6 +4,8 @@ class IngredientPrice < ActiveRecord::Base
   belongs_to :ingredient
   belongs_to :user
 
+  delegate :code, :name, :to => :ingredient, :prefix => true
+
   attr_accessor :force
 
   def validate_on_create
@@ -53,4 +55,13 @@ class IngredientPrice < ActiveRecord::Base
 
   def base_usd() price_in_usd || base_inr/Currency.inr_value('USD') end
 
+  class << self
+    def export(since = Date.parse('1 Jan 2009'))
+      headers = ["Ingredient Code", "Ingredient Name", "Price", "Date"]
+      data = all(:conditions => ["ingredient_prices.created_at >= ?", since],
+        :order => 'ingredients.code ASC, ingredient_prices.created_at DESC',
+        :include => :ingredient).collect{|p| [p.ingredient.code, p.ingredient.name, p.inr.round(2), p.created_at.to_date] }
+      [headers] + data
+    end
+  end
 end

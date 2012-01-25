@@ -1,5 +1,5 @@
 class Ingredients::PricesController < ApplicationController
-  before_filter :load_ingredient
+  before_filter :load_ingredient, :except => [:export]
 
   def create
     @price = @ingredient.prices.build(params[:ingredient_price].merge!(:user_id => @logged_in_user.id))
@@ -14,6 +14,19 @@ class Ingredients::PricesController < ApplicationController
       render :update do |page|
         page.replace_html :prices_form, :partial => 'ingredients/prices/form'
       end
+    end
+  end
+
+  def export
+    if request.format == Mime::CSV
+        since = params[:since].present? ? DateTime.parse(params[:since]) : Date.parse('1 Jan 2009')
+        @prices = IngredientPrice.export(since)
+        send_data @prices.to_csv(:encoding => 'u'),
+          { :type => 'text/csv; charset=utf-8; header=present', :disposition => "attachment; filename=ingredient_prices_#{since.to_s(:date).gsub(/\W/,'_')}.csv" }
+
+        ExportLog.create! :user => @logged_in_user
+    else
+      @title = 'Export Prices'
     end
   end
 
