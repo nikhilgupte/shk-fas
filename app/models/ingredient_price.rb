@@ -63,5 +63,9 @@ class IngredientPrice < ActiveRecord::Base
         :include => :ingredient).collect{|p| [p.ingredient.code, p.ingredient.name, p.inr.round(2), p.created_at.to_date] }
       [headers] + data
     end
+
+    def delete_prices_for(date)
+      delete_all(["created_at::DATE = ?", date.to_date])
+    end
   end
 end

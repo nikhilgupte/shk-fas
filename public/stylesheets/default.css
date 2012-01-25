@@ -115,6 +115,7 @@ ul.normal li {margin:10px;list-style:disc}
 
 .highlight {background-color:#ff0}
 
+.active-scaffold-header div.actions a.import_prices,
 .active-scaffold-header div.actions a.import,
 .active-scaffold-header div.actions a.export {
   background-image: url(../images/export.png);
@@ -138,3 +139,9 @@ table.grid td { border: 1px solid #eee }
 .missing .ing_name {
   font-style: italic;
 }
+
+ol.numbered {}
+  ol.numbered li {
+    list-style: decimal;
+    margin: 5px 20px;
+  }

@@ -1,0 +1,17 @@
+<div class="note">
+<h3>Note:</h3>
+  <ol class="numbered">
+    <li>If you enter the price in any one currency, the rest will be calculated by the system.</li>
+    <li>The first row of the CSV file is assumed to contain the headers and is <span class="highlight">ignored</span>.</li>
+    <li>Date should be in ISO format - <span class="highlight">YYYY-MM-DD</span>. Example: Today is <%= Date.today.to_s(:db) %>
+</div>
+<% form_tag nil, :multipart => true do %>
+
+<div class="row">
+  <label for="ingredient_prices_file">Upload Ingredient Prices (CSV Format)</label>
+  <%= file_field_tag "ingredient_prices_file" %>
+  <%= tip "Field Format: Ingredient Code, Date, INR, USD, EUR" %>
+</div>
+<%= submit_tag "Import &raquo;" %>
+<%= cancel_link admin_ingredients_path %>
+<% end %>

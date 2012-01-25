@@ -1,0 +1,17 @@
+<% if @errors.present? %>
+<h3><%= @errors.size %> Errors</h3>
+<table class="grid">
+  <thead><tr><th>Line#</th><th>Code</th><th>Error</th></tr></thead>
+  <tbody>
+  <% @errors.each do |error| %>
+  <tr>
+    <td><%= error[:line_number] %></td>
+    <td><%= error[:code] %></td>
+    <td><%= error[:message] %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<%= link_to "Import more prices", admin_ingredients_path(:import_prices) %>
