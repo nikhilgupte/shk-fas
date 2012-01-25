@@ -16,7 +16,7 @@ set :backup_database_before_migrations, false
 set :keep_releases, 5
 
 set :bundle_without, [:development, :test, :cucumber]
-set :bundle_flags,   "--deployment"
+set :bundle_flags,   "--deployment --local"
 
 default_run_options[:pty] = true
 
