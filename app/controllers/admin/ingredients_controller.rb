@@ -44,12 +44,12 @@ class Admin::IngredientsController < AdminController
       @errors = []
       cd = Iconv.new('utf-8', 'iso-8859-1')
       line_number = 1
-      FasterCSV.parse(params[:ingredient_prices_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
-        code = row['code'].try(:strip)
-        date = row['date'].try(:strip)
-        inr = row['inr'].try(:strip)
-        usd = row['usd'].try(:strip)
-        eur = row['eur'].try(:strip)
+      FasterCSV.parse(params[:ingredient_prices_file].read.chop, {:headers =>true,:header_converters => :symbol, :skip_blanks => true}) do |row|
+        code = row[:ingredient_code].try(:strip)
+        date = row[:date].try(:strip)
+        inr = row[:inr].try(:strip)
+        usd = row[:usd].try(:strip)
+        eur = row[:eur].try(:strip)
         line_number += 1
         begin
           unless code.blank?
