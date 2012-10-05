@@ -51,7 +51,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.submissions
-    Order.connection.execute('select submitted_at, created_by_id, count(*) as count from orders where submitted_at is not null group by submitted_at, created_by_id order by submitted_at desc')
+    Order.connection.execute('select submitted_at, created_by_id, count(*) as count from orders where submitted_at is not null group by submitted_at, created_by_id order by submitted_at desc').collect{|s| { 'submitted_at' => s[0], 'created_by_id' => s[1], 'count' => s[0] } }
   end
 
   private
