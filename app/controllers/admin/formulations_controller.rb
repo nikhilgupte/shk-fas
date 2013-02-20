@@ -14,15 +14,18 @@ class Admin::FormulationsController < AdminController
         line_number = 1
         FasterCSV.parse(params[:formulations_file].read.chop, {:headers =>true,:skip_blanks => true}) do |row|
           line_number += 1
-          code,name = row[0].strip, cd.iconv(row[1]).strip
+          code,name,standard_quantity = row[0].strip, cd.iconv(row[1]).strip, cd.iconv(row[2]).strip
           unless code.blank? || name.blank?
             if formulation = Formulation.find_by_code(code)
-              formulation.update_attribute(:name, name)
+              #formulation.update_attribute(:name, name)
+              formulation.name = name
+              formulation.standard_quantity = standard_quantity if standard_quantity.present?
+              formulation.save
               updated += 1
             else
               formulation = nil
               begin
-                formulation = Formulation.create!(:code => code, :name => name)
+                formulation = Formulation.create!(:code => code, :name => name, :standard_quantity => standard_quantity)
                 added += 1
               rescue
                 @errors << { :line_number => line_number, :message => $!.to_s, :code => code, :name => name }

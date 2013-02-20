@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
-  def get_quarterly_sales_quantity
-    render :text => "#{Product.find(params[:id]).quarterly_sales_quantity} kg"
+  include OrdersHelper
+
+  def get_formulation_standard_qty
+    render :text => standard_quantity(Product.find(params[:id]))
   end
 end

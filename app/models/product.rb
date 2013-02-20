@@ -3,15 +3,14 @@ class Product < ActiveRecord::Base
 
   validates_presence_of :name, :code
   validates_uniqueness_of :code, :allow_blank => true
-  validates_numericality_of :quarterly_sales_quantity
 
-  delegate :name, :code, :to => :formulation, :prefix => true
+  delegate :name, :code, :standard_quantity, :to => :formulation, :prefix => true
 
   before_validation :fix_fields
   belongs_to :formulation
 
   named_scope :live
-  named_scope :mapped, :conditions => "formulation_id is not null", :include => :formulation
+  named_scope :mapped, :include => :formulation
 
   def long_name
     "#{code} - #{name}"
@@ -25,9 +24,9 @@ class Product < ActiveRecord::Base
       products.fetch_hash do |s_product|
         begin
           if product = find_by_code(s_product['prod_cd'])
-            product.update_attributes :name => s_product['prod_desc'], :quarterly_sales_quantity => s_product['Sales_Qty']
+            product.update_attributes :name => s_product['prod_desc']
           else
-            Product.create! :code => s_product['prod_cd'], :name => s_product['prod_desc'], :quarterly_sales_quantity => s_product['Sales_Qty']
+            Product.create! :code => s_product['prod_cd'], :name => s_product['prod_desc']
           end
         rescue
           logger.error("Error while syncing products: #{s_product['prod_cd']}/#{s_product['prod_desc']}/#{s_product['Sales_Qty']} - #{$!}")

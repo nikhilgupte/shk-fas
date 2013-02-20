@@ -30,7 +30,7 @@ function productChanged(x, y) {
     $('add_order_button').disabled = false;
   }
 	$('order_product_id').value = id;
-	<%= remote_function :url => {:controller => 'products', :action => :get_quarterly_sales_quantity}, :with => "'id='+id", :update => 'qty_sales_value' %>
+	<%= remote_function :url => {:controller => 'products', :action => :get_formulation_standard_qty}, :with => "'id='+id", :update => 'qty_sales_value' %>
 }
 $('order_product_name_or_code').focus();
 </script>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311061458) do
+ActiveRecord::Schema.define(:version => 20130220053219) do
 
   create_table "bill_of_materials", :force => true do |t|
     t.integer  "production_plan_id", :null => false
@@ -57,10 +57,11 @@ ActiveRecord::Schema.define(:version => 20110311061458) do
   end
 
   create_table "formulations", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "code",       :null => false
+    t.string   "name",                                             :null => false
+    t.string   "code",                                             :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "standard_quantity", :precision => 10, :scale => 3
   end
 
   add_index "formulations", [nil], :name => "index_formulations_on_code", :unique => true
@@ -139,9 +140,8 @@ ActiveRecord::Schema.define(:version => 20110311061458) do
   add_index "production_plans", ["created_by_id"], :name => "index_production_plans_on_created_by_id"
 
   create_table "products", :force => true do |t|
-    t.string   "code",                                      :null => false
-    t.string   "name",                                      :null => false
-    t.float    "quarterly_sales_quantity", :default => 0.0, :null => false
+    t.string   "code",           :null => false
+    t.string   "name",           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "formulation_id"

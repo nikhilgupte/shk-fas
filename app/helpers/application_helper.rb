@@ -23,4 +23,5 @@ module ApplicationHelper
   def is_permitted?(module_name, operation = nil)
     @logged_in_user.is_permitted?(module_name, operation)
   end
+
 end

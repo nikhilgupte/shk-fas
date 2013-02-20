@@ -5,8 +5,8 @@
 	<%= tip '10 to 100,000 kgs' %>
 </div>
 <div>
-	<label>Quarterly Sales</label>
-	<span style="text-align:center;display:block;margin:5px 0" id="qty_sales_value"><%= "#{@order.product.quarterly_sales_quantity} kg" rescue '<i class="tip">Choose Product</i>' %></span>
+	<label>Standard Qty</label>
+	<span style="text-align:center;display:block;margin:5px 0" id="qty_sales_value"><%= standard_quantity(@order.product) %></span>
 </div>
 <div>
 	<%= f.label :quantity, "Prod Qty" %>
