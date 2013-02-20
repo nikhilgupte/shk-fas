@@ -49,6 +49,14 @@ class Product < ActiveRecord::Base
     production_code.present?
   end
 
+  def company
+    case code.length
+    when 12 then 'KEVA'
+    when 6 then 'SHK'
+    else 'N/A'
+    end
+  end
+
   private
   def fix_fields
     self.code = code.upcase.strip rescue nil

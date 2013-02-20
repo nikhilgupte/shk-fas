@@ -5,7 +5,7 @@ class Admin::ProductsController < AdminController
     config.action_links.add :export_mapped, :label => "Export Mappings", :inline => false
     config.action_links.add :export, :label => "Export All", :inline => false
     config.columns.exclude :created_at, :formulation
-    config.list.columns.add :formulation
+    config.list.columns.add :formulation, :company
     config.columns.add :formulation_id
     config.list.columns.exclude :formulation_id
     config.columns[:formulation].clear_link
