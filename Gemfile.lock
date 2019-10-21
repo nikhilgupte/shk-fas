@@ -1,6 +1,5 @@
 GEM
   remote: http://rubygems.org/
-  remote: http://rubygems.org/
   specs:
     aaronh-chronic (0.3.9)
     actionmailer (2.3.5)
@@ -57,7 +56,9 @@ GEM
     gem_plugin (0.2.3)
     gherkin (2.3.3)
       json (~> 1.4.6)
-    haml (3.0.25)
+    haml (5.0.0)
+      temple (>= 0.8.0)
+      tilt
     highline (1.6.1)
     json (1.4.6)
     json_pure (1.5.1)
@@ -109,7 +110,9 @@ GEM
       ffi (~> 0.6.3)
       json_pure
       rubyzip
+    temple (0.8.2)
     term-ansicolor (1.0.5)
+    tilt (2.0.10)
     to-csv (1.0.3)
       activesupport (>= 2.3.5)
     whenever (0.5.3)
