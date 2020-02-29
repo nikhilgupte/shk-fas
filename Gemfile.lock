@@ -1,6 +1,5 @@
 GEM
   remote: http://rubygems.org/
-  remote: http://rubygems.org/
   specs:
     aaronh-chronic (0.3.9)
     actionmailer (2.3.5)
@@ -88,7 +87,7 @@ GEM
       activeresource (= 2.3.5)
       activesupport (= 2.3.5)
       rake (>= 0.8.3)
-    rake (0.8.7)
+    rake (13.0.1)
     remarkable (3.1.13)
       rspec (>= 1.2.0)
     remarkable_activerecord (3.1.13)
