@@ -1,7 +1,7 @@
 source :gemcutter
 source :rubygems
 
-gem "rails", "2.3.5"
+gem "rails", "3.2.17"
 gem "postgres-pr"
 gem "whenever", '0.5.3' # generate cron jobs
 gem 'fastercsv'
